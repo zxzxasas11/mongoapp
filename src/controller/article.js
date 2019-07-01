@@ -12,7 +12,6 @@ class ArticleController{
                 msg: "添加成功",
             };
         }
-
     }
 
     /**
@@ -21,7 +20,6 @@ class ArticleController{
      * @returns {Promise<*>}
      */
     static async getAll(ctx){
-        console.log(">>>>>>>>>>");
         let data = await ArticleModel.getAll();
         ctx.response.status = 200;
         ctx.body = {
