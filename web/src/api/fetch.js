@@ -16,13 +16,6 @@ axios.interceptors.request.use(config => {
    * 在这里做loading ...
    * @type {string}
    */
-  /*if (config.isLoading) {
-    // 开启loading
-    //store.dispatch('loading/openLoading')
-  }*/
-
-  // 获取token
-  //config.headers.common['Authorization'] = 'Bearer ' + Vue.ls.get("web-token");
   let token = localStorage.getItem("token");
   if(token){
     config.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem("token");
@@ -45,14 +38,8 @@ axios.interceptors.response.use(response => {
   let newToken = response.headers['newToken'];
 
   if (newToken) {
-    //Vue.ls.set("web-token", newToken);
     localStorage.setItem("token",newToken);
   }
-  /*if(response.data.token){
-    localStorage.setItem("token",response.data.token);
-  }*/
-  // 关闭loading
-  //closeLoading()
 
   return response;
 
@@ -196,13 +183,3 @@ export default {
   }
 }
 
-/**
- * 关闭loading
- */
-function closeLoading() {
-  // 延迟100毫秒关闭
-  setTimeout(() => {
-    // 关闭loading
-    store.dispatch('loading/closeLoading')
-  }, 100)
-}
