@@ -1,4 +1,4 @@
-require("../model/user");
+require("../schema/user");
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
 const uuid = require('uuid');

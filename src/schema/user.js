@@ -9,7 +9,6 @@ let userSchema = new Schema({
         type: String,
         default:uuid.v1().replace(/-/g,"")
     },
-    //car_id: { type: Schema.Types.ObjectId },
     username: { type: String },
     code:{type:String},
     password:{type:String},
@@ -31,10 +30,5 @@ let userSchema = new Schema({
 
 
 
-/*carSchema.path('create_time').get(function (v) {
-    return moment(v).format('YYYY-MM-DD HH:mm');
-});*/
-/*const model = {
-    Car: mongoose.model('User', carSchema)
-}*/
+
 module.exports =  mongoose.model('User', userSchema);
