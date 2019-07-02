@@ -22,7 +22,9 @@ class UserModel {
         let pageSize  = parseInt(params.pageSize)||10;
         let currentPage = parseInt(params.currentPage)||1;
         try {
-            return await Article.find().limit(pageSize).skip(currentPage).sort({'create_time':-1});
+            return await Article.find({},'title content')
+                .limit(pageSize).skip(currentPage)
+                .sort({'create_time':-1});
         }
         catch (e) {
             console.log(e);

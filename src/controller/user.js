@@ -1,6 +1,5 @@
-require("../schema/user");
 const mongoose = require('mongoose');
-const User = mongoose.model('User');
+const User = require('../schema/user');
 const uuid = require('uuid');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');

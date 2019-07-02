@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 const moment = require("moment");
 const Schema = mongoose.Schema;
 const uuid = require('uuid');
-//汽车
 let userSchema = new Schema({
     user_id: {
         type: String,
@@ -30,5 +29,5 @@ let userSchema = new Schema({
 
 
 
-
-module.exports =  mongoose.model('User', userSchema);
+let User = mongoose.model('User', userSchema);
+module.exports =  User;
