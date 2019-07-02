@@ -11,6 +11,7 @@ let articleSchema = new Schema({
         title: { type: String },    //标题
         content:{type:String},
         creator:{type:String},      //创建人
+        url:{type:String},
         create_time: {              //创建时间
             type: Date,
             default:Date.now(),

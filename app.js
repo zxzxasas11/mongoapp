@@ -16,6 +16,15 @@ const secret = require('./src/config/secret');
 const JWTPath = require('./src/middleware/JWTPath');
 // error handler
 
+
+const koaBody = require('koa-body');
+app.use(koaBody({
+  multipart: true,
+  formidable: {
+    maxFileSize: 200*1024*1024    // 设置上传文件大小最大限制，默认2M
+  }
+}));
+
 app.use(cors()); //使用cors
 // error handler
 onerror(app);
@@ -53,5 +62,6 @@ app.use(users.routes(), users.allowedMethods())
 app.on('error', (err, ctx) => {
   console.error('server error', err, ctx)
 });
+
 
 module.exports = app

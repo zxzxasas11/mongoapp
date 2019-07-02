@@ -1,9 +1,26 @@
 const ArticleModel =require('../module/article');
+const CreateFs = require('../util/upload');
 class ArticleController{
+    /**
+     * 创建文章
+     * @param ctx
+     * @returns {Promise<void>}
+     */
     static async add(ctx){
-        console.log(ctx.request.body);
         let {title,content,creator}= ctx.request.body;
         let params = {title,content,creator};
+        if(ctx.request.files.file){
+            try {
+                params.url = await CreateFs(ctx.request.files.file);
+            }catch (e) {
+                console.log(e);
+                ctx.response.status = 20000;
+                ctx.body = {
+                    code: 20000,
+                    msg: "上传失败",
+                };
+            }
+        }
         let aa= await ArticleModel.add(params);
         if(aa._id){
             ctx.response.status = 200;
@@ -12,7 +29,15 @@ class ArticleController{
                 msg: "添加成功",
             };
         }
+        else {
+            ctx.response.status = 400;
+            ctx.body = {
+                code: 400,
+                msg: "服务器错误",
+            };
+        }
     }
+
 
     /**
      * 查询

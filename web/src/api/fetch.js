@@ -7,7 +7,7 @@ import {Message} from "element-ui";
 
 const url = process.env.NODE_ENV === 'development'
   // 测试环境api接口
-  ? 'http://localhost:6789/api/v1'
+  ? 'http://localhost:7777/api/v1'
   // 线上环境api接口
   : 'http://192.168.31.226.com/api/v1';
 axios.defaults.baseURL=url;
@@ -76,15 +76,15 @@ axios.interceptors.response.use(response => {
         }
         errors = arr.length > 0 ? arr.join('，') : arr;
       }
-      alert(errors)
+      alert(errors);
       break;
 
     case 500:
-      alert(code)
+      alert(code);
       break;
 
     default:
-      alert(code)
+      alert(code);
   }
 
   // 关闭loading
@@ -129,6 +129,12 @@ export default {
           })
     })
   },
+  /**
+   * 处理application/json
+   * @param url
+   * @param params
+   * @returns {Promise<any>}
+   */
   json(url, params = {}) {
     return new Promise((resolve,reject) => {
       axios.post(url,params,{
@@ -143,6 +149,12 @@ export default {
           })
     })
   },
+  /**
+   * 封装上传方法
+   * @param url
+   * @param data
+   * @returns {Promise<any>}
+   */
   upload(url,data){
     return new Promise((resolve,reject) => {
       axios.post(url,data,{
@@ -157,20 +169,30 @@ export default {
           })
     })
   },
-
+  /**
+   * 封装delete方法
+   * @param url
+   * @param params
+   * @returns {*|{getAllResponseHeaders, abort, setRequestHeader, readyState, getResponseHeader, overrideMimeType, statusCode}}
+   */
   delete(url, params = {}) {
     let {isLoading = true} = params;
-    return Util.ajax({
+    return axios({
       method: 'delete',
       url: url,
       params,
       isLoading
     })
   },
-
+  /**
+   * 封装put方法
+   * @param url
+   * @param params
+   * @returns {AxiosPromise}
+   */
   put(url, params = {}) {
     let {isLoading = true} = params;
-    return Util.ajax({
+    return axios({
       method: 'put',
       url: url,
       data: qs.stringify(params),
