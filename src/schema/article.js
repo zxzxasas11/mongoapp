@@ -14,8 +14,7 @@ let articleSchema = new Schema({
         url:{type:String},
         create_time: {              //创建时间
             type: Date,
-            default:Date.now(),
-            get: v => moment(v).format('YYYY-MM-DD HH:mm')
+            default:new Date(),
         },
     },
     { collection: 'article',versionKey: false });    //不需要版本号     自行命名表
