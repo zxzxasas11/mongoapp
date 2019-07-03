@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<!--<router-link to="/Manage">1</router-link>-->
+		<router-link to="/Manage">1</router-link>
 	</div>
 </template>
 
@@ -9,7 +9,6 @@
 		name: "Home",
 		data(){
 			return{
-				src:""
 			}
 		},
 		created(){

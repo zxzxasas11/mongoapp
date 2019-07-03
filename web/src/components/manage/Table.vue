@@ -3,14 +3,9 @@
         <!--表格开始-->
         <div class="table">
             <template>
-                <!--highlight-current-row=true-->
-                <!--header-cell-style="background-color:#73b3fc;color:#ffffff"
-                row-style="background-color:#edf5ff"
-                cell-style="border-right:1px solid #d2d2d2;border-bottom:1px solid #d2d2d2"-->
                 <el-table
                         @row-click="rowClick"
                         :data="tableData"
-
                         border
                         style="width: 100%"
                         :height="tableHeight">
@@ -50,7 +45,7 @@
                     @size-change="handleSizeChange"
                     @current-change="handleCurrentChange"
                     :current-page="currentPage"
-                    :page-sizes="[10, 25,50]"
+                    :page-sizes="[10,25,50]"
                     :page-size="pageSize"
                     layout="total, sizes, prev, pager, next, jumper"
                     :total="totalSize">
@@ -61,6 +56,7 @@
 </template>
 
 <script>
+    import dic from '../../assets/js/dic';
     export default {
         name: "Table",
         data() {

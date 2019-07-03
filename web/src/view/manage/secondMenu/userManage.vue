@@ -48,7 +48,7 @@
                 tableKey: [
                     {name: '账号', value: 'code'},
                     {name: '用户名', value: 'username'},
-                    {name: '性别', value: 'sex'},
+                    {name: '性别', value: 'sex',filter:[{item:0,name:"女"},{item:1,name:"男"}]},
                     {name: '邮箱', value: 'email'},
                     {name: '电话', value: 'phone'},
                     {name: '角色', value: 'power'},

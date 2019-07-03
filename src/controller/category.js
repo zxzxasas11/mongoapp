@@ -1,5 +1,4 @@
 const CategoryModel =require('../module/category');
-const CreateFs = require('../util/upload');
 class CategoryController{
     static async getAll(ctx) {
         try {
@@ -14,7 +13,6 @@ class CategoryController{
         catch (e) {
             console.log(e);
         }
-
     }
 
 

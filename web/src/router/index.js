@@ -22,6 +22,13 @@ export default new Router({
       },
     },
     {
+      path: '/Login',
+      name: '登录',
+      component(resolve) {
+        require(['../view/Login'], resolve);
+      },
+    },
+    {
       path: '/Manage',
       name: '后台',
       component(resolve) {
