@@ -58,6 +58,18 @@ class CategoryController{
             data:data
         };
     }
+
+    static async addClass(ctx){
+        let {column_id,class_name,class_url} = ctx.request.body;
+        let params = {column_id,class_name,class_url};
+        let data = await CategoryModel.addClass(params);
+        ctx.response.status = 200;
+        ctx.body = {
+            code: 200,
+            msg: "添加成功",
+            data:data
+        };
+    }
 }
 module.exports = CategoryController;
 

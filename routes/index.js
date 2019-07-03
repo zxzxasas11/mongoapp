@@ -29,5 +29,6 @@ router.get("/article/getAll",ArticleController.getAll);
  */
 router.post("/category/add",CategoryController.addCategory);
 router.post("/category/addColumn",CategoryController.addColumn);
+router.post("/category/addClass",CategoryController.addClass);
 router.get("/category/getAll",CategoryController.getAll);
 module.exports = router;

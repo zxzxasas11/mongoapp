@@ -26,6 +26,22 @@ let categorySchema = new Schema({
                 },
                 column_name:String,
                 column_url:String,
+                subclass:[
+                    {
+                        class_id:{
+                            type:String,
+                            default:()=>{
+                                return uuid.v1().replace(/-/g,"")
+                            }
+                        },
+                        class_name:String,
+                        class_url:String,
+                        status:{
+                            type:Number,
+                            default:1
+                        }
+                    }
+                ],
                 status:{type:Number,default:1}
             }
         ]
