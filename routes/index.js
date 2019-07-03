@@ -14,6 +14,7 @@ const router = new Router({
  */
 router.post('/user/add',UserController.add);
 router.post("/user/login",UserController.login);
+router.get("/user/getAll",UserController.getAll);
 
 /**
  * 文章

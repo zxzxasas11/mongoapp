@@ -1,5 +1,5 @@
 const Article = require('../schema/article');
-class UserModel {
+class ArticleModel {
     /**
      * 增加
      * @param params
@@ -32,4 +32,4 @@ class UserModel {
     }
 
 }
-module.exports = UserModel;
+module.exports = ArticleModel;

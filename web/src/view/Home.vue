@@ -1,5 +1,7 @@
 <template>
-	<div></div>
+	<div>
+		<!--<router-link to="/Manage">1</router-link>-->
+	</div>
 </template>
 
 <script>

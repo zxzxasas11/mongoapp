@@ -20,6 +20,29 @@ export default new Router({
       component(resolve) {
         require(['../view/Home.vue'], resolve);
       },
+    },
+    {
+      path: '/Manage',
+      name: '后台',
+      component(resolve) {
+        require(['../view/manage/Main'], resolve);
+      },
+      children:[
+        {
+          path: '/userManage',
+          name: '用户管理',
+          component(resolve) {
+            require(['../view/Manage/secondMenu/userManage'], resolve);
+          },
+        },
+        {
+          path: '/categoryManage',
+          name: '分类管理',
+          component(resolve) {
+            require(['../view/Manage/secondMenu/categoryManage'], resolve);
+          },
+        },
+      ]
     }
   ]
 })

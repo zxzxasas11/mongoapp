@@ -7,6 +7,9 @@ export default {
     },
     register(params){
         return fetch.post("/user/add",params);
+    },
+    getAll(params){
+        return fetch.get("/user/getAll",params);
     }
 
 }

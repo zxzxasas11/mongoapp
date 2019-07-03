@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const User = require('../schema/user');
+const UserModel = require('../module/user');
 const uuid = require('uuid');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -72,6 +73,26 @@ class CarController{
                 message: "用户名或密码错误"
             }
         }
+    }
+
+    /**
+     * 查询所有用户
+     * @param ctx
+     * @returns {Promise<void>}
+     */
+    static async getAll(ctx){
+        try {
+            let data = await UserModel.getAll(ctx.request.query);
+            ctx.response.status = 200;
+            ctx.body = {
+                code: 200,
+                message: "查询结果",
+                data:data
+            };
+        }catch (e) {
+            console.log(e);
+        }
+
     }
 }
 module.exports = CarController;
