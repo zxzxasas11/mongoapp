@@ -60,26 +60,9 @@
         methods: {
             ...mapActions(["userLogin"]),
             login(){
-              this.userLogin(this.loginForm)/*.then(res=>{
-                if(res.code===200){
-                  this.$message("登陆成功");
-                  this.$router.push("/");
-                  localStorage.setItem("token",res.data.token);
-                }
-              });*/
+                this.userLogin(this.loginForm)
                 this.$message("登陆成功");
                 this.$router.push("/");
-            },
-            submitForm(formName) {
-                const that = this;
-                this.$refs[formName].validate((valid) => {
-                    if (valid) {
-                        that.login();
-                    } else {
-                        console.log('error submit!!');
-                        return false;
-                    }
-                });
             },
             resetForm(formName) {
                 this.$refs[formName].resetFields();

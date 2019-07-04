@@ -14,7 +14,7 @@ const router = new Router({
  */
 router.post('/user/add',UserController.add);
 router.post("/user/login",UserController.login);
-router.get("/user/getAll",UserController.getAll);
+router.post("/user/getAll",UserController.getAll);
 
 /**
  * 文章
@@ -30,6 +30,6 @@ router.get("/article/getAll",ArticleController.getAll);
  */
 router.post("/category/add",CategoryController.addCategory);
 router.post("/category/addColumn",CategoryController.addColumn);
-router.post("/category/addClass",CategoryController.addClass);
+router.post("/category/delete",CategoryController.delete);
 router.get("/category/getAll",CategoryController.getAll);
 module.exports = router;

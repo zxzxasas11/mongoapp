@@ -1,37 +1,56 @@
 <template>
     <div class="box">
-        <!--<div class="transfer-box"></div>
-        <div class="transfer-box"></div>
-        <div class="transfer-box"></div>-->
-        <div class="custom-tree-container">
-            <div class="block">
-                <p>使用 scoped slot</p>
-                <el-tree
-                        :data="data"
-                        show-checkbox
-                        node-key="_id"
-                        default-expand-all
-                        :expand-on-click-node="false">
-      <span class="custom-tree-node" slot-scope="{ node, data }">
-        <span>{{ node.name }}</span>
-        <span>
-          <el-button
-                  type="text"
-                  size="mini"
-                  @click="() => append(data)">
-            Append
-          </el-button>
-          <el-button
-                  type="text"
-                  size="mini"
-                  @click="() => remove(node, data)">
-            Delete
-          </el-button>
-        </span>
-      </span>
-                </el-tree>
+        <div>
+            <div>
+                <el-button size="mini "  type="primary" @click="addCategory">增加大类</el-button>
+                <el-button size="mini "  type="primary" @click="del">删除</el-button>
             </div>
+            <el-tree
+                    :props="defaultProps"
+                    :data="data"
+                    show-checkbox
+                    node-key="id"
+                    default-expand-all
+                    :expand-on-click-node="false">
+              <span class="custom-tree-node" slot-scope="{ node, data }">
+                <span>{{ node.label }}</span>
+                <span>
+                  <el-button
+                          v-if="data.column"
+                          type="text"
+                          size="mini"
+                          @click="() => append(data)">
+                    Append
+                  </el-button>
+                  <!--<el-button
+                          type="text"
+                          size="mini"
+                          @click="() => remove(node, data)">
+                    Delete
+                  </el-button>-->
+                </span>
+              </span>
+            </el-tree>
         </div>
+
+
+        <el-dialog class="elDialog abow_dialog" :close-on-click-modal="false" title="新增" :visible.sync="dialogVisible">
+            <el-form ref="addColumn" :model="addColumn" label-width="80px" style="text-align: left">
+                <el-form-item label="分类名称" v-if="operate==='column'">
+                    <el-select v-model="addColumn.category_id" placeholder="章节名称" >
+                        <el-option :label="d.name" :value="d._id" :key="d._id" v-for="d in data"></el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="栏目名称">
+                    <el-input v-model="addColumn.name"></el-input>
+                </el-form-item>
+                <el-form-item label="链接">
+                    <el-input v-model="addColumn.url"></el-input>
+                </el-form-item>
+            </el-form>
+            <el-button type="primary" @click="onSubmit">提交</el-button>
+            <el-button @click="dialogVisible=false">取消</el-button>
+        </el-dialog>
     </div>
 </template>
 
@@ -40,43 +59,19 @@
     export default {
         name: "categoryManage",
         data() {
-            /*const data = [{
-                id: 1,
-                label: '一级 1',
-                children: [{
-                    id: 4,
-                    label: '二级 1-1',
-                    children: [{
-                        id: 9,
-                        label: '三级 1-1-1'
-                    }, {
-                        id: 10,
-                        label: '三级 1-1-2'
-                    }]
-                }]
-            }, {
-                id: 2,
-                label: '一级 2',
-                children: [{
-                    id: 5,
-                    label: '二级 2-1'
-                }, {
-                    id: 6,
-                    label: '二级 2-2'
-                }]
-            }, {
-                id: 3,
-                label: '一级 3',
-                children: [{
-                    id: 7,
-                    label: '二级 3-1'
-                }, {
-                    id: 8,
-                    label: '二级 3-2'
-                }]
-            }];*/
             return {
-                data:[]
+                data:[],
+                defaultProps: {
+                    children: 'column',
+                    label: 'name'
+                },
+                addColumn:{
+                    category_id:"",
+                    name:"",
+                    url:""
+                },
+                dialogVisible:false,
+                operate:""
             }
         },
         created() {
@@ -88,8 +83,54 @@
                     console.log(res);
                     this.data = res.data.data;
                 })
+            },
+            append(data) {
+                console.log(data);
+                this.dialogVisible = true;
+                this.operate="column"
+            },
+            addCategory(){
+                this.dialogVisible=true;
+                this.operate = "category";
+
+            },
+            remove(node, data) {
+            },
+            onSubmit(){
+                if(this.operate==='column'){
+                    console.log(this.addColumn);
+                    categoryFunction.addColumn(this.addColumn).then(res=>{
+                        console.log(res);
+                        if(res.code===200){
+                            this.$message("添加成功");
+                            this.dialogVisible =false;
+                            this.getCategory();
+                        }
+                    })
+                }
+                else {
+                    categoryFunction.addCategory(this.addColumn).then(res=>{
+                        console.log(res);
+                        if(res.code===200){
+                            this.$message("添加成功");
+                            this.dialogVisible =false;
+                            this.getCategory();
+                        }
+                    })
+                }
+
+            },
+            del(){
+
             }
         },
+        watch:{
+            'dialogVisible'(data){
+                if(data){
+                    Object.assign(this.$data.addColumn, this.$options.data().addColumn);
+                }
+            }
+        }
     }
 </script>
 

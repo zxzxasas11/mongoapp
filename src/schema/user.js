@@ -4,12 +4,12 @@ const moment = require("moment");
 const Schema = mongoose.Schema;
 const uuid = require('uuid');
 let userSchema = new Schema({
-    user_id: {
-        type: String,
+    /*user_id: {
+        type: Schema.Types.ObjectId,
         default:()=>{
             return uuid.v1().replace(/-/g,"")
         }
-    },
+    },*/
     username: { type: String },
     code:{type:String},
     password:{type:String},
@@ -26,14 +26,16 @@ let userSchema = new Schema({
     },
     create_time: {
         type: Date,
-        default:Date.now(),
+        default:()=>{
+            return Date.now();
+        }
     },
 },
-    { collection: 'user',versionKey: false });    //不需要版本号
+    { collection: 'user',versionKey: false});    //不需要版本号
 
 
-userSchema.set('toJSON', { getters: true, virtuals: true});
-userSchema.set('toObject', { getters: true, virtuals: true});
+userSchema.set('toJSON', { getters: true, virtuals: false});
+userSchema.set('toObject', { getters: true, virtuals: false});
 userSchema.path('create_time').get(function (v) {
     return moment(v).format('YYYY-MM-DD HH:mm:ss')
 });

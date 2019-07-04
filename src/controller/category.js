@@ -2,7 +2,7 @@ const CategoryModel =require('../module/category');
 class CategoryController{
     static async getAll(ctx) {
         try {
-            let aa = await CategoryModel.getAll();
+            let aa = await CategoryModel.getAll(ctx.request.query);
             ctx.response.status = 200;
             ctx.body = {
                 code: 200,
@@ -23,7 +23,6 @@ class CategoryController{
      */
     static async addCategory(ctx){
         let params = ctx.request.body;
-        console.log(params);
         let aa = await CategoryModel.add(params);
         if(aa._id){
             ctx.response.status = 200;
@@ -57,14 +56,13 @@ class CategoryController{
         };
     }
 
-    static async addClass(ctx){
-        let {column_id,class_name,class_url} = ctx.request.body;
-        let params = {column_id,class_name,class_url};
-        let data = await CategoryModel.addClass(params);
+    static async delete(ctx){
+        let params = ctx.request.body;
+        let data = await CategoryModel.delete(params);
         ctx.response.status = 200;
         ctx.body = {
             code: 200,
-            msg: "添加成功",
+            msg: "删除成功",
             data:data
         };
     }

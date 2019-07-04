@@ -56,7 +56,7 @@ class CarController{
         //密码匹配
         if (bcrypt.compareSync(params.password, userDetail.password)){
             const userToken ={code:userDetail.code,userId:userDetail.userId,username:userDetail.username,power:userDetail.power};
-            const token =jwt.sign(userToken,secret.sign,{expiresIn:"1h"});
+            const token =jwt.sign(userToken,secret.sign,{expiresIn:"10h"});
             ctx.response.status = 200;
             ctx.body = {
                 code: 200,
@@ -82,7 +82,7 @@ class CarController{
      */
     static async getAll(ctx){
         try {
-            let data = await UserModel.getAll(ctx.request.query);
+            let data = await UserModel.getAll(ctx.request.body);
             ctx.response.status = 200;
             ctx.body = {
                 code: 200,

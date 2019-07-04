@@ -4,7 +4,7 @@
             后台管理
             <div class="user-box">
                 <router-link to="/Home">返回主页</router-link>
-                <!--<span class="user">{{username}}</span>-->
+                <span class="user">{{username}}</span>
                 <span class="logout" @click="logout">注销</span>
             </div>
         </title>
@@ -54,10 +54,10 @@
             }
         },
         computed: {
-            /*username() {
+            username() {
                 return this.$store.getters.getToken.username;
 
-            },*/
+            },
             includedComponents() {
                 return this.$store.getters.getKeepAlive.toString().replace(/\//g, "");
             }
