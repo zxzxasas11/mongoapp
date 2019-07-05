@@ -33,13 +33,9 @@
         },
         methods: {
             logout() {
-                this.$post("/logout").then(res=>{
-                    if(res.code===200){
-                        this.$message("注销成功");
-                        this.$store.dispatch("removeToken");
-                        this.$router.push("/Home");
-                    }
-                });
+                this.$message("注销成功");
+                //this.$store.dispatch("removeToken");
+                this.$router.push("/");
             }
         },
         mounted() {
@@ -81,11 +77,12 @@
         text-align: left;
         height: @height;
         line-height: @height;
+        padding-left:20px;
 
         .user-box {
             float: right;
             padding-right: 40px;
-
+            font-size:14px;
             .user {
                 padding-right: 40px;
             }

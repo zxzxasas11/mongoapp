@@ -92,5 +92,5 @@
 </script>
 
 <style scoped lang="less">
-    /*@import '../../../assets/css/tableManage.less';*/
+    @import '../../../assets/css/tableManage.less';
 </style>
