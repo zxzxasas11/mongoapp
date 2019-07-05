@@ -13,5 +13,8 @@ export default {
     addColumn(params){
         return fetch.post("/category/addColumn",params);
     },
+    delete(params){
+        return fetch.post("/category/delete",params);
+    }
 
 }

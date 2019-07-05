@@ -8,8 +8,9 @@
             <el-tree
                     :props="defaultProps"
                     :data="data"
+                    ref="tree"
                     show-checkbox
-                    node-key="id"
+                    node-key="_id"
                     default-expand-all
                     :expand-on-click-node="false">
               <span class="custom-tree-node" slot-scope="{ node, data }">
@@ -80,27 +81,21 @@
         methods:{
             getCategory(){
                 categoryFunction.getAll().then(res=>{
-                    console.log(res);
                     this.data = res.data.data;
                 })
             },
             append(data) {
-                console.log(data);
                 this.dialogVisible = true;
-                this.operate="column"
+                this.operate="column";
+                this.addColumn.category_id = data._id;
             },
             addCategory(){
                 this.dialogVisible=true;
                 this.operate = "category";
-
-            },
-            remove(node, data) {
             },
             onSubmit(){
                 if(this.operate==='column'){
-                    console.log(this.addColumn);
                     categoryFunction.addColumn(this.addColumn).then(res=>{
-                        console.log(res);
                         if(res.code===200){
                             this.$message("添加成功");
                             this.dialogVisible =false;
@@ -110,7 +105,6 @@
                 }
                 else {
                     categoryFunction.addCategory(this.addColumn).then(res=>{
-                        console.log(res);
                         if(res.code===200){
                             this.$message("添加成功");
                             this.dialogVisible =false;
@@ -118,15 +112,20 @@
                         }
                     })
                 }
-
             },
             del(){
-
+                let id=this.$refs.tree.getCheckedKeys()[0];
+                categoryFunction.delete({"_id":id}).then(res=>{
+                    if(res.code===200){
+                        this.$message("删除成功");
+                        this.getCategory();
+                    }
+                })
             }
         },
         watch:{
             'dialogVisible'(data){
-                if(data){
+                if(!data){
                     Object.assign(this.$data.addColumn, this.$options.data().addColumn);
                 }
             }

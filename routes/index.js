@@ -22,6 +22,7 @@ router.post("/user/getAll",UserController.getAll);
  */
 router.post("/article/add",ArticleController.add);
 router.get("/article/getAll",ArticleController.getAll);
+router.post("/article/delete",ArticleController.deleteArticle);
 
 /**
  *

@@ -55,7 +55,7 @@ class CarController{
         }
         //密码匹配
         if (bcrypt.compareSync(params.password, userDetail.password)){
-            const userToken ={code:userDetail.code,userId:userDetail.userId,username:userDetail.username,power:userDetail.power};
+            const userToken ={code:userDetail.code,userId:userDetail._id,username:userDetail.username,power:userDetail.power};
             const token =jwt.sign(userToken,secret.sign,{expiresIn:"10h"});
             ctx.response.status = 200;
             ctx.body = {

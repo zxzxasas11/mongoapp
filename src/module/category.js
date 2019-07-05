@@ -10,12 +10,17 @@ class CategoryModel {
         try {
             let sql = params._id?{'_id':params._id}:{};
             let data={};
-            data.total = await Category.find(sql).count();
+            //collection.countDocuments
+            data.total = await Category.find(sql).countDocuments();
             data.data = await Category.find(sql);
             return data;
         }catch (e) {
             console.log(e);
         }
+    }
+
+    static async del(params){
+        console.log(params);
     }
     /**
      * 增加分类
@@ -37,7 +42,6 @@ class CategoryModel {
      * @returns {Promise<*>}
      */
     static async addColumn(params){
-        console.log(params);
         try {
             return await Category.update({_id:params.category_id},{$push:{'column':{
                         name:params.name,
@@ -55,7 +59,30 @@ class CategoryModel {
      */
     static async delete(params){
         try {
-            return await Category.remove({"_id":params._id})
+            let aa = await this.getAll(params);
+            if(aa.total>0&&aa.total){
+                return await Category.remove({"_id":params._id});
+            }
+            else {
+                let cc = await Category.find({"column._id": params._id});
+                try {
+                    if (cc) {
+                        return await Category.update({"column._id": params._id}, {
+                            $pull: {
+                                'column': {
+                                    _id: params._id,
+                                }
+                            }
+                        });
+                    } else {
+                        console.log("没有该栏目");
+                    }
+                }catch (e) {
+                    console.log(e);
+                }
+
+            }
+            //return await Category.remove({"_id":params._id})
         }catch (e) {
             console.log(e);
         }

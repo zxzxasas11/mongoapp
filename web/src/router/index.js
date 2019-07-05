@@ -49,6 +49,13 @@ export default new Router({
             require(['../view/Manage/secondMenu/categoryManage'], resolve);
           },
         },
+        {
+          path: '/articleManage',
+          name: '帖子管理',
+          component(resolve) {
+            require(['../view/Manage/secondMenu/articleManage'], resolve);
+          },
+        },
       ]
     }
   ]

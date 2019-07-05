@@ -7,8 +7,7 @@ class ArticleController{
      * @returns {Promise<void>}
      */
     static async add(ctx){
-        let {title,content,creator}= ctx.request.body;
-        let params = {title,content,creator};
+        let params= ctx.request.body;
         if(ctx.request.files.file){
             try {
                 params.url = await CreateFs(ctx.request.files.file);
@@ -21,6 +20,7 @@ class ArticleController{
                 };
             }
         }
+        params.creator = ctx.user.userId;
         let aa= await ArticleModel.add(params);
         if(aa._id){
             ctx.response.status = 200;
@@ -45,13 +45,38 @@ class ArticleController{
      * @returns {Promise<*>}
      */
     static async getAll(ctx){
-        let data = await ArticleModel.getAll(ctx.request.query);
+        //console.log(ctx.request.query);
+        let data = await ArticleModel.getAll();
         ctx.response.status = 200;
         ctx.body = {
             code: 200,
             msg: "查询成功",
             data:data
         };
+    }
+
+    /**
+     * 删除
+     * @param ctx
+     * @returns {Promise<void>}
+     */
+    static async deleteArticle(ctx){
+        let data = await ArticleModel.deleteArticleById(ctx.request.body._id);
+        if(data._id){
+            ctx.response.status = 200;
+            ctx.body = {
+                code: 200,
+                msg: "删除成功",
+            };
+        }
+        else{
+            ctx.response.status = 400;
+            ctx.body = {
+                code: 400,
+                msg: "服务器故障",
+            };
+        }
+
     }
 }
 module.exports = ArticleController;

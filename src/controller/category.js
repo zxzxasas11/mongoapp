@@ -1,5 +1,10 @@
 const CategoryModel =require('../module/category');
 class CategoryController{
+    /**
+     * 获取所有
+     * @param ctx
+     * @returns {Promise<void>}
+     */
     static async getAll(ctx) {
         try {
             let aa = await CategoryModel.getAll(ctx.request.query);
@@ -15,6 +20,15 @@ class CategoryController{
         }
     }
 
+
+    static async del(ctx){
+        //let aa = await CategoryModel.getAll(ctx.request.query);
+        try {
+            await CategoryModel.del(ctx.request.params);
+        }catch (e) {
+            console.log(e);
+        }
+    }
 
     /**
      * 增加类别
@@ -63,7 +77,6 @@ class CategoryController{
         ctx.body = {
             code: 200,
             msg: "删除成功",
-            data:data
         };
     }
 }

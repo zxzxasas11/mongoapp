@@ -6,7 +6,8 @@ const uuid = require('uuid');
 let articleSchema = new Schema({
         title: { type: String },    //标题
         content:{type:String},
-        creator:{type:String},      //创建人
+        creator:{type:Schema.Types.ObjectId,ref:'User'},      //创建人
+        column_id:{type:Schema.Types.ObjectId,ref:'Category'},
         url:{type:String},
         create_time: {              //创建时间
             type: Date,
@@ -14,6 +15,19 @@ let articleSchema = new Schema({
                 return Date.now();
             },
         },
+        comments:[
+            {
+                content:String,
+                creator:String,
+                imgList:[String],
+                create_time:{
+                    type:Date,
+                    default:()=>{
+                        return Date.now();
+                    }
+                },
+            }
+        ]
     },
     { collection: 'article',versionKey: false });    //不需要版本号     自行命名表
 articleSchema.set('toJSON', { getters: true, virtuals: false});
