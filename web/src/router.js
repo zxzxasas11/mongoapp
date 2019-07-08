@@ -9,7 +9,12 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: () => import('./view/Home.vue')
+      component: () => import('./view/exhibition/index.vue')
+    },
+    {
+      path: '/column/:id',
+      name: 'home',
+      component: () => import('./view/exhibition/column.vue')
     },
     {
       path: '/Login',

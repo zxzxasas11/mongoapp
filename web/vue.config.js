@@ -1,9 +1,9 @@
 module.exports = {
     // 部署应用包时的基本 URL
-    publicPath: process.env.NODE_ENV === 'production'
+   /* publicPath: process.env.NODE_ENV === 'production'
         ? 'http://192.168.31.226:8888'
         : 'http://192.168.31.226:1234',
-
+*/
     // 运行 vue-cli-service build 时生成的生产环境构建文件的目录
     // 默认构建前清除文件夹(构建时传入 --no-clean 可关闭该行为
     outputDir: 'dist',
@@ -86,7 +86,7 @@ module.exports = {
         config.module
             .rule('eslint')
             .exclude
-            .add('/Users/maybexia/Downloads/FE/community_built-in/src/lib')
+            //.add('/Users/maybexia/Downloads/FE/community_built-in/src/lib')
             .end()
     },
 
@@ -121,7 +121,7 @@ module.exports = {
     devServer: {
         open: true,
 
-        host: '127.0.0.1',
+        //host: '0.0.0.0',
 
         port: 1234,
 

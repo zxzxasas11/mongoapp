@@ -16,14 +16,14 @@ class ArticleModel {
 
     /**
      * 查询所有
-     * @returns {Promise<*>}
+     * @param columnId
+     * @returns {Promise<void>}
      */
-    static async getAll(){
+    static async getAll(columnId){
         //let pageSize  = parseInt(params.pageSize)||10;
         //let currentPage = parseInt(params.currentPage)||1;
-
         try {
-            return await Article.find({},'title content create_time').populate({path: 'creator', select: 'username'})
+            return await Article.find({"column_id":columnId},'title content create_time').populate({path: 'creator', select: 'username'})
                 //.limit(pageSize).skip(currentPage)
                 //.populate({path: 'column_id',select:"name"})
                 .sort({'create_time':-1});

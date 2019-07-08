@@ -8,7 +8,7 @@ class ArticleController{
      */
     static async add(ctx){
         let params= ctx.request.body;
-        if(ctx.request.files.file){
+        /*if(ctx.request.files.file){
             try {
                 params.url = await CreateFs(ctx.request.files.file);
             }catch (e) {
@@ -19,7 +19,7 @@ class ArticleController{
                     msg: "上传失败",
                 };
             }
-        }
+        }*/
         params.creator = ctx.user.userId;
         let aa= await ArticleModel.add(params);
         if(aa._id){
@@ -46,7 +46,7 @@ class ArticleController{
      */
     static async getAll(ctx){
         //console.log(ctx.request.query);
-        let data = await ArticleModel.getAll();
+        let data = await ArticleModel.getAll(ctx.request.query.columnId);
         ctx.response.status = 200;
         ctx.body = {
             code: 200,

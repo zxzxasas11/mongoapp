@@ -7,6 +7,9 @@ export default {
     },
     delete(params){
         return fetch.post("/article/delete",params);
+    },
+    addArticle(params){
+        return fetch.post("/article/add",params);
     }
 
 }
