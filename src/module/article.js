@@ -39,7 +39,7 @@ class ArticleModel {
      * @returns {Promise<void>}
      */
     static async deleteArticleById(id){
-        //console.log(ctx.request.body._id);
+        //console.log(ctx.request.body._id);i
         try {
             return await Article.findByIdAndRemove(id);
         }catch (e) {
