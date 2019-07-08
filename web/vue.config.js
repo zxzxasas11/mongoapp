@@ -1,8 +1,8 @@
 module.exports = {
     // 部署应用包时的基本 URL
     publicPath: process.env.NODE_ENV === 'production'
-        ? '//your_url'
-        : '/',
+        ? 'http://192.168.31.226:8888'
+        : 'http://192.168.31.226:1234',
 
     // 运行 vue-cli-service build 时生成的生产环境构建文件的目录
     // 默认构建前清除文件夹(构建时传入 --no-clean 可关闭该行为
@@ -20,12 +20,12 @@ module.exports = {
     // 当在 multi-page 模式下构建时，webpack 配置会包含不一样的插件
     // (这时会存在多个 html-webpack-plugin 和 preload-webpack-plugin 的实例)。
     // 如果你试图修改这些插件的选项，请确认运行 vue inspect
-    pages: {
+    /*pages: {
         index: {
             // page 的入口
             entry: 'src/pages/index/index.js',
             // 模板来源
-            template: 'src/pages/index/index.html',
+            template: 'public/index.html',
             // 在 dist 的输出为 index.html
             filename: 'index.html',
             // 当使用 title 选项时，
@@ -42,7 +42,7 @@ module.exports = {
 
         // 多入口时，接着写子页面
         //subpage: 'src/subpage/main.js'
-    },
+    },*/
 
     // eslint-loader 是否在保存的时候检查
     lintOnSave: true,
@@ -68,7 +68,7 @@ module.exports = {
     // https://cli.vuejs.org/guide/webpack.html#simple-configuration
     configureWebpack: {
         plugins: [
-            new MyAwesomeWebpackPlugin()
+            //new MyAwesomeWebpackPlugin()
         ]
     },
     //configureWebpack: (config) => {},
@@ -111,7 +111,8 @@ module.exports = {
 
             postcss: {
                 // 这里的选项会传递给 postcss-loader
-            }
+            },
+            less:{}
         }
     },
 
