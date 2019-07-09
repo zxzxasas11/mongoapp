@@ -19,10 +19,15 @@
 
         <div class="article-box">
             <div class="single" v-for="a in articleList">
-                <ul>
+                <ul class="overflow_hide">
                     <li></li>
-                    <li>{{a.title}}</li>
-                    <li>{{a.creator.username}}{{a.create_time}}</li>
+                    <li>
+                        <router-link :to="'/article/'+a._id">{{a.title}}</router-link>
+                    </li>
+                    <li>
+                        <span><router-link :to="'/personal/'+a.creator._id">{{a.creator.username}}</router-link></span>
+                        <span>{{a.create_time}}</span>
+                    </li>
                     <li></li>
                 </ul>
             </div>
@@ -51,8 +56,8 @@
         methods:{
             getArticle(){
                 articleFunction.getAll({columnId:this.$route.params.id}).then(res=>{
-                    console.log(res);
                     this.articleList = res.data;
+                    console.log(res);
                 })
             },
             onSubmit(){
@@ -60,6 +65,7 @@
                     if(res.code===200){
                         this.$message("发布成功");
                         this.dialogVisible=false;
+                        this.getArticle();
                     }
                 })
             }
@@ -68,6 +74,43 @@
     }
 </script>
 
-<style scoped>
-
+<style scoped lang="less">
+    .article-box{
+        padding:5px;
+        width:98%;
+        margin:0 auto;
+        box-shadow: 0 0 2px #ddd;
+        .single{
+            &:nth-child(odd){
+                background-color: #fff8e7;
+            }
+            &:nth-child(even){
+                background-color: #fff0cd;
+            }
+            ul{
+                li{
+                    font-size:14px;
+                    float: left;
+                    height:40px;
+                    text-align: left;
+                    span{
+                        display: block;
+                        text-align: center;
+                    }
+                    &:nth-child(1){
+                        width:10%;
+                    }
+                    &:nth-child(2){
+                        width:50%;
+                    }
+                    &:nth-child(3){
+                        width:20%;
+                    }
+                    &:nth-child(4){
+                        width:20%;
+                    }
+                }
+            }
+        }
+    }
 </style>

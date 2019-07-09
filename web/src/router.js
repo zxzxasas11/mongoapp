@@ -13,8 +13,18 @@ export default new Router({
     },
     {
       path: '/column/:id',
-      name: 'home',
+      name: '帖子列表',
       component: () => import('./view/exhibition/column.vue')
+    },
+    {
+      path: '/article/:id',
+      name: '帖子内容',
+      component: () => import('./view/exhibition/article.vue')
+    },
+    {
+      path: '/personal/:id',
+      name: '个人中心',
+      component: () => import('./view/exhibition/personal.vue')
     },
     {
       path: '/Login',

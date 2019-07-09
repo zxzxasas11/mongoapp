@@ -34,6 +34,20 @@ class ArticleModel {
     }
 
     /**
+     * 根据_id查询单条数据
+     * @param id
+     * @returns {Promise<void>}
+     */
+    static async getOne(id){
+        console.log(id);
+        try {
+            return await Article.findOne({"_id":id})
+        }catch (e) {
+            console.log(e);
+        }
+    }
+
+    /**
      * 删除
      * @param id
      * @returns {Promise<void>}

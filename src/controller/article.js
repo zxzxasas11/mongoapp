@@ -40,7 +40,7 @@ class ArticleController{
 
 
     /**
-     * 查询
+     * 查询 根据栏目
      * @param ctx
      * @returns {Promise<*>}
      */
@@ -52,6 +52,22 @@ class ArticleController{
             code: 200,
             msg: "查询成功",
             data:data
+        };
+    }
+
+    /**
+     * 根据_id查询单条
+     * @param ctx
+     * @returns {Promise<void>}
+     */
+    static async getOne(ctx) {
+        let id = ctx.request.query.id;
+        let data = await ArticleModel.getOne(id);
+        ctx.response.status = 200;
+        ctx.body = {
+            code: 200,
+            msg: "查询成功",
+            data: data
         };
     }
 

@@ -10,6 +10,8 @@ export default {
     },
     addArticle(params){
         return fetch.post("/article/add",params);
+    },
+    getOne(params){
+        return fetch.get("/article/getOne",params);
     }
-
 }
