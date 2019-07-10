@@ -19,7 +19,7 @@ export default new Router({
     {
       path: '/article/:id',
       name: '帖子内容',
-      component: () => import('./view/exhibition/article.vue')
+      component: () => import('./view/exhibition/articleDetail.vue')
     },
     {
       path: '/personal/:id',

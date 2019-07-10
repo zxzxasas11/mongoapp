@@ -24,6 +24,7 @@ router.post("/article/add",ArticleController.add);
 router.get("/article/getAll",ArticleController.getAll);
 router.post("/article/delete",ArticleController.deleteArticle);
 router.get("/article/getOne",ArticleController.getOne);
+router.post("/article/addComment",ArticleController.addComment);
 /**
  *
  * category

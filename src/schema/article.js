@@ -8,6 +8,7 @@ let articleSchema = new Schema({
         content:{type:String},
         creator:{type:Schema.Types.ObjectId,ref:'User'},      //创建人
         column_id:{type:Schema.Types.ObjectId},
+        view:{type:Number,default:0},
         url:{type:String},
         create_time: {              //创建时间
             type: Date,
@@ -18,7 +19,7 @@ let articleSchema = new Schema({
         comments:[
             {
                 content:String,
-                creator:String,
+                creator:{type:Schema.Types.ObjectId},
                 imgList:[String],
                 create_time:{
                     type:Date,

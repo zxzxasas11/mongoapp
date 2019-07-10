@@ -62,12 +62,30 @@ class ArticleController{
      */
     static async getOne(ctx) {
         let id = ctx.request.query.id;
-        let data = await ArticleModel.getOne(id);
+        let currentPage = ctx.request.query.currentPage||1;
+        await ArticleModel.addView(id);
+        let data = await ArticleModel.getOne(id,currentPage);
         ctx.response.status = 200;
         ctx.body = {
             code: 200,
             msg: "查询成功",
             data: data
+        };
+    }
+
+    /**
+     * 添加回复
+     * @param ctx
+     * @returns {Promise<void>}
+     */
+    static async addComment(ctx){
+        let params = ctx.request.body;
+        params.creator = ctx.user.userId;
+        await ArticleModel.addComment(params);
+        ctx.response.status = 200;
+        ctx.body = {
+            code: 200,
+            msg: "添加成功",
         };
     }
 
