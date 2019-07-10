@@ -1,4 +1,5 @@
 const ArticleModel =require('../module/article');
+const HistoryModel =require('../module/history');
 const CreateFs = require('../util/upload');
 class ArticleController{
     /**
@@ -64,6 +65,8 @@ class ArticleController{
         let id = ctx.request.query.id;
         let currentPage = ctx.request.query.currentPage||1;
         await ArticleModel.addView(id);
+        const params = {creator:ctx.user.userId,articleId:ctx.request.query.id};
+        await HistoryModel.addHistory(params);
         let data = await ArticleModel.getOne(id,currentPage);
         ctx.response.status = 200;
         ctx.body = {

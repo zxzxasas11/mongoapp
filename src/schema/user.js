@@ -28,16 +28,14 @@ let userSchema = new Schema({
         type: Date,
         default:()=>{
             return Date.now();
-        }
+        },
+        get: v => moment(v).format('YYYY-MM-DD HH:mm:ss')
     },
 },
     { collection: 'user',versionKey: false});    //不需要版本号
 
 
-userSchema.set('toJSON', { getters: true, virtuals: false});
-userSchema.set('toObject', { getters: true, virtuals: false});
-userSchema.path('create_time').get(function (v) {
-    return moment(v).format('YYYY-MM-DD HH:mm:ss')
-});
+userSchema.set('toJSON', { getters: true});
+userSchema.set('toObject', { getters: true});
 let User = mongoose.model('User', userSchema);
 module.exports =  User;

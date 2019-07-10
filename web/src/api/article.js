@@ -13,5 +13,8 @@ export default {
     },
     getOne(params){
         return fetch.get("/article/getOne",params);
+    },
+    addComment(params){
+        return fetch.post("/article/addComment",params);
     }
 }

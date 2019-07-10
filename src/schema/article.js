@@ -15,6 +15,7 @@ let articleSchema = new Schema({
             default:()=>{
                 return Date.now();
             },
+            get: v => moment(v).format('YYYY-MM-DD HH:mm')
         },
         comments:[
             {
@@ -22,19 +23,20 @@ let articleSchema = new Schema({
                 creator:{type:Schema.Types.ObjectId},
                 imgList:[String],
                 create_time:{
-                    type:Date,
+                    type: Date,
                     default:()=>{
                         return Date.now();
-                    }
+                    },
+                    get: v => moment(v).format('YYYY-MM-DD HH:mm')
                 },
             }
         ]
     },
     { collection: 'article',versionKey: false });    //不需要版本号     自行命名表
-articleSchema.set('toJSON', { getters: true, virtuals: false});
-articleSchema.set('toObject', { getters: true, virtuals: false});
-articleSchema.path('create_time').get(function (v) {
+articleSchema.set('toJSON', { getters: true});
+articleSchema.set('toObject', { getters: true});
+/*articleSchema.path('create_time').get(function (v) {
     return moment(v).format('YYYY-MM-DD HH:mm:ss')
-});
+});*/
 let Article = mongoose.model('Article', articleSchema);
 module.exports =  Article;

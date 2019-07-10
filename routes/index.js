@@ -3,6 +3,7 @@ const Router = require('koa-router');
 const UserController = require('../src/controller/user');
 const ArticleController = require('../src/controller/article');
 const CategoryController = require('../src/controller/category');
+const HistoryController = require('../src/controller/history');
 const router = new Router({
   prefix: '/api/v1'
 });
@@ -34,4 +35,11 @@ router.post("/category/add",CategoryController.addCategory);
 router.post("/category/addColumn",CategoryController.addColumn);
 router.post("/category/delete",CategoryController.delete);
 router.get("/category/getAll",CategoryController.getAll);
+
+
+/**
+ * history
+ * @type {module:koa-router|Router|module:koa-router}
+ */
+router.get("/history/getAll",HistoryController.getAll);
 module.exports = router;

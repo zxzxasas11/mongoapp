@@ -11,6 +11,7 @@ let categorySchema = new Schema({
             default:()=>{
                 return Date.now();
             },
+            get: v => moment(v).format('YYYY-MM-DD HH:mm:ss')
         },
         url:String,
         status:{type:Number,default:1},
@@ -26,8 +27,5 @@ let categorySchema = new Schema({
     { collection: 'category',versionKey: false });    //不需要版本号     自行命名表
 categorySchema.set('toJSON', { getters: true, virtuals: false});
 categorySchema.set('toObject', { getters: true, virtuals: false});
-categorySchema.path('create_time').get(function (v) {
-    return moment(v).format('YYYY-MM-DD HH:mm:ss')
-});
 let Category = mongoose.model('Category', categorySchema);
 module.exports =  Category;

@@ -1,4 +1,5 @@
 const Article = require('../schema/article');
+const mongoose = require('mongoose');
 class ArticleModel {
     /**
      * 增加
@@ -23,10 +24,17 @@ class ArticleModel {
         //let pageSize  = parseInt(params.pageSize)||10;
         //let currentPage = parseInt(params.currentPage)||1;
         try {
-            return await Article.find({"column_id":columnId},'title content create_time').populate({path: 'creator', select: 'username'})
+            //{ $group: {"_id": { "_id" : "$_id","title":"$title","content":"$content","create_time":"$create_time","creator":"$creator","username":"$username"} , "comments":{$sum:1}}}
+            return await Article.aggregate([{ "$lookup": {
+                    from: "User",
+                    localField: "creator",
+                    foreignField: "creator",
+                    as: "username"
+                }},{$unwind: '$comments'},{$sort: {create_time: -1}},{ $match: { "column_id":mongoose.Types.ObjectId(columnId) }},{ $group: { "_id":{"_id" : "$_id","title":"$title","content":"$content","create_time":"$create_time","creator":"$creator","username":"$username"},"comments":{$sum:1}}}]);
+            /*return await Article.find({"column_id":columnId},'title content create_time').populate({path: 'creator', select: 'username'})
                 //.limit(pageSize).skip(currentPage)
                 //.populate({path: 'column_id',select:"name"})
-                .sort({'create_time':-1});
+                .sort({'create_time':-1});*/
         }
         catch (e) {
             console.log(e);
@@ -56,7 +64,11 @@ class ArticleModel {
     static async getOne(id,currentPage){
         let pageSize=10;
         try {
-            return await Article.findOne({"_id":id},{"comments":{$slice:[(currentPage-1)*pageSize,pageSize]}}).populate({path: 'creator', select: 'username create_time'})
+            let data={};
+            data.data =  await Article.findOne({"_id":id},{"comments":{$slice:[(currentPage-1)*pageSize,pageSize]}}).populate({path: 'creator', select: 'username create_time'}).sort({"comments.create_time":1});
+            let a = await Article.aggregate().unwind('comments').group({"_id":id,count:{$sum:1}});
+            data.count = a[0].count;
+            return data;
         }catch (e) {
             console.log(e);
         }

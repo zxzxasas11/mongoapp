@@ -20,13 +20,13 @@
         <div class="article-box">
             <div class="single" v-for="a in articleList">
                 <ul class="overflow_hide">
-                    <li></li>
+                    <li>{{a.comments}}</li>
                     <li>
-                        <router-link :to="'/article/'+a._id">{{a.title}}</router-link>
+                        <router-link :to="'/article/'+a._id._id">{{a._id.title}}</router-link>
                     </li>
                     <li>
-                        <span><router-link :to="'/personal/'+a.creator._id">{{a.creator.username}}</router-link></span>
-                        <span>{{a.create_time}}</span>
+                        <span><router-link :to="'/personal/'+a._id.creator">{{a._id.creator}}</router-link></span>
+                        <span>{{a._id.create_time}}</span>
                     </li>
                     <li></li>
                 </ul>
