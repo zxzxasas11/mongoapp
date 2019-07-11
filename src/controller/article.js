@@ -1,5 +1,6 @@
 const ArticleModel =require('../module/article');
 const HistoryModel =require('../module/history');
+const CollectModel =require('../module/collect');
 const CreateFs = require('../util/upload');
 class ArticleController{
     /**
@@ -64,10 +65,15 @@ class ArticleController{
     static async getOne(ctx) {
         let id = ctx.request.query.id;
         let currentPage = ctx.request.query.currentPage||1;
+        //添加浏览量
         await ArticleModel.addView(id);
+        //添加历史记录
         const params = {creator:ctx.user.userId,articleId:ctx.request.query.id};
         await HistoryModel.addHistory(params);
         let data = await ArticleModel.getOne(id,currentPage);
+        //获取是否收藏
+        let collect = await CollectModel.getOne(id,ctx.user.userId);
+        data.collect = collect._id?1:0;
         ctx.response.status = 200;
         ctx.body = {
             code: 200,
