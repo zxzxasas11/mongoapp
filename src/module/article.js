@@ -48,7 +48,7 @@ class ArticleModel {
      */
     static async addView(articleId){
         try {
-            return await Article.update({ _id: articleId },
+            return await Article.updateOne({ _id: articleId },
                 {$inc: {view: 1}});
         }catch (e) {
             console.log(e);
@@ -66,7 +66,7 @@ class ArticleModel {
         try {
             let data={};
             data.data =  await Article.findOne({"_id":id},{"comments":{$slice:[(currentPage-1)*pageSize,pageSize]}}).populate({path: 'creator', select: 'username create_time'}).sort({"comments.create_time":1});
-            let a = await Article.aggregate().unwind('comments').group({"_id":id,count:{$sum:1}});
+            let a = await Article.aggregate().unwind('comments').match({"_id":mongoose.Types.ObjectId(id)}).group({"_id":id,count:{$sum:1}});
             data.count = a[0].count;
             return data;
         }catch (e) {

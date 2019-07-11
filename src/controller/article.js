@@ -73,7 +73,10 @@ class ArticleController{
         let data = await ArticleModel.getOne(id,currentPage);
         //获取是否收藏
         let collect = await CollectModel.getOne(id,ctx.user.userId);
-        data.collect = collect._id?1:0;
+        if(collect){
+            data.collect = 1;
+        }
+        else data.collect=0;
         ctx.response.status = 200;
         ctx.body = {
             code: 200,

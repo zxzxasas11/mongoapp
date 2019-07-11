@@ -1,7 +1,8 @@
 <template>
     <div>
 
-
+        <el-button v-if="ifCollect===0" @click="collect">收藏</el-button>
+        <el-button v-else @click="removeCollect">取消收藏</el-button>
         <div class="article-box">
             <div class="btn-group">
                 <el-button @click="reply">发布回复</el-button>
@@ -28,6 +29,16 @@
             </div>
         </div>
 
+        <el-pagination
+                style="clear:both;margin:20px 0"
+                background
+                @current-change="handleCurrentChange"
+                layout="prev, pager, next"
+                page-size=10
+                :total=size
+                class="pagination">
+        </el-pagination>
+
         <div class="comment-box">
             <el-input type="textarea" rows=6 v-model="comment.content"></el-input>
             <el-button @click="reply">提交回复</el-button>
@@ -36,7 +47,8 @@
 </template>
 
 <script>
-    import articleFunction from '../../api/article'
+    import articleFunction from '../../api/article';
+    import collectFunction from '../../api/collect';
     export default {
         name: "articleDetail",
         data(){
@@ -44,6 +56,8 @@
                 detail:{
                     creator:{}
                 },
+                ifCollect:0,
+                size:0,
                 comment:{
                     id:this.$route.params.id,
                     content:""
@@ -57,17 +71,35 @@
             getDetail(currentPage){
                 articleFunction.getOne({id:this.$route.params.id,currentPage:currentPage}).then(res=>{
                     this.detail = res.data.data;
-                    console.log(res);
+                    this.ifCollect = res.data.collect;
+                    this.size = res.data.count;
                 })
             },
             reply(){
                 articleFunction.addComment(this.comment).then(res=>{
                     if(res.code===200){
                         this.$message("回复成功");
-                        this.getDetail();
+                        this.getDetail(1);
                         this.comment.content="";
                     }
                 })
+            },
+            collect(){
+                collectFunction.addCollect({articleId:this.$route.params.id}).then(res=>{
+                    if(res.code===200){
+                        this.getDetail(1);
+                    }
+                })
+            },
+            removeCollect(){
+                collectFunction.removeCollect({articleId:this.$route.params.id}).then(res=>{
+                    if(res.code===200){
+                        this.getDetail(1);
+                    }
+                })
+            },
+            handleCurrentChange(data){
+                console.log(data);
             }
         }
     }
