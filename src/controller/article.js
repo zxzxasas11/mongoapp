@@ -57,6 +57,24 @@ class ArticleController{
         };
     }
 
+
+    /**
+     * 根据用户查询
+     * @param ctx
+     * @returns {Promise<void>}
+     */
+    static async getByUser(ctx){
+        let userId = ctx.request.query.userId||ctx.user.userId;
+        let currentPage = ctx.request.query.currentPage||1;
+        let data = await ArticleModel.getByUser(userId,currentPage);
+        ctx.response.status = 200;
+        ctx.body = {
+            code: 200,
+            msg: "查询成功",
+            data:data
+        };
+    }
+
     /**
      * 根据_id查询单条
      * @param ctx

@@ -16,5 +16,8 @@ export default {
     },
     addComment(params){
         return fetch.post("/article/addComment",params);
+    },
+    getByUser(params){
+        return fetch.get("/article/getByUser",params);
     }
 }

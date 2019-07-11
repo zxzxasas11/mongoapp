@@ -45,7 +45,8 @@ class CollectController{
      * @returns {Promise<void>}
      */
     static async getAll(ctx){
-        let data = await CollectModel.getAll(ctx.user.userId);
+        let id = ctx.request.query.userId||ctx.user.userId;
+        let data = await CollectModel.getAll(id);
         ctx.response.status = 200;
         ctx.body = {
             code: 200,

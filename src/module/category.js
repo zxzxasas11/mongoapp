@@ -43,7 +43,7 @@ class CategoryModel {
      */
     static async addColumn(params){
         try {
-            return await Category.update({_id:params.category_id},{$push:{'column':{
+            return await Category.updateOne({_id:params.category_id},{$push:{'column':{
                         name:params.name,
                         url:params.url
                     }}})

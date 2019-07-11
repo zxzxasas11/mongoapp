@@ -34,7 +34,7 @@
                 background
                 @current-change="handleCurrentChange"
                 layout="prev, pager, next"
-                page-size=10
+                :page-size=10
                 :total=size
                 class="pagination">
         </el-pagination>

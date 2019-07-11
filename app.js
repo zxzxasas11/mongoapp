@@ -4,7 +4,7 @@ const views = require('koa-views');
 const json = require('koa-json');
 const onerror = require('koa-onerror');
 const bodyparser = require('koa-bodyparser');
-const logger = require('koa-logger');
+//const logger = require('koa-logger');
 
 const db = require('./src/mongoose/dbConnect');
 const users = require('./routes/users');
@@ -15,6 +15,20 @@ const JWTToken = require('./src/middleware/JWTToken');
 const secret = require('./src/config/secret');
 const JWTPath = require('./src/middleware/JWTPath');
 // error handler
+
+const log4js = require('./src/logs/log4js');
+app.use(async(ctx, next) => {
+  const start = new Date();
+  await next();
+  const ms = new Date() - start;
+  await log4js.resLogger(ctx, ms);
+  console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
+});
+app.on('error', async (err, ctx) => {
+  await log4js.errLogger(ctx, err);
+  console.error('server error', err, ctx)
+});
+
 
 
 const koaBody = require('koa-body');
@@ -39,24 +53,24 @@ app.use(bodyparser({
   enableTypes:['json', 'form', 'text']
 }));
 app.use(json());
-app.use(logger());
+//app.use(logger());
 app.use(require('koa-static')(__dirname + '/public'));
 
 app.use(views(__dirname + '/views', {
   extension: 'pug'
-}))
+}));
 
-// logger
+/*// logger
 app.use(async (ctx, next) => {
   const start = new Date()
   await next()
   const ms = new Date() - start
   console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
-})
-const index = require('./routes/index')
+})*/
+const index = require('./routes/index');
 // routes
-app.use(index.routes(), index.allowedMethods())
-app.use(users.routes(), users.allowedMethods())
+app.use(index.routes(), index.allowedMethods());
+app.use(users.routes(), users.allowedMethods());
 
 // error-handling
 app.on('error', (err, ctx) => {
@@ -64,4 +78,6 @@ app.on('error', (err, ctx) => {
 });
 
 
-module.exports = app
+
+
+module.exports = app;

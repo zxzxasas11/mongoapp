@@ -10,7 +10,7 @@ class HistoryModel {
         try {
             const info = await History.findOne({"articleId":params.articleId,"creator":params.creator});
             if(info){
-                await History.update({"articleId":params.articleId,"creator":params.creator},{"browse_time":new Date()})
+                await History.updateOne({"articleId":params.articleId,"creator":params.creator},{"browse_time":new Date()})
             }
             else{
                 const history  = new History(params);

@@ -33,8 +33,8 @@ let articleSchema = new Schema({
         ]
     },
     { collection: 'article',versionKey: false });    //不需要版本号     自行命名表
-articleSchema.set('toJSON', { getters: true});
-articleSchema.set('toObject', { getters: true});
+articleSchema.set('toJSON', { getters: true,virtuals:false});
+articleSchema.set('toObject', { getters: true,virtuals:false});
 /*articleSchema.path('create_time').get(function (v) {
     return moment(v).format('YYYY-MM-DD HH:mm:ss')
 });*/

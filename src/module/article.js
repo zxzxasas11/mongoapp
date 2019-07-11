@@ -16,7 +16,7 @@ class ArticleModel {
     }
 
     /**
-     * 查询所有
+     * 栏目下查询所有
      * @param columnId
      * @returns {Promise<void>}
      */
@@ -37,6 +37,20 @@ class ArticleModel {
                 .sort({'create_time':-1});*/
         }
         catch (e) {
+            console.log(e);
+        }
+    }
+
+    /**
+     * 根据userId查询帖子
+     * @param userId
+     * @param currentPage
+     * @returns {Promise<void>}
+     */
+    static async getByUser(userId,currentPage){
+        try {
+            return await Article.find({"creator":userId},"column_id create_time title ").limit(5).skip(parseInt(currentPage)).sort({"create_time":-1})
+        }catch (e) {
             console.log(e);
         }
     }
@@ -81,7 +95,7 @@ class ArticleModel {
      */
     static async addComment(params){
         try {
-            return await Article.update({_id:params.id},{$push:{'comments':{
+            return await Article.updateOne({_id:params.id},{$push:{'comments':{
                         content:params.content,
                         creator:params.creator
                     }}})
