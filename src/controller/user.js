@@ -94,6 +94,25 @@ class CarController{
         }
 
     }
+
+    /**
+     * 根据用户id查询
+     * @param ctx
+     * @returns {Promise<void>}
+     */
+    static async getByUser(ctx){
+        let userId = ctx.request.query.userId||ctx.user.userId;
+        let data = await UserModel.getByUser(userId);
+        if(data._id){
+            ctx.response.status = 200;
+            ctx.body = {
+                code: 200,
+                message: "查询结果",
+                data:data
+            };
+        }
+
+    }
 }
 module.exports = CarController;
 

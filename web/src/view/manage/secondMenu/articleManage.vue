@@ -42,15 +42,16 @@
                 tableTotalData:null,
                 title:this.$route.name,
                 btn: [
-                    {name: "删除", method:"del"},
-                    {name: "修改", method: "edit"},
+                    {name: "查看", method: "edit"},
+                    {name: "删除", method:"del"}
                 ],
                 info: [],
                 tableKey: [
-                    {name: '标题', value: 'title'},
-                    {name: '创建人', value: 'creator.username'},
+                    {name: '标题', value: '_id.title'},
+                    {name: '创建人', value: '_id.creator'},
                     {name: '栏目名称', value: 'column_id'},
-                    {name: '发布时间', value: 'create_time'},
+                    {name: '回复数', value: 'comments'},
+                    {name: '发布时间', value: '_id.create_time'},
                 ],
                 userId:""
             }
@@ -66,7 +67,6 @@
                     this.info = res.data;
                 })
             },
-            //删除用户
             changePageSize(){
                 this.page.pageSize=this.$refs.table.pageSize;
                 this.search(this.page);

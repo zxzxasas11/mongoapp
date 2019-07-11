@@ -10,6 +10,9 @@ export default {
     },
     getAll(params){
         return fetch.post("/user/getAll",params);
+    },
+    getByUser(params){
+        return fetch.get("/user/getByUser",params);
     }
 
 }

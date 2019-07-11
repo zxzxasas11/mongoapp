@@ -24,13 +24,25 @@ class ArticleModel {
         //let pageSize  = parseInt(params.pageSize)||10;
         //let currentPage = parseInt(params.currentPage)||1;
         try {
+            if(columnId===undefined){
+                return await Article.aggregate([{ "$lookup": {
+                        from: "User",
+                        localField: "creator",
+                        foreignField: "creator",
+                        as: "username"
+                    }},{$unwind: '$comments'},{$sort: {create_time: -1}},{ $group: { "_id":{"_id" : "$_id","title":"$title","content":"$content","create_time":"$create_time","creator":"$creator","username":"$username"},"comments":{$sum:1}}}]);
+
+            }
+            else{
+                return await Article.aggregate([{ "$lookup": {
+                        from: "User",
+                        localField: "creator",
+                        foreignField: "creator",
+                        as: "username"
+                    }},{$unwind: '$comments'},{$sort: {create_time: -1}},{ $match: { "column_id":mongoose.Types.ObjectId(columnId) }},{ $group: { "_id":{"_id" : "$_id","title":"$title","content":"$content","create_time":"$create_time","creator":"$creator","username":"$username"},"comments":{$sum:1}}}]);
+
+            }
             //{ $group: {"_id": { "_id" : "$_id","title":"$title","content":"$content","create_time":"$create_time","creator":"$creator","username":"$username"} , "comments":{$sum:1}}}
-            return await Article.aggregate([{ "$lookup": {
-                    from: "User",
-                    localField: "creator",
-                    foreignField: "creator",
-                    as: "username"
-                }},{$unwind: '$comments'},{$sort: {create_time: -1}},{ $match: { "column_id":mongoose.Types.ObjectId(columnId) }},{ $group: { "_id":{"_id" : "$_id","title":"$title","content":"$content","create_time":"$create_time","creator":"$creator","username":"$username"},"comments":{$sum:1}}}]);
             /*return await Article.find({"column_id":columnId},'title content create_time').populate({path: 'creator', select: 'username'})
                 //.limit(pageSize).skip(currentPage)
                 //.populate({path: 'column_id',select:"name"})

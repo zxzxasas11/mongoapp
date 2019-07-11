@@ -35,7 +35,7 @@ let userSchema = new Schema({
     { collection: 'user',versionKey: false});    //不需要版本号
 
 
-userSchema.set('toJSON', { getters: true});
-userSchema.set('toObject', { getters: true});
+userSchema.set('toJSON', { getters: true,virtuals:false});
+userSchema.set('toObject', { getters: true,virtuals:false});
 let User = mongoose.model('User', userSchema);
 module.exports =  User;

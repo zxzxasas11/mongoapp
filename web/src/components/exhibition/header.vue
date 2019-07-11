@@ -2,7 +2,9 @@
     <div class="nav-line">
         <div class="login-box fr">
             <ul v-if="$store.getters.getT!==null">
-                <li style="width:100px;">{{username}}</li>
+                <li style="width:100px;">
+                    <router-link :to="'/personal/'+$store.getters.getToken.userId">{{username}}</router-link>
+                </li>
                 <li>注销</li>
             </ul>
             <ul v-else>
