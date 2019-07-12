@@ -20,18 +20,28 @@
         <div class="article-box">
             <div class="single" v-for="a in articleList">
                 <ul class="overflow_hide">
-                    <li>{{a.comments}}</li>
+                    <li><!--{{a.count}}--></li>
                     <li>
-                        <router-link :to="'/article/'+a._id._id">{{a._id.title}}</router-link>
+                        <router-link :to="'/article/'+a._id">{{a.title}}</router-link>
                     </li>
                     <li>
-                        <span><router-link :to="'/personal/'+a._id.creator">{{a._id.creator}}</router-link></span>
-                        <span>{{a._id.create_time}}</span>
+                        <span><router-link :to="'/personal/'+a.creator">{{a.creator.username}}</router-link></span>
+                        <span>{{a.create_time}}</span>
                     </li>
                     <li></li>
                 </ul>
             </div>
         </div>
+
+        <el-pagination
+                style="clear:both;margin:20px 0"
+                background
+                @current-change="handleCurrentChange"
+                layout="prev, pager, next"
+                :page-size=10
+                :total=size
+                class="pagination">
+        </el-pagination>
     </div>
 </template>
 
@@ -47,17 +57,22 @@
                     content:"",
                     column_id:this.$route.params.id
                 },
-                articleList:[]
+                articleList:[],
+                size:359
             }
         },
         created() {
-            this.getArticle();
+            this.getArticle(1);
         },
         methods:{
-            getArticle(){
-                articleFunction.getAll({columnId:this.$route.params.id}).then(res=>{
-                    this.articleList = res.data;
-                    console.log(res);
+            handleCurrentChange(data){
+                this.getArticle(data);
+            },
+            getArticle(currentPage){
+                articleFunction.getAll({columnId:this.$route.params.id,currentPage:currentPage}).then(res=>{
+                    this.articleList = res.data.data;
+                    this.size = res.data.count;
+
                 })
             },
             onSubmit(){
@@ -65,7 +80,7 @@
                     if(res.code===200){
                         this.$message("发布成功");
                         this.dialogVisible=false;
-                        this.getArticle();
+                        this.getArticle(1);
                     }
                 })
             }
@@ -95,16 +110,15 @@
                     text-align: left;
                     span{
                         display: block;
-                        text-align: center;
                     }
                     &:nth-child(1){
-                        width:10%;
+                        width:5%;
                     }
                     &:nth-child(2){
                         width:50%;
                     }
                     &:nth-child(3){
-                        width:20%;
+                        width:25%;
                     }
                     &:nth-child(4){
                         width:20%;

@@ -4,12 +4,6 @@ const moment = require("moment");
 const Schema = mongoose.Schema;
 const uuid = require('uuid');
 let userSchema = new Schema({
-    /*user_id: {
-        type: Schema.Types.ObjectId,
-        default:()=>{
-            return uuid.v1().replace(/-/g,"")
-        }
-    },*/
     username: { type: String },
     code:{type:String},
     password:{type:String},

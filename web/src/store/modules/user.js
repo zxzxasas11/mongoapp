@@ -37,7 +37,6 @@ const user ={
      */
     async userLogin({commit}, params) {
       let data = await users.login(params).then(res=>{
-        console.log(res);
         commit("SET_USERINFO",res.data.token);
       });
 

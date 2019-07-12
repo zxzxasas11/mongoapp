@@ -20,7 +20,7 @@ let articleSchema = new Schema({
         comments:[
             {
                 content:String,
-                creator:{type:Schema.Types.ObjectId},
+                creator:{type:Schema.Types.ObjectId,ref:"User"},
                 imgList:[String],
                 create_time:{
                     type: Date,

@@ -9,6 +9,7 @@ let logSchema = new Schema({
             method: String,
             url: String,
             costTime: Number,
+            requestTime:Date,
             body: String,
             response: {
                 status: Number,

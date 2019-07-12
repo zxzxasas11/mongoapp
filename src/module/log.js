@@ -9,6 +9,7 @@ class LogModel {
                 method: info.method,
                 url: info.url,
                 costTime: info.costTime,
+                requestTime:Date.now(),
                 body: JSON.stringify(info.body),
                 response: {
                     status: info.response.status,
@@ -17,7 +18,7 @@ class LogModel {
                     body: JSON.stringify(info.response.body)
                 }
             }
-        }
+        };
         Log.create(log, (err, res) => {
             if(err) {console.log(err)}
         })

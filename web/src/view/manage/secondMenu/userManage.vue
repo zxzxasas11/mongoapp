@@ -26,7 +26,6 @@
 
 <script>
     import Table from '../../../components/manage/Table';
-    import Dialog from '../../../components/manage/Dialog';
     import userFunction from '../../../api/user';
     export default {
         name: "userManage",
@@ -58,7 +57,7 @@
                 userId:""
             }
         },
-        components: {Table,Dialog},
+        components: {Table},
         created() {
             this.search();
         },

@@ -19,7 +19,7 @@
             </div>
             <div class="floor overflow_hide" v-for="d in detail.comments">
                 <div class="personInfo fl">
-                    <div><router-link :to="'/personal/'+d._id">{{d.creator}}</router-link></div>
+                    <div><router-link :to="'/personal/'+d._id">{{d.creator.username}}</router-link></div>
                     <div>注册时间:{{detail.creator.create_time}}</div>
                 </div>
                 <div class="content fr">
@@ -43,12 +43,19 @@
             <el-input type="textarea" rows=6 v-model="comment.content"></el-input>
             <el-button @click="reply">提交回复</el-button>
         </div>
+        <div id="editor">
+            <mavon-editor style="height: 400px;width: 100%;" v-model="value"></mavon-editor>
+        </div>
+
+        <button @click="aa">11111</button>
     </div>
 </template>
 
 <script>
     import articleFunction from '../../api/article';
     import collectFunction from '../../api/collect';
+    import { mavonEditor } from 'mavon-editor'
+    import 'mavon-editor/dist/css/index.css'
     export default {
         name: "articleDetail",
         data(){
@@ -61,9 +68,11 @@
                 comment:{
                     id:this.$route.params.id,
                     content:""
-                }
+                },
+                value:""
             }
         },
+        components:{mavonEditor},
         created() {
             this.getDetail(1);
         },
@@ -73,6 +82,7 @@
                     this.detail = res.data.data;
                     this.ifCollect = res.data.collect;
                     this.size = res.data.count;
+                    console.log(res);
                 })
             },
             reply(){
@@ -100,6 +110,9 @@
             },
             handleCurrentChange(data){
                 console.log(data);
+            },
+            aa(){
+                console.log(this.value);
             }
         }
     }
