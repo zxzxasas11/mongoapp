@@ -5,6 +5,7 @@ const ArticleController = require('../src/controller/article');
 const CategoryController = require('../src/controller/category');
 const HistoryController = require('../src/controller/history');
 const CollectController = require('../src/controller/collect');
+const LogController = require('../src/controller/log');
 const router = new Router({
   prefix: '/api/v1'
 });
@@ -53,5 +54,13 @@ router.get("/history/getAll",HistoryController.getAll);
 router.post("/collect/add",CollectController.addCollect);
 router.post("/collect/remove",CollectController.removeCollect);
 router.get("/collect/getAll",CollectController.getAll);
+
+
+/**
+ * log
+ * @type {module:koa-router|Router|module:koa-router}
+ */
+router.get("/log/getAll",LogController.getLog);
+
 
 module.exports = router;

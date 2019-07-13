@@ -44,6 +44,7 @@
                     {id:'01',name:"系统管理",url:"",children:[
                             {id:"0101",name:"用户管理",url:"/userManage"},
                             {id:"0102",name:"分类管理",url:"/categoryManage"},
+                            {id:"0103",name:"数据监控",url:"/dataControl"},
                         ]
                     },
                     {id:'02',name:"模块管理",url:"",children:[
