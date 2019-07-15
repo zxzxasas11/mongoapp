@@ -27,13 +27,27 @@ class ArticleModel {
         try {
             //未传columnId则查所有
             if(columnId===undefined){
-                return await Article.aggregate([{ "$lookup": {
+                /*return await Article.aggregate([{ "$lookup": {
                         from: "User",
                         localField: "creator",
                         foreignField: "_id",
                         as: "username"
                     }},{$unwind: '$comments'},{$sort: {create_time: -1}},{ $group: { "_id":{"_id" : "$_id","title":"$title","content":"$content","create_time":"$create_time","creator":"$creator","username":"$username"},"comments":{$sum:1}}},{$project: {data:"$_id",_id:0,count:"$comments"}}
-                    ]);
+                    ]);*/
+                //return await Article.find().limit(10).skip(currentPage)
+                return await Article.aggregate([
+                    {$unwind:"$comments"},
+                    { "$lookup": {
+                            from: "User",
+                            localField: "creator",
+                            foreignField: "_id",
+                            as: "username"
+                        }},
+                    {$group: { "_id":{"_id" : "$_id","title":"$title","column_id":"$column_id","create_time":"$create_time","creator":"$creator","username":"$username"},"total":{$sum:1}}},
+                    //{$project: {total: {$cond : [{$eq: ["$comments", []] }, 0, '$comments']}}}
+                    {$project:{"data":"$_id","total":"$total","_id":0}},
+                    //{$sort:{"total":-1}}
+                ]);
 
             }
             else{

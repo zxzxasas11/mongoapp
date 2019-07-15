@@ -15,7 +15,7 @@ class UserModel {
      * @returns {Promise<void>}
      */
     static async getByUser(userId) {
-        return await User.findById(userId,"username sex power create_time coin");
+        return await User.findOne({"_id":userId},"username sex power create_time coin");
     }
 }
 module.exports = UserModel;

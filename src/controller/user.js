@@ -102,6 +102,7 @@ class CarController{
      */
     static async getByUser(ctx){
         let userId = ctx.request.query.userId||ctx.user.userId;
+        console.log(userId);
         let data = await UserModel.getByUser(userId);
         if(data._id){
             ctx.response.status = 200;

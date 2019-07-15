@@ -33,7 +33,7 @@ export default new Router({
     },
     {
       path: '/Manage',
-      name: '后台',
+      name: '后台管理系统',
       component:() => import('./view/manage/Main.vue'),
       children:[
         {
@@ -45,6 +45,11 @@ export default new Router({
           path: '/categoryManage',
           name: '分类管理',
           component:() => import('./view/manage/secondMenu/categoryManage.vue'),
+        },
+        {
+          path: '/dataControl',
+          name: '数据监控',
+          component:() => import('./view/manage/secondMenu/dataControl.vue'),
         },
         {
           path: '/articleManage',

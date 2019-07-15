@@ -19,7 +19,7 @@
             </div>
             <div class="floor overflow_hide" v-for="d in detail.comments">
                 <div class="personInfo fl">
-                    <div><router-link :to="'/personal/'+d._id">{{d.creator.username}}</router-link></div>
+                    <div><router-link :to="'/personal/'+d.creator._id">{{d.creator.username}}</router-link></div>
                     <div>注册时间:{{detail.creator.create_time}}</div>
                 </div>
                 <div class="content fr">

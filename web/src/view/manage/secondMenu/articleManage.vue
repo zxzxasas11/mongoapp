@@ -47,11 +47,11 @@
                 ],
                 info: [],
                 tableKey: [
-                    {name: '标题', value: '_id.title'},
-                    {name: '创建人', value: '_id.creator'},
-                    {name: '栏目名称', value: 'column_id'},
-                    {name: '回复数', value: 'comments'},
-                    {name: '发布时间', value: '_id.create_time'},
+                    {name: '标题', value: 'data.title'},
+                    {name: '创建人', value: 'data.creator'},
+                    {name: '栏目名称', value: 'data.column_id'},
+                    {name: '回复数', value: 'total'},
+                    {name: '发布时间', value: 'data.create_time'},
                 ],
                 userId:""
             }
