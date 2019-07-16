@@ -23,46 +23,15 @@ class ArticleModel {
     static async getAll(params){
         //let pageSize  = parseInt(params.pageSize)||10;
         let currentPage = parseInt(params.currentPage)||1;
-        console.log(currentPage)
         try {
             //未传columnId则查所有
             if(params.columnId===undefined){
-                /*return await Article.aggregate([{ "$lookup": {
-                        from: "User",
-                        localField: "creator",
-                        foreignField: "_id",
-                        as: "username"
-                    }},{$unwind: '$comments'},{$sort: {create_time: -1}},{ $group: { "_id":{"_id" : "$_id","title":"$title","content":"$content","create_time":"$create_time","creator":"$creator","username":"$username"},"comments":{$sum:1}}},{$project: {data:"$_id",_id:0,count:"$comments"}}
-                    ]);*/
-                //return await Article.find().limit(10).skip(currentPage)
-                /*return await Article.aggregate([
-                    {$unwind:"$comments"},
-                    /!*{ "$lookup": {
-                            from: "User",
-                            localField: "creator",
-                            foreignField: "_id",
-                            as: "username"
-                        }},*!/
-                    //{$group: { "_id":{"_id" : "$_id","title":"$title","column_id":"$column_id","create_time":"$create_time","creator":"$creator"},"total":{$sum:1}}},
-                    //{$project: {total: {$cond : [{$eq: ["$comments", []] }, 0, '$comments']}}}
-                    //{$project:{"data":"$_id","total":"$total","_id":0}},
-                    //{$sort:{"total":-1}}
-                ]).exec().then(function(ar){
-                    console.log(ar);
-                    //return Article.populate(ar,[{path:"comments.creator",select:"username"}])
-                })*/
-                return await Article.find({},"title category view create_time")
-                    .populate({path:"creator",select:"username"})
-                    .populate({path:"column_id",select:"column.name"})
-                    //.limit(10).skip(currentPage)
-                    /*.exec().then(function(ar){
-                        //console.log(ar);
-                        //return Article.aggregate()
-                    })*/
+                return await Article.find({},"title category view column_id create_time comments")
+                    .populate({path:"creator",select:"username -_id"})
+                    .limit(10).skip(currentPage)
             }
             else{
                 let data={};
-                console.log(params.columnId)
                 /*return await Article.aggregate([/!*{ "$lookup": {
                         from: "User",
                         localField: "creator",
@@ -155,7 +124,6 @@ class ArticleModel {
      * @returns {Promise<void>}
      */
     static async deleteArticleById(id){
-        //console.log(ctx.request.body._id);i
         try {
             return await Article.findByIdAndRemove(id);
         }catch (e) {

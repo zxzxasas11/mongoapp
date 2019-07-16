@@ -38,5 +38,14 @@ articleSchema.set('toObject', { getters: true,virtuals:false});
 /*articleSchema.path('create_time').get(function (v) {
     return moment(v).format('YYYY-MM-DD HH:mm:ss')
 });*/
+
+//关联到非_id
+/*articleSchema.virtual('members', {
+    ref: 'Category', // 虚拟字段的model为Person
+    localField: 'column_id', // 查找到Person.band的值和Band.name的值相等的项
+    foreignField: 'column', //
+    // justOne用于指定，返回的members是单个数据还是一个数组集合，justOne默认为false
+    justOne: false
+});*/
 let Article = mongoose.model('Article', articleSchema);
 module.exports =  Article;

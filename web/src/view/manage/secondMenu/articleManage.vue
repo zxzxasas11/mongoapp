@@ -82,7 +82,7 @@
                 articleFunction.delete({_id:r.obj._id}).then(res=>{
                     if(res.code===200){
                         this.$message("删除成功");
-                        this.search();
+                        this.search(this.info);
                     }
                 })
             }
