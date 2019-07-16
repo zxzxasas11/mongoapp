@@ -35,7 +35,7 @@
             return {
                 page:{                        //分页信息
                     currentPage:1,
-                    pageSize:10,
+                    //pageSize:10,
                 },
                 dialogForm:"",
                 operateType:"",               //区分新增和修改
@@ -47,22 +47,23 @@
                 ],
                 info: [],
                 tableKey: [
-                    {name: '标题', value: 'data.title'},
-                    {name: '创建人', value: 'data.creator'},
+                    {name: '标题', value: 'title'},
+                    {name: '创建人', value: 'creator.username'},
                     {name: '栏目名称', value: 'data.column_id'},
                     {name: '回复数', value: 'total'},
-                    {name: '发布时间', value: 'data.create_time'},
+                    {name: '浏览量', value: 'view'},
+                    {name: '发布时间', value: 'create_time'},
                 ],
                 userId:""
             }
         },
         components: {Table,Dialog},
         created() {
-            this.search();
+            this.search(this.page);
         },
         methods: {
-            search() {
-                articleFunction.getAll().then(res=>{
+            search(info) {
+                articleFunction.getAll(info).then(res=>{
                     console.log(res);
                     this.info = res.data;
                 })

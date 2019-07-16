@@ -47,7 +47,7 @@ class ArticleController{
      * @returns {Promise<*>}
      */
     static async getAll(ctx){
-        let data = await ArticleModel.getAll(ctx.request.query.columnId,ctx.request.query.currentPage);
+        let data = await ArticleModel.getAll(ctx.request.query);
         ctx.response.status = 200;
         ctx.body = {
             code: 200,

@@ -28,6 +28,22 @@ app.on('error', async (err, ctx) => {
     console.error('server error', err, ctx)
 });
 
+/**
+ * redis
+ */
+/*const session = require('koa-generic-session');
+const redisStore = require('koa-redis');
+const redis = require('redis');
+let config = require('./src/config/config');
+let client = redis.createClient(config.redis.port,config.redis.host);
+app.use(session({
+    store: redisStore({
+        // db:config.redis_db,
+        client : client
+    })
+}));*/
+
+//client.set("test1",1111);
 
 
 const koaBody = require('koa-body');
@@ -38,7 +54,7 @@ app.use(koaBody({
     }
 }));
 
-app.use(cors()); //使用cors
+//app.use(cors()); //使用cors
 // error handler
 onerror(app);
 app.use(JWTToken());

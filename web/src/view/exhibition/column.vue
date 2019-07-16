@@ -72,6 +72,7 @@
                 articleFunction.getAll({columnId:this.$route.params.id,currentPage:currentPage}).then(res=>{
                     this.articleList = res.data.data;
                     this.size = res.data.count;
+                    console.log(res.data);
                 })
             },
             onSubmit(){

@@ -7,7 +7,7 @@ let articleSchema = new Schema({
         title: { type: String },    //标题
         content:{type:String},
         creator:{type:Schema.Types.ObjectId,ref:'User'},      //创建人
-        column_id:{type:Schema.Types.ObjectId},
+        column_id:{type:Schema.Types.ObjectId,ref:'Category'},
         view:{type:Number,default:0},
         url:{type:String},
         create_time: {              //创建时间
