@@ -27,7 +27,7 @@ let articleSchema = new Schema({
                     default:()=>{
                         return Date.now();
                     },
-                    get: v => moment(v).format('YYYY-MM-DD HH:mm')
+                    //get: v => moment(v).format('YYYY-MM-DD HH:mm')
                 },
             }
         ]

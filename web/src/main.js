@@ -7,6 +7,8 @@ import './assets/css/global.css';
 import axios from 'axios';
 Vue.prototype.axios = axios;
 
+import moment from "moment";
+Vue.prototype.moment = moment
 
 import qs from 'qs';
 Vue.prototype.$qs = qs;

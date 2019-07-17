@@ -23,7 +23,7 @@
         <div class="info-box">
             <title>我的收藏</title>
             <div v-for="c in collectList" class="list">
-                <router-link :to="'/article/'+c.articleId._id">{{c.articleId.title}}</router-link>
+                <!--<router-link :to="'/article/'+c.articleId._id">{{c.articleId.title}}</router-link>-->
                 <router-link :to="'/personal/'+c.creator._id">{{c.creator.username}}</router-link>
             </div>
         </div>

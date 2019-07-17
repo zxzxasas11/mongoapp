@@ -1,5 +1,6 @@
 
 import axios from 'axios';
+
 export  default {
     //list转成父子结构
     listToTree(list,pid,pidName,idName) {

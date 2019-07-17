@@ -10,7 +10,7 @@
             <div class="main-floor floor overflow_hide">
                 <div class="personInfo fl">
                     <div><router-link :to="'/personal/'+detail.creator._id">{{detail.creator.username}}</router-link></div>
-                    <div>注册时间:{{detail.creator.create_time}}</div>
+                    <div>注册时间:{{moment(detail.creator.create_time).format('YYYY-MM-DD')}}</div>
                 </div>
                 <div class="content fr">
                     <p>{{detail.title}}</p><p class="fr">{{detail.create_time}}</p>
@@ -20,10 +20,10 @@
             <div class="floor overflow_hide" v-for="d in detail.comments">
                 <div class="personInfo fl">
                     <div><router-link :to="'/personal/'+d.creator._id">{{d.creator.username}}</router-link></div>
-                    <div>注册时间:{{detail.creator.create_time}}</div>
+                    <div>注册时间:{{moment(detail.creator.create_time).format('YYYY-MM-DD')}}</div>
                 </div>
                 <div class="content fr">
-                    <p class="fr">{{d.create_time}}</p>
+                    <p class="fr">{{moment(d.create_time).format('YYYY-MM-DD HH:mm')}}</p>
                     <div>{{d.content}}</div>
                 </div>
             </div>
@@ -56,6 +56,7 @@
     import collectFunction from '../../api/collect';
     import { mavonEditor } from 'mavon-editor'
     import 'mavon-editor/dist/css/index.css'
+
     export default {
         name: "articleDetail",
         data(){

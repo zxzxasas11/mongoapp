@@ -28,7 +28,9 @@ class ArticleModel {
             if(params.columnId===undefined){
                 return await Article.find({},"title category view column_id create_time comments")
                     .populate({path:"creator",select:"username -_id"})
-                    .limit(10).skip(currentPage)
+                    .limit(10).skip(currentPage).exec().then(ar=>{
+                        console.log(ar);
+                    })
             }
             else{
                 let data={};
@@ -96,7 +98,7 @@ class ArticleModel {
             let data={};
             data.data =  await Article.findOne({"_id":id},{"comments":{$slice:[(currentPage-1)*pageSize,pageSize]}}).populate([{path: 'creator', select: 'username create_time'},{path: 'comments.creator', select: 'username'}]).sort({"comments.create_time":1});
             let a = await Article.aggregate().unwind('comments').match({"_id":mongoose.Types.ObjectId(id)}).group({"_id":id,count:{$sum:1}});
-            data.count = a[0].count;
+            data.count = a.length===0?0:a[0].count;
             return data;
         }catch (e) {
             console.log(e);
