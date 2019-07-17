@@ -1,5 +1,7 @@
 <template>
     <div>
+        <navBread :infoId="$route.params.id"></navBread>
+
         <div class="btn">
             <el-button @click="dialogVisible=true">发布新帖</el-button>
         </div>
@@ -47,6 +49,7 @@
 
 <script>
     import articleFunction from '../../api/article'
+    import navBread from '../../components/exhibition/navBread'
     export default {
         name: "column",
         data(){
@@ -61,6 +64,7 @@
                 size:359
             }
         },
+        components:{navBread},
         created() {
             this.getArticle(1);
         },

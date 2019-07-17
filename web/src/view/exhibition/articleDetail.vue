@@ -1,6 +1,6 @@
 <template>
     <div>
-
+        <navBread :infoId="$route.params.id"></navBread>
         <el-button v-if="ifCollect===0" @click="collect">收藏</el-button>
         <el-button v-else @click="removeCollect">取消收藏</el-button>
         <div class="article-box">
@@ -56,7 +56,7 @@
     import collectFunction from '../../api/collect';
     import { mavonEditor } from 'mavon-editor'
     import 'mavon-editor/dist/css/index.css'
-
+    import navBread from '../../components/exhibition/navBread'
     export default {
         name: "articleDetail",
         data(){
@@ -73,11 +73,12 @@
                 value:""
             }
         },
-        components:{mavonEditor},
+        components:{mavonEditor,navBread},
         created() {
             this.getDetail(1);
         },
         methods:{
+            //获取帖子详细信息
             getDetail(currentPage){
                 articleFunction.getOne({id:this.$route.params.id,currentPage:currentPage}).then(res=>{
                     this.detail = res.data.data;

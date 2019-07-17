@@ -19,5 +19,8 @@ export default {
     },
     getByUser(params){
         return fetch.get("/article/getByUser",params);
+    },
+    getBread(params){
+        return fetch.get("/article/getBread",params);
     }
 }

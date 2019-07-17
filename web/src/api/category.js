@@ -15,6 +15,5 @@ export default {
     },
     delete(params){
         return fetch.post("/category/delete",params);
-    }
-
+    },
 }

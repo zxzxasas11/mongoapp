@@ -2,7 +2,6 @@
 const mongoose = require('mongoose');
 const moment = require("moment");
 const Schema = mongoose.Schema;
-const uuid = require('uuid');
 let articleSchema = new Schema({
         title: { type: String },    //标题
         content:{type:String},

@@ -1,4 +1,5 @@
 const Article = require('../schema/article');
+const Category = require('../schema/category');
 const mongoose = require('mongoose');
 class ArticleModel {
     /**
@@ -131,7 +132,21 @@ class ArticleModel {
         }catch (e) {
             console.log(e);
         }
+    }
 
+    static async getBread(params){
+        try {
+            let a ={};
+            await Article.findOne({"_id":params.articleId},"title column_id -_id")
+            .exec().then(async function(ar){
+                let data =await Category.findOne({"column._id":ar.column_id},{'column.$': 1});
+                a=JSON.parse(JSON.stringify(ar));
+                a["columnName"] = data.column[0].name;
+            });
+            return a;
+        }catch (e) {
+            console.log(e);
+        }
     }
 
 }

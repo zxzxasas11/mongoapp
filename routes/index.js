@@ -21,7 +21,7 @@ router.post("/user/getAll",UserController.getAll);
 router.get("/user/getByUser",UserController.getByUser);
 
 /**
- * 文章
+ * article
  * @type {module:koa-router|Router|module:koa-router}
  */
 router.post("/article/add",ArticleController.add);
@@ -30,6 +30,7 @@ router.post("/article/delete",ArticleController.deleteArticle);
 router.get("/article/getOne",ArticleController.getOne);
 router.post("/article/addComment",ArticleController.addComment);
 router.get("/article/getByUser",ArticleController.getByUser);
+router.get("/article/getBread",ArticleController.getBread);
 /**
  *
  * category

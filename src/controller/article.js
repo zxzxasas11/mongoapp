@@ -141,6 +141,16 @@ class ArticleController{
         }
 
     }
+
+    static async getBread(ctx){
+        let data = await ArticleModel.getBread(ctx.request.query);
+        ctx.response.status = 200;
+        ctx.body = {
+            code: 200,
+            msg: "查询成功",
+            data:data
+        };
+    }
 }
 module.exports = ArticleController;
 

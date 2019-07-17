@@ -3,7 +3,7 @@ let formatError = (ctx, err,costTime) => {
     let url = ctx.url;
     let body = ctx.request.body;
     let userAgent = ctx.header.userAgent;
-    return {method, url, body, costTime, err};
+    return {method, url, body, costTime, err,userAgent};
 };
 let formatRes = (ctx,costTime) => {
     let method = ctx.method;
