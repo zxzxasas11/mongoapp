@@ -47,12 +47,12 @@
                 ],
                 info: [],
                 tableKey: [
-                    {name: '标题', value: 'title'},
-                    {name: '创建人', value: 'creator.username'},
-                    {name: '栏目名称', value: 'data.column_id'},
-                    {name: '回复数', value: 'total'},
-                    {name: '浏览量', value: 'view'},
-                    {name: '发布时间', value: 'create_time'},
+                    {name: '标题', value: 'data.title'},
+                    {name: '创建人', value: 'data.username'},
+                    {name: '栏目名称', value: 'data.columnName'},
+                    {name: '回复数', value: 'comments'},
+                    {name: '浏览量', value: 'data.view'},
+                    {name: '发布时间', value: 'data.create_time'},
                 ],
                 userId:""
             }
@@ -66,6 +66,9 @@
                 articleFunction.getAll(info).then(res=>{
                     console.log(res);
                     this.info = res.data;
+                    for(let i in res.data){
+                        console.log(res.data[i].comments);
+                    }
                 })
             },
             changePageSize(){

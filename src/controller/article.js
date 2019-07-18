@@ -142,6 +142,11 @@ class ArticleController{
 
     }
 
+    /**
+     * 获取面包屑标签页
+     * @param ctx
+     * @returns {Promise<void>}
+     */
     static async getBread(ctx){
         let data = await ArticleModel.getBread(ctx.request.query);
         ctx.response.status = 200;

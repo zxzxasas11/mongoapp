@@ -1,6 +1,7 @@
 const Article = require('../schema/article');
 const Category = require('../schema/category');
 const mongoose = require('mongoose');
+const moment = require('moment');
 class ArticleModel {
     /**
      * 增加
@@ -27,11 +28,56 @@ class ArticleModel {
         try {
             //未传columnId则查所有
             if(params.columnId===undefined){
-                return await Article.find({},"title category view column_id create_time comments")
-                    .populate({path:"creator",select:"username -_id"})
-                    .limit(10).skip(currentPage).exec().then(ar=>{
-                        console.log(ar);
-                    })
+                return await Article.aggregate([
+                    { "$lookup": {
+                            from: "user",            //要写表名!要写表名!要写表名!
+                            localField: "creator",
+                            foreignField: "_id",
+                            as: "a"
+                        }},
+                    { "$lookup": {
+                            from: "category",            //要写表名!要写表名!要写表名!
+                            localField: "column_id",
+                            foreignField: "column._id",
+                            as: "k"
+                        }},
+                    {$unwind:{"path":"$comments","preserveNullAndEmptyArrays": true}},
+                    {$unwind:'$a'},
+                    {$unwind:'$k'},
+                    {$group: {"_id": { "_id" : "$_id","title":"$title","view":"$view","content":"$content","create_time":"$create_time","username":"$a.username","columnName":"$k.name"}, "comments":{$sum: '$comments'?0:1}}},
+                    {$project:{
+                            "_id":0,
+                            "data":"$_id",
+                            "comments":"$comments",
+                        }
+                    }
+                ])/*.exec().then(async ar=>{
+                    let data = await Article.aggregate([
+                        { "$lookup": {
+                                from: "user",            //要写表名!要写表名!要写表名!
+                                localField: "creator",
+                                foreignField: "_id",
+                                as: "a"
+                            }},
+                        { "$lookup": {
+                                from: "category",            //要写表名!要写表名!要写表名!
+                                localField: "column_id",
+                                foreignField: "column._id",
+                                as: "k"
+                            }},
+                        {$match:{"comments":[]}},
+                        {$unwind:'$a'},
+                        {$unwind:'$k'},
+                        {$group: {"_id": { "_id" : "$_id","title":"$title","view":"$view","content":"$content","create_time":"$create_time","username":"$a.username","columnName":"$k.name"},"comments":{$sum:0}}},
+                        {$project:{
+                                "_id":0,
+                                "data":"$_id",
+                                "comments":"$comments",
+                            }
+                        }
+                    ]);
+                    return ar.concat(data)
+                })*/
             }
             else{
                 let data={};
@@ -134,6 +180,11 @@ class ArticleModel {
         }
     }
 
+    /**
+     * 获取面包屑
+     * @param params
+     * @returns {Promise<void>}
+     */
     static async getBread(params){
         try {
             let a ={};
