@@ -21,13 +21,13 @@
         <div class="article-box">
             <div class="single" v-for="a in articleList">
                 <ul class="overflow_hide">
-                    <li><!--{{a.count}}-->{{a.comments}}</li>
+                    <li>{{a.comments}}</li>
                     <li>
                         <router-link :to="'/article/'+a.articleId">{{a.title}}</router-link>
                     </li>
                     <li>
                         <span><router-link :to="'/personal/'+a.userId">{{a.username}}</router-link></span>
-                        <span>{{a.create_time}}</span>
+                        <span>{{moment(a.create_time).format('YYYY-MM-DD HH:mm')}}</span>
                     </li>
                     <li></li>
                 </ul>
@@ -47,6 +47,7 @@
 </template>
 
 <script>
+    import moment from 'moment'
     import articleFunction from '../../api/article'
     export default {
         name: "column",
@@ -114,6 +115,7 @@
                     }
                     &:nth-child(1){
                         width:5%;
+                        text-align: center;
                     }
                     &:nth-child(2){
                         width:50%;
@@ -123,6 +125,9 @@
                     }
                     &:nth-child(4){
                         width:20%;
+                    }
+                    &:not(:nth-child(3)){
+                        line-height: 40px;
                     }
                 }
             }
