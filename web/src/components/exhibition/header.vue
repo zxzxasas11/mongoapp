@@ -1,5 +1,8 @@
 <template>
     <div class="nav-line">
+        <div class="fl">
+            <router-link to="/">首页</router-link>
+        </div>
         <div class="login-box fr">
             <ul v-if="$store.getters.getT!==null">
                 <li style="width:100px;">
@@ -38,12 +41,16 @@
 </script>
 
 <style scoped lang="less">
+    a{
+        height: inherit;
+        display: inherit;
+    }
     .nav-line{
-        width:100%;
         height:60px;
         line-height:60px;
         background-color: #fff0cd;
         color:#591804;
+        padding:0 20px;
         .login-box{
             ul{
                 height:100%;

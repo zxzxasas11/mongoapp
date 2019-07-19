@@ -1,6 +1,5 @@
 <template>
     <div>
-        <navBread :infoId="$route.params.id"></navBread>
 
         <div class="btn">
             <el-button @click="dialogVisible=true">发布新帖</el-button>
@@ -22,12 +21,12 @@
         <div class="article-box">
             <div class="single" v-for="a in articleList">
                 <ul class="overflow_hide">
-                    <li><!--{{a.count}}--></li>
+                    <li><!--{{a.count}}-->{{a.comments}}</li>
                     <li>
-                        <router-link :to="'/article/'+a._id">{{a.title}}</router-link>
+                        <router-link :to="'/article/'+a.articleId">{{a.title}}</router-link>
                     </li>
                     <li>
-                        <span><router-link :to="'/personal/'+a.creator">{{a.creator.username}}</router-link></span>
+                        <span><router-link :to="'/personal/'+a.userId">{{a.username}}</router-link></span>
                         <span>{{a.create_time}}</span>
                     </li>
                     <li></li>
@@ -49,7 +48,6 @@
 
 <script>
     import articleFunction from '../../api/article'
-    import navBread from '../../components/exhibition/navBread'
     export default {
         name: "column",
         data(){
@@ -61,10 +59,9 @@
                     column_id:this.$route.params.id
                 },
                 articleList:[],
-                size:359
+                size:0
             }
         },
-        components:{navBread},
         created() {
             this.getArticle(1);
         },

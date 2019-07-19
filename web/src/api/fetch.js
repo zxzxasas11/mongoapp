@@ -48,6 +48,7 @@ axios.interceptors.response.use(response => {
   switch (code) {
     case 401:
       // 处理401错误
+      //localStorage.removeItem("token");
         Message.error("登录过期，请重新登录,稍后跳转至登录页面");
         localStorage.removeItem("token");
         setTimeout(function(){

@@ -25,10 +25,15 @@ class ArticleModel {
     static async getAll(params){
         //let pageSize  = parseInt(params.pageSize)||10;
         let currentPage = parseInt(params.currentPage)||1;
+        let columnId = params.columnId||"";
+        console.log(columnId);
+        let regex = new RegExp(columnId,"i");
         try {
             //未传columnId则查所有
-            if(params.columnId===undefined){
-                return await Article.aggregate([
+                let data ={};
+                data.data =await Article.aggregate([
+                    {$match:{"column_id":params.columnId?mongoose.Types.ObjectId(columnId):{$regex:/''/}}},
+                    //{$match:{params.columnId:{$ifNull:[{'params.columnId':mongoose.Types.ObjectId(columnId)},0]}}},
                     { "$lookup": {
                             from: "user",            //要写表名!要写表名!要写表名!
                             localField: "creator",
@@ -41,64 +46,25 @@ class ArticleModel {
                             foreignField: "column._id",
                             as: "k"
                         }},
-                    {$unwind:{"path":"$comments","preserveNullAndEmptyArrays": true}},
                     {$unwind:'$a'},
                     {$unwind:'$k'},
-                    {$group: {"_id": { "_id" : "$_id","title":"$title","view":"$view","content":"$content","create_time":"$create_time","username":"$a.username","columnName":"$k.name"}, "comments":{$sum: '$comments'?0:1}}},
                     {$project:{
                             "_id":0,
-                            "data":"$_id",
-                            "comments":"$comments",
+                            "title":"$title",
+                            "username":"$a.username",
+                            "columnName":"$k.name",
+                            "view":"$view",
+                            "create_time":"$create_time",
+                            "userId":"$a._id",
+                            "articleId":"$_id",
+                            "comments":{$ifNull:[{$size:"$comments"},0]},
                         }
-                    }
-                ])/*.exec().then(async ar=>{
-                    let data = await Article.aggregate([
-                        { "$lookup": {
-                                from: "user",            //要写表名!要写表名!要写表名!
-                                localField: "creator",
-                                foreignField: "_id",
-                                as: "a"
-                            }},
-                        { "$lookup": {
-                                from: "category",            //要写表名!要写表名!要写表名!
-                                localField: "column_id",
-                                foreignField: "column._id",
-                                as: "k"
-                            }},
-                        {$match:{"comments":[]}},
-                        {$unwind:'$a'},
-                        {$unwind:'$k'},
-                        {$group: {"_id": { "_id" : "$_id","title":"$title","view":"$view","content":"$content","create_time":"$create_time","username":"$a.username","columnName":"$k.name"},"comments":{$sum:0}}},
-                        {$project:{
-                                "_id":0,
-                                "data":"$_id",
-                                "comments":"$comments",
-                            }
-                        }
-                    ]);
-                    return ar.concat(data)
-                })*/
-            }
-            else{
-                let data={};
-                /*return await Article.aggregate([/!*{ "$lookup": {
-                        from: "User",
-                        localField: "creator",
-                        foreignField: "_id",
-                        as: "username"
-                    }},*!/{$unwind: '$comments'},{$sort: {create_time: -1}},{ $match: { "column_id":mongoose.Types.ObjectId(columnId)}},{ $group: { "_id":{"_id" : "$_id","title":"$title","content":"$content","create_time":"$create_time","creator":"$creator","username":"$username"},"comments":{$sum:1}}},{$project: {data:"$_id",_id:0,count:"$comments"}}
-                    ]);*/
-                data.data =  await Article.find({"column_id":params.columnId},'title content create_time').populate({path: 'creator', select: 'username'})
-                //.limit(10).skip(currentPage)
-                //.populate({path: 'column_id',select:"name"}).sort({'create_time':-1});
-                data.count = await Article.countDocuments({"column_id":params.columnId});
+                    },
+                    {$skip:(currentPage-1)*10},
+                    {$limit:10}
+                ]);
+                data.count = await Article.countDocuments({"column_id":columnId});
                 return data;
-            }
-            //{ $group: {"_id": { "_id" : "$_id","title":"$title","content":"$content","create_time":"$create_time","creator":"$creator","username":"$username"} , "comments":{$sum:1}}}
-            /*return await Article.find({"column_id":columnId},'title content create_time').populate({path: 'creator', select: 'username'})
-                //.limit(pageSize).skip(currentPage)
-                //.populate({path: 'column_id',select:"name"})
-                .sort({'create_time':-1});*/
         }
         catch (e) {
             console.log(e);

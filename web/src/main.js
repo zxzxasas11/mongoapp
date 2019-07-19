@@ -23,6 +23,14 @@ import 'babel-polyfill';
 
 import Promise from 'es6-promise';
 Promise.polyfill();
+
+
+
+
+
+
+
+
 Vue.config.productionTip = false;
 
 new Vue({

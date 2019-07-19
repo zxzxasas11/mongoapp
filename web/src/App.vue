@@ -1,9 +1,21 @@
 <template>
   <div id="app">
+    <Navheader></Navheader>
     <router-view/>
   </div>
 </template>
+<script>
+  import Navheader from './components/exhibition/header'
+  export default {
+    name: "App",
+    data(){
+      return{
 
+      }
+    },
+    components:{Navheader}
+  }
+</script>
 <style lang="less">
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
