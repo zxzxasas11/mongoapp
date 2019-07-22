@@ -6,6 +6,7 @@ const CategoryController = require('../src/controller/category');
 const HistoryController = require('../src/controller/history');
 const CollectController = require('../src/controller/collect');
 const LogController = require('../src/controller/log');
+const UploadController = require('../src/controller/upload');
 const router = new Router({
   prefix: '/api/v1'
 });
@@ -62,6 +63,14 @@ router.get("/collect/getAll",CollectController.getAll);
  * @type {module:koa-router|Router|module:koa-router}
  */
 router.get("/log/getAll",LogController.getLog);
+
+
+/**
+ * upload
+ * @type {module:koa-router|Router|module:koa-router}
+ */
+router.post("/upload",UploadController.upload);
+
 
 
 module.exports = router;

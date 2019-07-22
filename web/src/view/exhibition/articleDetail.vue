@@ -43,10 +43,19 @@
             <el-input type="textarea" rows=6 v-model="comment.content"></el-input>
             <el-button @click="reply">提交回复</el-button>
         </div>
-        <div id="editor">
-            <mavon-editor style="height: 400px;width: 100%;" v-model="value"></mavon-editor>
-        </div>
 
+
+
+
+        <div id="editor">
+            <mavon-editor
+                    style="height: 400px;width: 100%;"
+                    ref="md"
+                    @imgAdd="imgAdd"
+                    :ishljs = "true"
+                    v-model="value">
+            </mavon-editor>
+        </div>
         <button @click="aa">11111</button>
     </div>
 </template>
@@ -54,6 +63,7 @@
 <script>
     import articleFunction from '../../api/article';
     import collectFunction from '../../api/collect';
+    import uploadFunction from '../../api/upload';
     import { mavonEditor } from 'mavon-editor'
     import 'mavon-editor/dist/css/index.css'
     import navBread from '../../components/exhibition/navBread'
@@ -115,6 +125,15 @@
             },
             aa(){
                 console.log(this.value);
+            },
+            imgAdd(pos, $file){
+                let upload = new FormData();
+                upload.append("file",$file);
+                uploadFunction.upload(upload).then(res=>{
+                    console.log(res);
+                    this.$refs.md.$img2Url(pos, "http://192.168.31.226:5000"+res.data);
+                })
+
             }
         }
     }

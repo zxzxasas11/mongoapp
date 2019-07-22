@@ -9,7 +9,10 @@ const uuid = require('uuid');
  * 上传文件保存到服务器
  */
 module.exports = async function CreateFs(file) {
+    console.log(file);
+    console.log("------------");
     const ext ='.'+file.type.split('/')[1];
+    console.log(ext);
     //const name = file.name.split('.')[0];
     //const imgName = `${name}_${new Date().getTime().toString()}${ext}`;
     const filename = uuid.v1().replace(/-/g,"")+`${ext}`;
