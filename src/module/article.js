@@ -23,16 +23,12 @@ class ArticleModel {
      * @returns {Promise<void>}
      */
     static async getAll(params){
-        //let pageSize  = parseInt(params.pageSize)||10;
         let currentPage = parseInt(params.currentPage)||1;
-        let columnId = params.columnId||"";
-        console.log(columnId);
-        let regex = new RegExp(columnId,"i");
         try {
-            //未传columnId则查所有
+            if(params.columnId){
                 let data ={};
                 data.data =await Article.aggregate([
-                    {$match:{"column_id":params.columnId?mongoose.Types.ObjectId(columnId):{$regex:/''/}}},
+                    {$match:{"column_id":mongoose.Types.ObjectId(params.columnId)}},
                     //{$match:{params.columnId:{$ifNull:[{'params.columnId':mongoose.Types.ObjectId(columnId)},0]}}},
                     { "$lookup": {
                             from: "user",            //要写表名!要写表名!要写表名!
@@ -63,8 +59,46 @@ class ArticleModel {
                     {$skip:(currentPage-1)*10},
                     {$limit:10}
                 ]);
-                data.count = await Article.countDocuments({"column_id":columnId});
+                data.count = await Article.countDocuments({"column_id":params.columnId});
                 return data;
+            }
+            else{
+                let data ={};
+                data.data =await Article.aggregate([
+                    { "$lookup": {
+                            from: "user",            //要写表名!要写表名!要写表名!
+                            localField: "creator",
+                            foreignField: "_id",
+                            as: "a"
+                        }},
+                    { "$lookup": {
+                            from: "category",            //要写表名!要写表名!要写表名!
+                            localField: "column_id",
+                            foreignField: "column._id",
+                            as: "k"
+                        }},
+                    {$unwind:'$a'},
+                    {$unwind:'$k'},
+                    {$project:{
+                            "_id":0,
+                            "title":"$title",
+                            "username":"$a.username",
+                            "columnName":"$k.name",
+                            "view":"$view",
+                            "create_time":"$create_time",
+                            "userId":"$a._id",
+                            "articleId":"$_id",
+                            "comments":{$ifNull:[{$size:"$comments"},0]},
+                        }
+                    },
+                    {$skip:(currentPage-1)*10},
+                    {$limit:10}
+                ]);
+                data.count = await Article.countDocuments();
+                return data;
+            }
+            //未传columnId则查所有
+
         }
         catch (e) {
             console.log(e);
@@ -166,5 +200,23 @@ class ArticleModel {
         }
     }
 
+    /**
+     * 修改
+     * @param params
+     * @returns {Promise<void>}
+     */
+    static async edit(params){
+        let size  = await Article.findOne({"_id":params.id});
+        if(size){
+            return await Article.updateOne({"_id":params.id},{"content":params.content});
+        }
+        else{
+            return await Article.updateOne({"comments._id":params.id},{
+                $set: {
+                    "comments.$.content":params.content
+                }
+            });
+        }
+    }
 }
 module.exports = ArticleModel;

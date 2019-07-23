@@ -190,12 +190,10 @@ export default {
    * @returns {AxiosPromise}
    */
   put(url, params = {}) {
-    let {isLoading = true} = params;
     return axios({
       method: 'put',
       url: url,
       data: qs.stringify(params),
-      isLoading,
       timeout: 30000,
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'

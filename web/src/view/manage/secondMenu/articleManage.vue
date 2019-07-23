@@ -64,11 +64,8 @@
         methods: {
             search(info) {
                 articleFunction.getAll(info).then(res=>{
-                    console.log(res);
-                    this.info = res.data;
-                    for(let i in res.data){
-                        console.log(res.data[i].comments);
-                    }
+                    this.info = res.data.data;
+                    this.tableTotalData = res.data.count;
                 })
             },
             changePageSize(){

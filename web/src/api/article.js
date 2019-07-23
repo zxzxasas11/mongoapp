@@ -22,5 +22,8 @@ export default {
     },
     getBread(params){
         return fetch.get("/article/getBread",params);
+    },
+    edit(params){
+        return fetch.put("/article/edit",params);
     }
 }

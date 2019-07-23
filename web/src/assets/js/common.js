@@ -1,6 +1,6 @@
 
 import axios from 'axios';
-
+import marked from 'marked'
 export  default {
     //list转成父子结构
     listToTree(list,pid,pidName,idName) {
@@ -86,5 +86,8 @@ export  default {
     formatDateAndTime(data,reg){
         let date = new Date(data)
         return date.getFullYear() + reg + this.addZero(date.getMonth() + 1) + reg + this.addZero(date.getDate() )+ ' ' + this.addZero(date.getHours()) + ':' + this.addZero(date.getMinutes()) + ':' + this.addZero(date.getSeconds());
+    },
+    markHtml(res){
+        return marked(res);
     }
 }

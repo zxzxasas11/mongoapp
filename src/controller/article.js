@@ -156,6 +156,21 @@ class ArticleController{
             data:data
         };
     }
+
+
+    /**
+     * 修改
+     * @param ctx
+     * @returns {Promise<void>}
+     */
+    static async edit(ctx){
+        await ArticleModel.edit(ctx.request.body);
+        ctx.response.status = 200;
+        ctx.body = {
+            code: 200,
+            msg: "修改成功",
+        };
+    }
 }
 module.exports = ArticleController;
 
