@@ -29,7 +29,6 @@ class ArticleModel {
                 let data ={};
                 data.data =await Article.aggregate([
                     {$match:{"column_id":mongoose.Types.ObjectId(params.columnId)}},
-                    //{$match:{params.columnId:{$ifNull:[{'params.columnId':mongoose.Types.ObjectId(columnId)},0]}}},
                     { "$lookup": {
                             from: "user",            //要写表名!要写表名!要写表名!
                             localField: "creator",
