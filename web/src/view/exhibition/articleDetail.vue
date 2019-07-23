@@ -130,8 +130,7 @@
                 let upload = new FormData();
                 upload.append("file",$file);
                 uploadFunction.upload(upload).then(res=>{
-                    console.log(res);
-                    this.$refs.md.$img2Url(pos, "http://192.168.31.226:5000"+res.data);
+                    this.$refs.md.$img2Url(pos, this.fileServer+res.data);
                 })
 
             }

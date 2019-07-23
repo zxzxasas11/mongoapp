@@ -25,7 +25,7 @@ import Promise from 'es6-promise';
 Promise.polyfill();
 
 
-
+Vue.prototype.fileServer = "http://192.168.31.226/8000"
 
 
 
