@@ -15,12 +15,7 @@ const secret = require('./src/config/secret');
 const JWTPath = require('./src/middleware/JWTPath');
 // error handler
 
-/*//使用自己编辑中间件
-const powerControl = require("./src/middleware/powerControl");
-app.use(async (ctx,next)=>{
-    powerControl();
-    next();
-});*/
+//使用自己编辑中间件
 
 
 const log4js = require('./src/logs/log4js');
@@ -70,6 +65,11 @@ app.use(JWTToken());
 app.use(jwt({secret: secret.sign}).unless({
     path:JWTPath
 }));
+
+const powerControl = require("./src/middleware/powerControl");
+app.use(powerControl());
+
+
 
 // middlewares
 app.use(bodyparser({

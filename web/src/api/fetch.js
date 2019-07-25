@@ -81,7 +81,9 @@ axios.interceptors.response.use(response => {
     case 500:
       alert(code);
       break;
-
+    case 600:
+      alert("您没有该权限");
+      return;
     default:
       alert(code);
   }

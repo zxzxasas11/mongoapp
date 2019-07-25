@@ -162,10 +162,13 @@ class ArticleModel {
      */
     static async addComment(params){
         try {
-            return await Article.updateOne({_id:params.id},{$push:{'comments':{
+            return await Article.updateOne({_id:params.id},
+                {$push:{'comments':{
                         content:params.content,
                         creator:params.creator
-                    }}})
+                    }},
+                $set:{"update_time":new Date()}
+                })
         }catch (e) {
             console.log(e);
         }

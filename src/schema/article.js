@@ -10,8 +10,15 @@ let articleSchema = new Schema({
         view:{type:Number,default:0},
         url:{type:String},
         top:{type:Number,default:0},          //置顶
-        essence:{type:Number,default:0},
+        essence:{type:Number,default:0},      //加精
         create_time: {              //创建时间
+            type: Date,
+            default:()=>{
+                return Date.now();
+            },
+            get: v => moment(v).format('YYYY-MM-DD HH:mm')
+        },
+        update_time:{
             type: Date,
             default:()=>{
                 return Date.now();

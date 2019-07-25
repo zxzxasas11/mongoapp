@@ -12,5 +12,4 @@ module.exports = {
         db:0,
         password:""
     }
-    //Imgurl: process.env.NODE_ENV === 'production' ? 'http://www.didiheng.com:8888' : `http://192.168.31.226:5000`,
 };
