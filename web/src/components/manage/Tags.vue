@@ -8,7 +8,7 @@
                 @tab-remove="tabRemove">
             <el-tab-pane
                     :key="item.url"
-                    v-for="(item, index) in options"
+                    v-for="item in options"
                     :label="item.name"
                     :closable="item.close"
                     :name="item.url">

@@ -159,7 +159,7 @@ class ArticleController{
 
 
     /**
-     * 修改
+     * 修改帖子内容
      * @param ctx
      * @returns {Promise<void>}
      */
@@ -171,6 +171,31 @@ class ArticleController{
             msg: "修改成功",
         };
     }
+
+    /**
+     * 修改状态
+     * @param ctx
+     * @returns {Promise<void>}
+     */
+    static async editStatus(ctx){
+        console.log(ctx.user.power);
+        if(ctx.user.power>1){
+            await ArticleModel.editStatus(ctx.request.body);
+            ctx.response.status = 200;
+            ctx.body = {
+                code: 200,
+                msg: "修改成功"
+            };
+        }
+        else{
+            ctx.response.status = 600;
+            ctx.body = {
+                code: 600,
+                msg: "权限不够",
+            };
+        }
+    }
+
 }
 module.exports = ArticleController;
 

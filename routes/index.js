@@ -33,6 +33,7 @@ router.post("/article/addComment",ArticleController.addComment);
 router.get("/article/getByUser",ArticleController.getByUser);
 router.get("/article/getBread",ArticleController.getBread);
 router.put("/article/edit",ArticleController.edit);
+router.put("/article/editStatus",ArticleController.editStatus);
 /**
  *
  * category

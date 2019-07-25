@@ -1,6 +1,5 @@
 <template>
     <div>
-
         <div class="btn">
             <el-button @click="dialogVisible=true">发布新帖</el-button>
         </div>
@@ -19,11 +18,11 @@
         </el-dialog>
 
         <div class="article-box">
-            <div class="single" v-for="a in articleList">
-                <ul class="overflow_hide">
+            <div class="single" v-for="a in articleList" >
+                <ul class="overflow_hide" :class="a.essence===1?'essence':''">
                     <li>{{a.comments}}</li>
                     <li>
-                        <router-link :to="'/article/'+a.articleId">{{a.title}}</router-link>
+                        <router-link :to="'/article/'+a.articleId" >{{a.title}}</router-link>
                     </li>
                     <li>
                         <span><router-link :to="'/personal/'+a.userId">{{a.username}}</router-link></span>
@@ -92,45 +91,6 @@
 </script>
 
 <style scoped lang="less">
-    .article-box{
-        padding:5px;
-        width:98%;
-        margin:0 auto;
-        box-shadow: 0 0 2px #ddd;
-        .single{
-            &:nth-child(odd){
-                background-color: #fff8e7;
-            }
-            &:nth-child(even){
-                background-color: #fff0cd;
-            }
-            ul{
-                li{
-                    font-size:14px;
-                    float: left;
-                    height:40px;
-                    text-align: left;
-                    span{
-                        display: block;
-                    }
-                    &:nth-child(1){
-                        width:5%;
-                        text-align: center;
-                    }
-                    &:nth-child(2){
-                        width:50%;
-                    }
-                    &:nth-child(3){
-                        width:25%;
-                    }
-                    &:nth-child(4){
-                        width:20%;
-                    }
-                    &:not(:nth-child(3)){
-                        line-height: 40px;
-                    }
-                }
-            }
-        }
-    }
+    @import "../../assets/css/article";
+
 </style>

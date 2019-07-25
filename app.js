@@ -15,6 +15,14 @@ const secret = require('./src/config/secret');
 const JWTPath = require('./src/middleware/JWTPath');
 // error handler
 
+/*//使用自己编辑中间件
+const powerControl = require("./src/middleware/powerControl");
+app.use(async (ctx,next)=>{
+    powerControl();
+    next();
+});*/
+
+
 const log4js = require('./src/logs/log4js');
 app.use(async(ctx, next) => {
     const start = new Date();
@@ -82,6 +90,10 @@ app.use(async (ctx, next) => {
   const ms = new Date() - start
   console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
 })*/
+
+
+
+
 const index = require('./routes/index');
 // routes
 app.use(index.routes(), index.allowedMethods());

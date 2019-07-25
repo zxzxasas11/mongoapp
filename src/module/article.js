@@ -52,6 +52,8 @@ class ArticleModel {
                             "create_time":"$create_time",
                             "userId":"$a._id",
                             "articleId":"$_id",
+                            "essence":"$essence",
+                            "top":"$top",
                             "comments":{$ifNull:[{$size:"$comments"},0]},
                         }
                     },
@@ -87,6 +89,8 @@ class ArticleModel {
                             "create_time":"$create_time",
                             "userId":"$a._id",
                             "articleId":"$_id",
+                            "essence":"$essence",
+                            "top":"$top",
                             "comments":{$ifNull:[{$size:"$comments"},0]},
                         }
                     },
@@ -200,7 +204,7 @@ class ArticleModel {
     }
 
     /**
-     * 修改
+     * 修改帖子内容   供用户使用
      * @param params
      * @returns {Promise<void>}
      */
@@ -215,6 +219,15 @@ class ArticleModel {
                     "comments.$.content":params.content
                 }
             });
+        }
+    }
+
+    static async editStatus(params){
+        console.log(params);
+        try {
+            return await Article.updateOne({"_id":params.articleId},params);
+        }catch (e) {
+            console.log(e);
         }
     }
 }

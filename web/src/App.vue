@@ -1,11 +1,9 @@
 <template>
   <div id="app">
-    <Navheader></Navheader>
     <router-view/>
   </div>
 </template>
 <script>
-  import Navheader from './components/exhibition/header'
   export default {
     name: "App",
     data(){
@@ -13,7 +11,6 @@
 
       }
     },
-    components:{Navheader}
   }
 </script>
 <style lang="less">

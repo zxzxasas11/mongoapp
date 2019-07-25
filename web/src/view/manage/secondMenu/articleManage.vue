@@ -18,6 +18,8 @@
                 ref="table"
                 :tableData="info"
                 @del="del"
+                @essence="essence"
+                @top="top"
                 :tableKey="tableKey"
                 :btn_group="btn">
         </Table>
@@ -43,7 +45,10 @@
                 title:this.$route.name,
                 btn: [
                     {name: "查看", method: "edit"},
-                    {name: "删除", method:"del"}
+                    {name: "删除", method:"del"},
+                    {name: "加精", method:"essence",elseName:"取消加精",condition:1},
+                    {name: "置顶", method:"top",elseName:"取消置顶",condition:1}
+
                 ],
                 info: [],
                 tableKey: [
@@ -78,12 +83,31 @@
             },
             //单条删除
             del(r){
-                console.log(r);
                 articleFunction.delete({_id:r.obj._id}).then(res=>{
                     if(res.code===200){
                         this.$message("删除成功");
                         this.search(this.info);
                     }
+                })
+            },
+            //加精
+            essence(r){
+                if(r.obj.essence===1){
+                    this.editState({articleId:r.obj.articleId,essence:0})
+                }
+                else this.editState({articleId:r.obj.articleId,essence:1})
+            },
+            //置顶
+            top(r){
+                if(r.obj.top===1){
+                    this.editState({articleId:r.obj.articleId,top:0})
+                }
+                else this.editState({articleId:r.obj.articleId,top:1})
+            },
+            editState(info){
+                articleFunction.editStatus(info).then(res=>{
+                    console.log(res);
+                    this.search(this.page);
                 })
             }
         },

@@ -9,23 +9,32 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: () => import('./view/exhibition/index.vue')
+      redirect:"/home",
+      component: () => import('./view/exhibition/home.vue'),
+      children:[
+        {
+          path: '/home',
+          name: '首页',
+          component: () => import('./view/exhibition/index.vue')
+        },
+        {
+          path: '/column/:id',
+          name: '帖子列表',
+          component: () => import('./view/exhibition/column.vue')
+        },
+        {
+          path: '/article/:id',
+          name: '帖子内容',
+          component: () => import('./view/exhibition/articleDetail.vue')
+        },
+        {
+          path: '/personal/:id',
+          name: '个人中心',
+          component: () => import('./view/exhibition/personal.vue')
+        },
+      ]
     },
-    {
-      path: '/column/:id',
-      name: '帖子列表',
-      component: () => import('./view/exhibition/column.vue')
-    },
-    {
-      path: '/article/:id',
-      name: '帖子内容',
-      component: () => import('./view/exhibition/articleDetail.vue')
-    },
-    {
-      path: '/personal/:id',
-      name: '个人中心',
-      component: () => import('./view/exhibition/personal.vue')
-    },
+
     {
       path: '/Login',
       name: '登录',

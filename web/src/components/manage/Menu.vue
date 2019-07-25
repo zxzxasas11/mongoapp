@@ -13,7 +13,7 @@
                     <span slot="title">后台管理系统</span>
                 </el-menu-item>
             </router-link>
-            <el-submenu style="background-color: #f4f9ff" :index="menu.id" v-for="(menu,index) in menus"
+            <el-submenu style="background-color: #f4f9ff" :index="menu.id" v-for="menu in menus"
                         :key="menu.id">
                 <template slot="title">
                     <i class="el-icon-menu"></i>

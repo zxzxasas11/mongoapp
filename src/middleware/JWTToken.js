@@ -30,7 +30,8 @@ module.exports = function () {
                     ctx.user = {
                         code: payload.code,
                         userId: payload.userId,
-                        username: payload.username
+                        username: payload.username,
+                        power:payload.power
                     }
 
                 } catch (err) {

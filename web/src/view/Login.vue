@@ -60,7 +60,7 @@
         methods: {
             ...mapActions(["userLogin"]),
             login(){
-                this.userLogin(this.loginForm)
+                this.userLogin(this.loginForm);
                 this.$message("登陆成功");
                 this.$router.push("/");
             },

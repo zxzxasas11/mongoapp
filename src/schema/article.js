@@ -9,6 +9,8 @@ let articleSchema = new Schema({
         column_id:{type:Schema.Types.ObjectId,ref:'Category'},
         view:{type:Number,default:0},
         url:{type:String},
+        top:{type:Number,default:0},          //置顶
+        essence:{type:Number,default:0},
         create_time: {              //创建时间
             type: Date,
             default:()=>{

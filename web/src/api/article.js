@@ -25,5 +25,8 @@ export default {
     },
     edit(params){
         return fetch.put("/article/edit",params);
+    },
+    editStatus(params){
+        return fetch.put("/article/editStatus",params);
     }
 }
