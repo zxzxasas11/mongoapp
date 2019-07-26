@@ -4,9 +4,6 @@ const adminPath = require("./adminPath");
  */
 module.exports = function () {
     return async function (ctx, next) {
-        console.log(adminPath);
-        console.log("-------------------");
-        console.log(ctx.request.url.split("?")[0]);
         if(adminPath.includes(ctx.request.url.split("?")[0])){
             if(ctx.user.power>1){
                 await next();
