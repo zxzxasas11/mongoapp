@@ -57,6 +57,8 @@ app.use(koaBody({
     }
 }));
 
+
+
 //app.use(cors()); //使用cors
 // error handler
 onerror(app);

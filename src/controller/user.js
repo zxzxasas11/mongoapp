@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 const secret = require('../config/secret');
 const mail =require('../util/mail');
 const randomCode = require('../util/randomCode');
-const redis = require('../util/redis');
+//const redis = require('../util/redis');
 class CarController{
     /**
      * 注册
@@ -17,7 +17,7 @@ class CarController{
     static async add(ctx) {
         let params=ctx.request.body;
         let flag=true;
-        await redis.get(params.email).then(res=>{
+        /*await redis.get(params.email).then(res=>{
             if(res!==params.authCode){
                 flag=false;
                 ctx.response.status = 602;
@@ -29,7 +29,7 @@ class CarController{
         });
         if(!flag){
             return false;
-        }
+        }*/
         //对密码进行加密
         const salt =bcrypt.genSaltSync();
         params.password = bcrypt.hashSync(params.password,salt);
@@ -110,7 +110,6 @@ class CarController{
         }catch (e) {
             console.log(e);
         }
-
     }
 
     /**
@@ -130,7 +129,6 @@ class CarController{
                 data:data
             };
         }
-
     }
 
     /**
@@ -155,9 +153,9 @@ class CarController{
               <a href="https://www.cnblogs.com/zero-zm/p/10514643.html">
               https://www.cnblogs.com/zero-zm/p/10514643.html</a></h3>`*/
         };
-        mail(mailInfo);
-        redis.set(ctx.request.body.email,authCode);
-        redis.expire(ctx.request.body.email,1800);
+        await mail(mailInfo);
+        //redis.set(ctx.request.body.email,authCode);
+        //redis.expire(ctx.request.body.email,1800);
         ctx.response.status = 200;
         ctx.body = {
             code: 200,

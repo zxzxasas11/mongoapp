@@ -1,7 +1,4 @@
 const User = require('../schema/user');
-const mongoose = require('mongoose');
-const mail =require('../util/mail');
-const random = require('../util/randomCode');
 class UserModel {
     static async getAll(params){
         //let pageSize  = parseInt(params.pageSize)||10;
