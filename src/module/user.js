@@ -1,5 +1,7 @@
 const User = require('../schema/user');
 const mongoose = require('mongoose');
+const mail =require('../util/mail');
+const random = require('../util/randomCode');
 class UserModel {
     static async getAll(params){
         //let pageSize  = parseInt(params.pageSize)||10;
@@ -17,5 +19,7 @@ class UserModel {
     static async getByUser(userId) {
         return await User.findOne({"_id":userId},"username sex power create_time coin");
     }
+
+
 }
 module.exports = UserModel;

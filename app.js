@@ -66,9 +66,9 @@ app.use(jwt({secret: secret.sign}).unless({
     path:JWTPath
 }));
 
+//区分管理员权限中间件
 const powerControl = require("./src/middleware/powerControl");
 app.use(powerControl());
-
 
 
 // middlewares
