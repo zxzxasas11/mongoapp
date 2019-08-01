@@ -8,7 +8,7 @@ class MqController{
     static async send(ctx){
         let mq = new RabbitMQ(),params = ctx.request.body;
         mq.sendQueueMsg(params.name, params.message, (error) => {
-            console.log(error)
+            console.log(error);
         });
         ctx.response.status = 200;
         ctx.body = {

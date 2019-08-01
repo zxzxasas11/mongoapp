@@ -57,6 +57,7 @@ class ArticleModel {
                             "comments":{$ifNull:[{$size:"$comments"},0]},
                         }
                     },
+                    {$sort:{_id:-1}},
                     {$skip:(currentPage-1)*10},
                     {$limit:10}
                 ]);

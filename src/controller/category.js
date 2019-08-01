@@ -1,4 +1,5 @@
 const CategoryModel =require('../module/category');
+const RabbitMQ = require('../util/Rabbitmq');
 class CategoryController{
     /**
      * 获取所有
@@ -6,8 +7,13 @@ class CategoryController{
      * @returns {Promise<void>}
      */
     static async getAll(ctx) {
+        console.log(ctx.request.path);
         try {
             let aa = await CategoryModel.getAll(ctx.request.query);
+            /*let mq = new RabbitMQ();
+            mq.sendQueueMsg(ctx.request.path, await CategoryModel.getAll(ctx.request.query), (error) => {
+                console.log(error)
+            });*/
             ctx.response.status = 200;
             ctx.body = {
                 code: 200,

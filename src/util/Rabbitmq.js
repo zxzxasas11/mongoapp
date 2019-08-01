@@ -18,6 +18,7 @@ class RabbitMQ {
                 return conn.createChannel();
             })
             .then(function (channel) {
+                //
                 return channel.assertQueue(queueName).then(function (ok) {
                     return channel.sendToQueue(queueName, new Buffer(msg), {
                         persistent: true
