@@ -16,6 +16,12 @@
             <el-form-item label="用户名">
                 <el-input v-model="registerForm.username"></el-input>
             </el-form-item>
+            <el-form-item label="手机号">
+                <el-input v-model="registerForm.phone"></el-input>
+            </el-form-item>
+            <el-form-item label="邮箱">
+                <el-input v-model="registerForm.email"></el-input>
+            </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="register">注册</el-button>
                 <el-button @click="resetForm('registerForm')">重置</el-button>
@@ -39,7 +45,7 @@
 
 <script>
     import {mapState, mapActions} from 'vuex';
-    import fetch from '../api/fetch';
+    import userFunction from '../api/user';
 
     export default {
         name: "Login",
@@ -49,7 +55,9 @@
                 registerForm:{
                     code:"",
                     password:"",
-                    username:""
+                    username:"",
+                    email:"",
+                    phone:""
                 },
                 loginForm: {
                     code: '',
@@ -66,6 +74,11 @@
             },
             resetForm(formName) {
                 this.$refs[formName].resetFields();
+            },
+            register(){
+                userFunction.register(this.registerForm).then(res=>{
+                    console.log(res);
+                })
             }
         }
     }

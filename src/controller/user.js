@@ -5,7 +5,7 @@ const uuid = require('uuid');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const secret = require('../config/secret');
-const mail =require('../util/mail');
+//const mail =require('../util/mail');
 const randomCode = require('../util/randomCode');
 //const redis = require('../util/redis');
 class CarController{
@@ -16,6 +16,7 @@ class CarController{
      */
     static async add(ctx) {
         let params=ctx.request.body;
+        console.log(params);
         let flag=true;
         /*await redis.get(params.email).then(res=>{
             if(res!==params.authCode){

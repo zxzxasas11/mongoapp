@@ -30,7 +30,7 @@ module.exports = {
         // 将任何未知请求 (没有匹配到静态文件的请求) 代理到该字段指向的地方
         proxy: {
             "/api/v1":{
-                target: 'http://192.168.31.226:7777',
+                target: 'http://192.168.1.102:7777',
                 changeOrigin: true,
             }
         },
