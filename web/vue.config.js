@@ -38,13 +38,4 @@ module.exports = {
         before: app => {
         }
     },
-    pwa         : {
-        iconPaths: {
-            favicon32     : 'icon.ico',
-            favicon16     : 'icon.ico',
-            appleTouchIcon: 'icon.ico',
-            maskIcon      : 'icon.ico',
-            msTileImage   : 'icon.ico'
-        }
-    }
 };
