@@ -6,11 +6,12 @@ let articleSchema = new Schema({
         title: { type: String },    //标题
         content:{type:String},
         creator:{type:Schema.Types.ObjectId,ref:'User'},      //创建人
-        column_id:{type:Schema.Types.ObjectId,ref:'Category'},
+        column_id:{type:Schema.Types.ObjectId,ref:'Category'},  //子栏目id
         view:{type:Number,default:0},
         url:{type:String},
         top:{type:Number,default:0},          //置顶
         essence:{type:Number,default:0},      //加精
+        flag:{type:Number,default:0},         //0正常  1锁定  2锁帖(关闭评论,但仍可见)
         create_time: {              //创建时间
             type: Date,
             default:()=>{

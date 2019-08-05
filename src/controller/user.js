@@ -146,7 +146,7 @@ class CarController{
         });*/
         const authCode  =randomCode(6);
         const mailInfo ={
-            from: '361161534@qq.com', // 发送者
+            from: '3214667102@qq.com', // 发送者
             to: `${ctx.request.body.email}`, // 接受者,可以同时发送多个,以逗号隔开
             subject: '注册用户验证码', // 标题
             text: `验证码为${authCode}`, // 文本

@@ -28,7 +28,7 @@ module.exports = function sendMail(mail) {
                 return;
             }
             console.log('发送成功');
-            info.send('发送成功');  //res.send()后面的语句不会执行，若想要执行语句，放在res.send()语句前面；
+            //info.send('发送成功');  //res.send()后面的语句不会执行，若想要执行语句，放在res.send()语句前面；
         });
     })
 

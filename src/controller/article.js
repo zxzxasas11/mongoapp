@@ -110,6 +110,16 @@ class ArticleController{
     static async addComment(ctx){
         let params = ctx.request.body;
         params.creator = ctx.user.userId;
+        let flag = await ArticleModel.getOne(ctx.request.body.id,1);
+        console.log(flag.data.flag);
+        if(flag.data.flag===2){
+            ctx.response.status = 602;
+            ctx.body = {
+                code: 602,
+                msg: "该贴已经锁定,不允许回复",
+            };
+            return false;
+        }
         await ArticleModel.addComment(params);
         ctx.response.status = 200;
         ctx.body = {
@@ -178,7 +188,6 @@ class ArticleController{
      * @returns {Promise<void>}
      */
     static async editStatus(ctx){
-        console.log(ctx.user.power);
         if(ctx.user.power>1){
             await ArticleModel.editStatus(ctx.request.body);
             ctx.response.status = 200;
