@@ -21,7 +21,11 @@
             </el-form-item>
             <el-form-item label="邮箱">
                 <el-input v-model="registerForm.email"></el-input>
+                <el-button @click="getAuthCode">获取验证码</el-button>
             </el-form-item>
+                <el-form-item label="验证码">
+                    <el-input v-model="registerForm.authCode"></el-input>
+                </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="register">注册</el-button>
                 <el-button @click="resetForm('registerForm')">重置</el-button>
@@ -57,7 +61,8 @@
                     password:"",
                     username:"",
                     email:"",
-                    phone:""
+                    phone:"",
+                    authCode:""
                 },
                 loginForm: {
                     code: '',
@@ -77,6 +82,12 @@
             },
             register(){
                 userFunction.register(this.registerForm).then(res=>{
+                    console.log(res);
+                })
+            },
+            //获取验证码
+            getAuthCode(){
+                userFunction.getAuthCode({email:this.registerForm.email}).then(res=>{
                     console.log(res);
                 })
             }

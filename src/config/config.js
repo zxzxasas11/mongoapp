@@ -8,6 +8,7 @@ module.exports = {
     uploadPath:"/usr/upload",
     redis:{
         host:"112.51.254.68",
+        //host:"127.0.0.1",
         port:6379,
         db:0,
         password:""
