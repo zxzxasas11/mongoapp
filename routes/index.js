@@ -8,9 +8,10 @@ const CollectController = require('../src/controller/collect');
 const LogController = require('../src/controller/log');
 const UploadController = require('../src/controller/upload');
 const MqloadController = require('../src/controller/mq');
+const SpiderController = require('../src/controller/spider');
 //const RoleController = require('../src/controller/role');
 const router = new Router({
-  prefix: '/api/v1'
+    prefix: '/api/v1'
 });
 
 /**
@@ -89,5 +90,8 @@ router.post("/mq/receive",MqloadController.receive);
  * @type {module:koa-router|Router}
  */
 //router.post("/role/add",RoleController.add);
+
+
+router.post("/spider",SpiderController.spider);
 
 module.exports = router;

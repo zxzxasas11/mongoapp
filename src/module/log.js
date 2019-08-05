@@ -12,7 +12,7 @@ class LogModel {
         let log = {
             level: level || 'info',
             //message: msg,
-            message: info.response.message,
+            message: info.response.message||"",
             method: info.method,
             url: info.url,
             costTime: info.costTime,

@@ -12,6 +12,7 @@
     "amqplib": "^0.5.3",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
+    "cheerio": "^1.0.0-rc.3",
     "debug": "^4.1.1",
     "fluent-ffmpeg": "^2.1.2",
     "formidable": "^1.2.1",
@@ -39,6 +40,8 @@
     "pug": "^2.0.4",
     "qs": "^6.7.0",
     "redis": "^2.8.0",
+    "superagent": "^5.1.0",
+    "superagent-charset": "^1.2.0",
     "util": "^0.12.1",
     "uuid": "^3.3.2"
   },

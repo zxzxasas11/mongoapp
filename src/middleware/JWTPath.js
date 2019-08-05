@@ -6,4 +6,5 @@ module.exports = [
     "/api/v1/user/getCode",
     "/api/v1/mq/receive",
     "/api/v1/mq/send",
+    "/api/v1/spider",
 ];
