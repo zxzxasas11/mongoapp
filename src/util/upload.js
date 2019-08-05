@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 //上传文件中间件
 const path = require('path');
 const fs =require('fs');

@@ -72,7 +72,8 @@ app.use(jwt({secret: secret.sign}).unless({
 const powerControl = require("./src/middleware/powerControl");
 app.use(powerControl());
 
-
+const logMq = require('./src/middleware/logMq');
+app.use(logMq());
 // middlewares
 app.use(bodyparser({
     enableTypes:['json', 'form', 'text']

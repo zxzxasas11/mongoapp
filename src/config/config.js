@@ -7,7 +7,7 @@ module.exports = {
     port: process.env.port || '12345',
     uploadPath:"/usr/upload",
     redis:{
-        host:"127.0.0.1",
+        host:"112.51.254.68",
         port:6379,
         db:0,
         password:""

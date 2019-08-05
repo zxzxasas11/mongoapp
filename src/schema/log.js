@@ -5,7 +5,12 @@ const Schema = mongoose.Schema;
 let logSchema = new Schema({
         level: {type: String},
         message: {type: String},
-        info: {
+        method: String,
+        url: String,
+        costTime: Number,
+        requestTime:Date,
+        status: Number,
+        /*info: {
             method: String,
             url: String,
             costTime: Number,
@@ -17,7 +22,7 @@ let logSchema = new Schema({
                 header: String,
                 body: String
             }
-        }
+        }*/
     },
     { collection: 'log',versionKey: false });    //不需要版本号     自行命名表
 let Log = mongoose.model('Log', logSchema);
