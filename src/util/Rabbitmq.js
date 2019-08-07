@@ -5,7 +5,8 @@ let amqp = require('amqplib');
 
 class RabbitMQ {
     constructor() {
-        this.hosts = [];
+        //this.hosts = ['amqp://112.51.254.68',''];
+        this.hosts=[];
         this.index = 0;
         this.length = this.hosts.length;
         this.open = amqp.connect(this.hosts[this.index]);
@@ -18,7 +19,6 @@ class RabbitMQ {
                 return conn.createChannel();
             })
             .then(function (channel) {
-                //
                 return channel.assertQueue(queueName).then(function (ok) {
                     return channel.sendToQueue(queueName, new Buffer(msg), {
                         persistent: true

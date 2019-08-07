@@ -16,7 +16,6 @@ class CarController{
      */
     static async add(ctx) {
         let params=ctx.request.body;
-        console.log(params);
         let flag=true;
         await redis.get(params.email).then(res=>{
             if(res!==params.authCode){

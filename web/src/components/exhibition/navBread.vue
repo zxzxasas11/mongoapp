@@ -1,6 +1,6 @@
 <template>
     <div class="box">
-        <div class="bread"><router-link to="/">总论坛</router-link></div>
+        <div class="bread"><router-link to="/">首页</router-link></div>
         <div class="bread"><router-link :to="'/column/'+navInfo.column_id">{{navInfo.columnName}}</router-link></div>
         <div class="bread">{{navInfo.title}}</div>
     </div>

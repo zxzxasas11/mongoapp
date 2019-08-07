@@ -10,8 +10,17 @@ class ArticleModel {
      */
     static async add(params){
         try {
-            const article = new Article(params);
-            return await article.save();
+            let data = await Article.findOne({title:params.title,content:params.content});
+            if(data){
+                console.log("该帖子已经入库,放弃");
+                return false;
+            }
+            else{
+                console.log("正在执行插库");
+                const article = new Article(params);
+                return await article.save();
+            }
+
         }catch (e) {
             console.log(e);
         }

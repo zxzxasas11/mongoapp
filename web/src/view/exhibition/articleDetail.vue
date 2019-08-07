@@ -15,7 +15,7 @@
                     <p>{{detail.title}}</p>
                     <p class="fr">{{detail.create_time}}</p>
                     <p @click="editArticle(detail)" class="fr" v-if="detail.creator._id===$store.getters.getToken.userId">编辑</p>
-                    <div v-html="common.markHtml(detail.content)"></div>
+                    <div v-html="detail.content"></div>
                 </div>
             </div>
             <div class="floor overflow_hide" v-for="d in detail.comments">
@@ -28,7 +28,7 @@
                 <div class="content fr">
                     <p class="fr">{{moment(d.create_time).format('YYYY-MM-DD HH:mm')}}</p>
                     <p @click="editArticle(d)" class="fr" v-if="d.creator._id===$store.getters.getToken.userId">编辑</p>
-                    <div v-html="common.markHtml(d.content)"></div>
+                    <div v-html="d.content">{{d.content}}</div>
                 </div>
             </div>
         </div>

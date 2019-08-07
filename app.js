@@ -101,6 +101,10 @@ const index = require('./routes/index');
 // routes
 app.use(index.routes(), index.allowedMethods());
 
+//定时任务
+const timedTask = require('./src/util/timedTask');
+timedTask();
+
 // error-handling
 app.on('error', (err, ctx) => {
     console.error('server error', err, ctx)
