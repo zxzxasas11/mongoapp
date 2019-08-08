@@ -9,6 +9,8 @@ const LogController = require('../src/controller/log');
 const UploadController = require('../src/controller/upload');
 const MqloadController = require('../src/controller/mq');
 const SpiderController = require('../src/controller/spider');
+const HeroController = require('../src/controller/hero');
+const MaterialController = require('../src/controller/material');
 //const RoleController = require('../src/controller/role');
 const router = new Router({
     prefix: '/api/v1'
@@ -93,5 +95,16 @@ router.post("/mq/receive",MqloadController.receive);
 
 
 router.post("/spider",SpiderController.spider);
+
+/**
+ * hero
+ */
+router.post("/hero/add",HeroController.add);
+
+
+/**
+ * material
+ */
+router.post("/material/add",MaterialController.add);
 
 module.exports = router;

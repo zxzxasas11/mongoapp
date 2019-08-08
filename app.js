@@ -5,9 +5,7 @@ const json = require('koa-json');
 const onerror = require('koa-onerror');
 const bodyparser = require('koa-bodyparser');
 //const logger = require('koa-logger');
-
 const db = require('./src/mongoose/dbConnect');
-
 const cors = require('koa2-cors');
 const jwt = require('koa-jwt');
 const JWTToken = require('./src/middleware/JWTToken');
@@ -16,8 +14,6 @@ const JWTPath = require('./src/middleware/JWTPath');
 // error handler
 
 //使用自己编辑中间件
-
-
 const log4js = require('./src/logs/log4js');
 app.use(async(ctx, next) => {
     const start = new Date();
@@ -31,24 +27,6 @@ app.on('error', async (err, ctx) => {
     console.error('server error', err, ctx)
 });
 
-/**
- * redis
- */
-/*const session = require('koa-generic-session');
-const redisStore = require('koa-redis');
-const redis = require('redis');
-let config = require('./src/config/config');
-let client = redis.createClient(config.redis.port,config.redis.host);
-app.use(session({
-    store: redisStore({
-        // db:config.redis_db,
-        client : client
-    })
-}));*/
-
-//client.set("test1",1111);
-
-
 const koaBody = require('koa-body');
 app.use(koaBody({
     multipart: true,
@@ -59,7 +37,7 @@ app.use(koaBody({
 
 
 
-//app.use(cors()); //使用cors
+app.use(cors()); //使用cors
 // error handler
 onerror(app);
 app.use(JWTToken());
@@ -94,23 +72,16 @@ app.use(async (ctx, next) => {
   console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
 })*/
 
-
-
-
 const index = require('./routes/index');
 // routes
 app.use(index.routes(), index.allowedMethods());
 
 //定时任务
-const timedTask = require('./src/util/timedTask');
-timedTask();
+//const timedTask = require('./src/util/timedTask');
+//timedTask();
 
 // error-handling
 app.on('error', (err, ctx) => {
     console.error('server error', err, ctx)
 });
-
-
-
-
 module.exports = app;
