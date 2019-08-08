@@ -6,6 +6,10 @@ let heroSchema = new Schema({
         name: { type: String },    //名称
         type:{type:String},        //区分类型
         star:Number,               //星级
+        property:String,           //天地恶
+        ATK:Number,
+        HP:Number,
+        achieving:String,          //获取途径
         pic:String,
         skill:[{
             name:String,

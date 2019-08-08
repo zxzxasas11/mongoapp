@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 let materialSchema = new Schema({
         name: { type: String },    //名称
-        birthplace:[String],       //哪里刷
+        achieving:[String],       //获取来源
         pic:String
     },
     { collection: 'material',versionKey: false });    //不需要版本号     自行命名表

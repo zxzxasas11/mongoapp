@@ -7,7 +7,8 @@
                 <div class="column-list" >
                     <ul>
                         <li v-for="c in l.column">
-                            <router-link :to="'/column/'+c._id">{{c.name}}</router-link>
+                            <router-link v-if="c.url==='application'" to="/FGO">{{c.name}}</router-link>
+                            <router-link v-else :to="'/column/'+c._id">{{c.name}}</router-link>
                         </li>
                     </ul>
                 </div>

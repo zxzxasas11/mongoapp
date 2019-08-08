@@ -1,4 +1,5 @@
 const MaterialModel =require('../module/material');
+const getImg = require('../util/getMaterial');
 class MaterialController{
     /**
      * 添加材料
@@ -13,6 +14,20 @@ class MaterialController{
             msg: "添加成功",
         };
     }
+
+    static async test(){
+        await getImg();
+    }
+
+    static async import(ctx){
+        const RabbitMQ = require('../util/Rabbitmq');
+        let mq = new RabbitMQ();
+        mq.receiveQueueMsg("material",async (msg)=>{
+            await MaterialModel.add(JSON.parse(msg));
+            console.log("消化了一条队列");
+        });
+    }
+
 }
 module.exports = MaterialController;
 

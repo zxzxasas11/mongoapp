@@ -100,11 +100,12 @@ router.post("/spider",SpiderController.spider);
  * hero
  */
 router.post("/hero/add",HeroController.add);
-
+router.post("/hero/getAll",HeroController.getAll);
 
 /**
  * material
  */
 router.post("/material/add",MaterialController.add);
-
+router.post("/material/test",MaterialController.test);
+router.post("/material/import",MaterialController.import);
 module.exports = router;

@@ -34,6 +34,24 @@ export default new Router({
         },
       ]
     },
+    {
+      path: '/FGO',
+      name: 'fgo应用',
+      component:() => import('./view/application/fgo/index.vue'),
+      redirect:"/FGO/list",
+      children:[
+        {
+          path: '/FGO/list',
+          name: '英灵列表',
+          component:() => import('./view/application/fgo/list.vue')
+        },
+        {
+          path: '/FGO/material',
+          name: '材料列表',
+          component:() => import('./view/application/fgo/material.vue')
+        },
+      ]
+    },
 
     {
       path: '/Login',
