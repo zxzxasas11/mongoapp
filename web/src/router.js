@@ -46,7 +46,7 @@ export default new Router({
           component:() => import('./view/application/fgo/list.vue')
         },
         {
-          path: '/FGO/material',
+          path: '/FGO/material/:currentPage',
           name: '材料列表',
           component:() => import('./view/application/fgo/material.vue')
         },

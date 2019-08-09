@@ -1,5 +1,4 @@
 module.exports = async function(callback,params){
-    let pageSize = params.pageSize||10,currentPage = params.currentPage||1;
-    console.log(currentPage);
-    return callback.limit(parseInt(pageSize)).skip(parseInt(currentPage));
+    let pageSize = parseInt(params.pageSize)||10,currentPage = parseInt(params.currentPage)||1;
+    return callback.limit(pageSize).skip((currentPage-1)*pageSize);
 };

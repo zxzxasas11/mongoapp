@@ -25,7 +25,10 @@ class MaterialModel {
      */
     static async getAll(params){
         try {
-            return await page(Material.find({name:new RegExp(params.name)}),params);
+            let data={};
+            data.count = await Material.countDocuments();
+            data.data = await page(Material.find({name:new RegExp(params.name)}),params);
+            return data;
         }catch (e) {
             console.log(e);
         }
