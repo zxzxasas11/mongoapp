@@ -28,6 +28,28 @@ class MaterialController{
         });
     }
 
+
+    /**
+     * 根据id获取单条
+     * @param ctx
+     * @returns {Promise<void>}
+     */
+    static async getOne(ctx){
+        let data = await MaterialModel.getOne(ctx.params);
+        console.log(data);
+    }
+
+
+    static async getAll(ctx){
+        let data = await MaterialModel.getAll(ctx.query);
+        ctx.response.status = 200;
+        ctx.body = {
+            code: 200,
+            msg: "查询成功",
+            data:data
+        };
+    }
+
 }
 module.exports = MaterialController;
 

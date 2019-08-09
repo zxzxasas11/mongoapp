@@ -106,6 +106,8 @@ router.post("/hero/getAll",HeroController.getAll);
  * material
  */
 router.post("/material/add",MaterialController.add);
+router.get("/material/getOne/:_id",MaterialController.getOne);
+router.get("/material/getAll",MaterialController.getAll);
 router.post("/material/test",MaterialController.test);
 router.post("/material/import",MaterialController.import);
 module.exports = router;
