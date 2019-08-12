@@ -1,5 +1,6 @@
 <template>
 	<div>
+		<el-input v-model="page.condition.name" @keyup.native.enter="keymap"></el-input>
 		<table>
 			<tr>
 				<th></th>
@@ -35,29 +36,41 @@
             return{
 				info:[],
 				count:0,
-                currentPage:this.$route.params.currentPage
+				page:{
+				    "pageInfo":{
+                        "currentPage":this.$route.params.currentPage,
+                        "pageSize":10
+                    },
+                    "condition":{
+				        "name":""
+                    }
+				},
 			}
 		},
 		created() {
-            this.getMaterial(this.$route.params.currentPage);
+            this.getMaterial();
+            this.currentPage = parseInt(this.$route.params.currentPage);
         },
 		methods:{
-			getMaterial(page){
-			    materialFunction.getAll({currentPage:page}).then(res=>{
+            keymap(){
+                this.$router.push("/FGO/material/1");
+			},
+			getMaterial(){
+			    materialFunction.getAll(this.page).then(res=>{
 			        this.info = res.data.data;
 			        this.count = res.data.count;
 				})
 			},
             handleCurrentChange(data){
-			    console.log(data);
 			    this.$router.push("/FGO/material/"+data);
 			    //this.getMaterial(data);
 			}
 		},
 		watch:{
             '$route.params.currentPage'(data){
-                console.log("---------");
-                this.getMaterial(data);
+                this.page.pageInfo.currentPage = data;
+                this.currentPage=data;
+                this.getMaterial();
 			}
 		}
     }

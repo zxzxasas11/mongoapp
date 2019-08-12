@@ -47,12 +47,15 @@ class MaterialController{
      */
     static async getAll(ctx){
         let data = await MaterialModel.getAll(ctx.request.body);
-        ctx.response.status = 200;
-        ctx.body = {
-            code: 200,
-            msg: "查询成功",
-            data:data
-        };
+        if(data){
+            ctx.response.status = 200;
+            ctx.body = {
+                code: 200,
+                msg: "查询成功",
+                data:data
+            };
+        }
+
     }
 
 }

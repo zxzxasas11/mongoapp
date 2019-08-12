@@ -34,7 +34,7 @@ module.exports = async function(Model,params,sort,mohu){
                 });
             }
         },
-        records: function (done) {   // 查询一页的记录
+        data: function (done) {   // 查询一页的记录
             if(aa.length>0){
                 Model.find(params.condition).and(aa).skip((currentPage-1)*pageSize).limit(pageSize).
                 sort(sort).
@@ -51,7 +51,6 @@ module.exports = async function(Model,params,sort,mohu){
                     done(err, doc);
                 });
             }
-
         }
     });
 };

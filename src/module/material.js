@@ -1,5 +1,4 @@
 const Material = require('../schema/material');
-const moment = require('moment');
 const pageQuery = require('../util/pageQuery');
 class MaterialModel {
     /**
@@ -25,14 +24,12 @@ class MaterialModel {
      */
     static async getAll(params){
         try {
-            //let arr = ["name","pic"];
-            return await pageQuery(Material,params,{});
+            let arr = ["name"];
+            return await pageQuery(Material,params,{},arr);
         }catch (e) {
             console.log(e);
         }
     }
-
-
     /**
      * 根据id获取单条
      * @param params
