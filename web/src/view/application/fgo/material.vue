@@ -1,14 +1,14 @@
 <template>
 	<div>
-		<el-input v-model="page.condition.name" @keyup.native.enter="keymap"></el-input>
+		<el-input style="width:200px;text-align: left;" v-model="page.condition.name" @keyup.native.enter="keymap"></el-input>
 		<table>
 			<tr>
 				<th></th>
 				<th>材料名称</th>
 				<th>获取途径</th>
 			</tr>
-			<tr v-for="i in info">
-				<td><img :src="i.pic"></td>
+			<tr v-for="i in info" :key="i._id">
+				<td><img :src="i.pic" :title="i.name"></td>
 				<td>{{i.name}}</td>
 				<td>
 					<div v-for="n in i.achieving">{{n}}</div>
@@ -62,8 +62,7 @@
 				})
 			},
             handleCurrentChange(data){
-			    this.$router.push("/FGO/material/"+data);
-			    //this.getMaterial(data);
+				this.$router.push("/FGO/material/"+data);
 			}
 		},
 		watch:{

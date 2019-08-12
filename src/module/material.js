@@ -25,7 +25,7 @@ class MaterialModel {
     static async getAll(params){
         try {
             let arr = ["name"];
-            return await pageQuery(Material,params,{},arr);
+            return await pageQuery(Material,params,"",{},arr);
         }catch (e) {
             console.log(e);
         }

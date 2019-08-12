@@ -7,7 +7,7 @@ let async = require('async');
  * @param sort
  * @returns {Promise<void>}
  */
-module.exports = async function(Model,params,sort,mohu){
+module.exports = async function(Model,params,field,sort,mohu){
     let pageSize = parseInt(params.pageInfo.pageSize)||10,
         currentPage = parseInt(params.pageInfo.currentPage)||1;
     let aa =[];
@@ -36,7 +36,7 @@ module.exports = async function(Model,params,sort,mohu){
         },
         data: function (done) {   // 查询一页的记录
             if(aa.length>0){
-                Model.find(params.condition).and(aa).skip((currentPage-1)*pageSize).limit(pageSize).
+                Model.find(params.condition,field).and(aa).skip((currentPage-1)*pageSize).limit(pageSize).
                 sort(sort).
                 //.populate(populate).sort(sortParams).
                 exec(function (err, doc) {
@@ -44,7 +44,7 @@ module.exports = async function(Model,params,sort,mohu){
                 });
             }
             else{
-                Model.find(params.condition).skip((currentPage-1)*pageSize).limit(pageSize).
+                Model.find(params.condition,field).skip((currentPage-1)*pageSize).limit(pageSize).
                 sort(sort).
                 //.populate(populate).sort(sortParams).
                 exec(function (err, doc) {
