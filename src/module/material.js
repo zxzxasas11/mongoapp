@@ -1,6 +1,6 @@
 const Material = require('../schema/material');
 const moment = require('moment');
-const page = require('../util/page');
+const pageQuery = require('../util/pageQuery');
 class MaterialModel {
     /**
      * 添加材料
@@ -25,10 +25,8 @@ class MaterialModel {
      */
     static async getAll(params){
         try {
-            let data={};
-            data.count = await Material.countDocuments();
-            data.data = await page(Material.find({name:new RegExp(params.name)}),params);
-            return data;
+            let arr = ["name"];
+            return await pageQuery(Material,params,{},arr);
         }catch (e) {
             console.log(e);
         }

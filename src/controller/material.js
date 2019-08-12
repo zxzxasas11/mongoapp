@@ -40,8 +40,13 @@ class MaterialController{
     }
 
 
+    /**
+     * 查询
+     * @param ctx
+     * @returns {Promise<void>}
+     */
     static async getAll(ctx){
-        let data = await MaterialModel.getAll(ctx.query);
+        let data = await MaterialModel.getAll(ctx.request.body);
         ctx.response.status = 200;
         ctx.body = {
             code: 200,

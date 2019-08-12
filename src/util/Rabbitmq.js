@@ -26,8 +26,9 @@ class RabbitMQ {
                 })
                     .then(function (data) {
                         if (data) {
+                            self.open = amqp.connect(self.hosts[0]);
                             errCallBack && errCallBack("success");
-                            channel.close();
+                            //channel.close();
                         }
                     })
                     .catch(function () {
