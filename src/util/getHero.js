@@ -12,9 +12,10 @@ async function getHero(url){
                     let $ = cheerio.load(html, {
                         decodeEntities: false
                     });
-                    $("#list table").each((index,element)=>{
-                        console.log($(element).html());
-                        return;
+                    //https://fgo.umowang.com/servant/
+                    console.log(html);
+                    return;
+                    $(".charactor-list tr").each((index,element)=>{
                         $(element).children("td").each((index,element)=>{
                             console.log($(element).text());
                         })
@@ -26,8 +27,21 @@ async function getHero(url){
             }
         });
 }
+//unicode转中文
+function decodeUnicode(str) {
+    str = str.replace(/\\/g, "%");
+    return unescape(str);
+}
 
+//去除\符号
+function dele(str){
+    return str.replace(/[\'\"\\\\b\f\n\r\t]/g, '');
+}
 module.exports=async function(){
-    const url = "https://fgo.wiki/w/%E8%8B%B1%E7%81%B5%E5%9B%BE%E9%89%B4";
-    await getHero(url);
+    const url = "https://fgo.umowang.com/equipment/ajax?wd=&ids=&sort=12958&o=desc&pn=1";
+    //console.log(String.fromCharCode("\u7ea6\u7ff0\u7684\u5934\u9885"));
+    //console.log(("https:\\/\\/cdn.umowang.com\\/media\\/fgo\\/equip\\/head\\/1088.jpg").replace(/[\'\"\\\\b\f\n\r\t]/g, ''));
+    console.log(decodeUnicode("\u7ea6\u7ff0\u7684\u5934\u9885"));
+    console.log(dele("https:\\\\/\\\\/cdn.umowang.com\\\\/media\\\\/fgo\\\\/equip\\\\/head\\\\/1088.jpg"))
+    //await getHero(url);
 };
