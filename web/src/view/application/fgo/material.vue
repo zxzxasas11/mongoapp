@@ -1,6 +1,8 @@
 <template>
 	<div>
-		<el-input style="width:200px;text-align: left;" v-model="page.condition.name" @keyup.native.enter="keymap"></el-input>
+		<div style="text-align: left">
+			<el-input style="width:200px;text-align: left;" v-model="page.condition.name" @keyup.native.enter="keymap"></el-input>
+		</div>
 		<table>
 			<tr>
 				<th></th>

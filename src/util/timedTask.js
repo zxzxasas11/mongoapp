@@ -4,47 +4,6 @@ const superagent = require('superagent');
 const RabbitMQ = require('../util/Rabbitmq');
 const ArticleModel =require('../module/article');
 let mq = new RabbitMQ();
-/*async function spider(obj){
-    if(obj.url){
-        superagent.get(obj.url)
-            .end((err, sres) => { //页面获取到的数据
-                if(sres!==undefined&&sres!==null) {
-                    try {
-                        let html = sres.text;
-                        let $ = cheerio.load(html, {
-                            decodeEntities: false
-                        });
-                        /!*$("a").each((index, element) => {
-                            if ($(element).text() && $(element).attr("href")) {
-                                let queue = {
-                                    name: $(element).text(),
-                                    url: $(element).attr("href")
-                                };
-                                mq.sendQueueMsg("news", JSON.stringify(queue), (error) => {
-                                    console.log(error);
-                                });
-                            }
-                        });*!/
-                        let ahtml = $("#tpc .floor-show .floor_box .case").html();
-                        if (ahtml !== null) {
-
-                            let params = {
-                                title: obj.name,
-                                content: ahtml,
-                                column_id: "5d48eb2f1ca2363924abe6d0",
-                                creator: "5d491e03a232d01500c8dffd"
-                            };
-                            ArticleModel.add(params);
-                        } else {
-                            console.log("该新闻不是正常需要爬取的");
-                        }
-                    }catch (e) {
-                        console.log(e);
-                    }
-                }
-            });
-    }
-}*/
 
 async function  recurse(url,name){
         superagent.get(url)
@@ -96,16 +55,16 @@ async function custom(){
 }
 
 module.exports=async function(){
-    try {
+    /*try {
         await custom();
     }catch (e) {
         console.log(e);
-    }
-    /*try {
-        //await recurse("https://soccer.hupu.com/","");
+    }*/
+    try {
+        await recurse("https://soccer.hupu.com/","");
     }catch (e) {
         console.log(e);
-    }*/
+    }
     //await recurse("https://soccer.hupu.com/","");
     //schedule.scheduleJob('30 * * * * *',()=>{
         /*mq.receiveQueueMsg("news",async(msg)=>{
