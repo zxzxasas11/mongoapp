@@ -3,12 +3,12 @@ import axios from 'axios';
 import router from '../router'
 import {Message} from "element-ui";
 
-/*const url = process.env.NODE_ENV === 'development'
+const url = process.env.NODE_ENV === 'development'
   // 测试环境api接口
   ? 'http://192.168.31.226:7777/api/v1'
   // 线上环境api接口
-  : 'http://192.168.31.226.com/api/v1';*/
-axios.defaults.baseURL="/api/v1";
+  : 'http://112.51.254.68:7777/api/v1';
+axios.defaults.baseURL=url;
 axios.interceptors.request.use(config => {
   /**
    * 在这里做loading ...
