@@ -12,6 +12,7 @@
 			}
 		},
 		created() {
+            console.log("-----");
         },
 		methods:{
 
