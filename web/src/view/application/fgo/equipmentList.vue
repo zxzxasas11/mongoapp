@@ -70,6 +70,7 @@
 			},*/
             getEquipment(){
                 equipmentFunction.getAll(this.page).then(res=>{
+                    console.log(res);
 			        this.info = res.data.data;
 			        this.count = res.data.count;
 				});
