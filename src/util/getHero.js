@@ -41,7 +41,7 @@ module.exports=async function(){
     const url = "https://fgo.umowang.com/equipment/ajax?wd=&ids=&sort=12958&o=desc&pn=1";
     //console.log(String.fromCharCode("\u7ea6\u7ff0\u7684\u5934\u9885"));
     //console.log(("https:\\/\\/cdn.umowang.com\\/media\\/fgo\\/equip\\/head\\/1088.jpg").replace(/[\'\"\\\\b\f\n\r\t]/g, ''));
-    console.log(decodeUnicode("\u7ea6\u7ff0\u7684\u5934\u9885"));
-    console.log(dele("https:\\\\/\\\\/cdn.umowang.com\\\\/media\\\\/fgo\\\\/equip\\\\/head\\\\/1088.jpg"))
-    //await getHero(url);
+    //console.log(decodeUnicode("\u7ea6\u7ff0\u7684\u5934\u9885"));
+    //console.log(dele("https:\\\\/\\\\/cdn.umowang.com\\\\/media\\\\/fgo\\\\/equip\\\\/head\\\\/1088.jpg"))
+    await getHero(url);
 };

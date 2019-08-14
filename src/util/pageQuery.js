@@ -8,8 +8,9 @@ let async = require('async');
  * @returns {Promise<void>}
  */
 module.exports = async function(Model,params,field,sort,mohu){
-    let pageSize = parseInt(params.pageInfo.pageSize)||10,
-        currentPage = parseInt(params.pageInfo.currentPage)||1;
+    let pageSize = params.pageInfo!==undefined&&params.pageInfo.pageSize!==undefined?parseInt(params.pageInfo.pageSize):10,
+        currentPage = params.pageInfo!==undefined&&params.pageInfo.currentPage!==undefined?parseInt(params.pageInfo.currentPage):1;
+    console.log(pageSize);
     let aa =[];
     for(let i in mohu){
         for(let j in params.condition){

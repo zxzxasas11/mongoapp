@@ -50,6 +50,11 @@ export default new Router({
                     name: '材料列表',
                     component:() => import('./view/application/fgo/material.vue')
                 },
+                {
+                    path: '/FGO/equipmentList/:currentPage',
+                    name: '礼装列表',
+                    component:() => import('./view/application/fgo/equipmentList.vue')
+                },
             ]
         },
 

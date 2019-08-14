@@ -11,6 +11,7 @@ const MqloadController = require('../src/controller/mq');
 const SpiderController = require('../src/controller/spider');
 const HeroController = require('../src/controller/hero');
 const MaterialController = require('../src/controller/material');
+const EquipmentController = require('../src/controller/equipment');
 //const RoleController = require('../src/controller/role');
 const router = new Router({
     prefix: '/api/v1'
@@ -110,4 +111,13 @@ router.get("/material/getOne/:_id",MaterialController.getOne);
 router.post("/material/getAll",MaterialController.getAll);
 router.post("/material/test",MaterialController.test);
 router.post("/material/import",MaterialController.import);
+
+/**
+ * equipment
+ */
+router.post("/equipment/add",EquipmentController.add);
+router.post("/equipment/getAll",EquipmentController.getAll);
+router.get("/equipment/:_id",EquipmentController.getOne);
+
+
 module.exports = router;
