@@ -81,8 +81,8 @@ app.use(index.routes(), index.allowedMethods());
 //timedTask();
 //const getHero = require('./src/util/getHero');
 //getHero();
-const getEquipment = require('./src/util/getEquipment');
-getEquipment();
+//const getEquipment = require('./src/util/getEquipment');
+//getEquipment();
 // error-handling
 app.on('error', (err, ctx) => {
     console.error('server error', err, ctx)
