@@ -78,6 +78,251 @@ async function getInfo(id,obj){
 
                             });
                         }
+                        if(index===3){
+                            $(element).children("td").each((index,element)=>{
+                                if($(element).text()!==undefined){
+                                    obj.information.origin = $(element).text();
+                                }
+                            });
+                        }
+                        if(index===5){
+                            $(element).children("td").each((index,element)=>{
+                                if($(element).text()!==undefined){
+                                    switch (index) {
+                                        case 0 :
+                                            obj.information.property=$(element).text();
+                                            break;
+                                        case 1:
+                                            obj.information.character=$(element).text();
+                                            break;
+                                        case 2:
+                                            obj.information.nickname=$(element).text();
+                                            break;
+                                    }
+                                }
+                            });
+                        }
+                        if(index===7){
+                            $(element).children("td").each((index,element)=>{
+                                if($(element).text()!==undefined){
+                                    switch (index) {
+                                        case 0 :
+                                            obj.information.author=$(element).text();
+                                            break;
+                                        case 1:
+                                            obj.information.cv=$(element).text();
+                                            break;
+                                        case 2:
+                                            obj.information.access=$(element).text();
+                                            break;
+                                    }
+                                }
+                            });
+                        }
+                    });
+                    obj.HP={};
+                    obj.ATK={};
+                    obj.fetter_point=[];
+                    obj.fetter_reward=[];
+                    obj.NP_gain_rate={};
+                    obj.hits={};
+                    obj.value={};
+                    obj.hidden_value={};
+                    $(".uk-width-1-1 table tbody tr").each((index,element)=>{
+                        if(index===1){
+                            $(element).children("td").each((index,element)=>{
+                                if($(element).text()!==undefined){
+                                    switch (index) {
+                                        case 0 :
+                                            obj.HP.basic=$(element).text();
+                                            break;
+                                        case 1:
+                                            obj.HP.final=$(element).text();
+                                            break;
+                                        case 2:
+                                            obj.HP.lv80=$(element).text();
+                                            break;
+                                        case 3:
+                                            obj.HP.lv90=$(element).text();
+                                            break;
+                                        case 4:
+                                            obj.HP.lv100=$(element).text();
+                                            break;
+                                        case 5 :
+                                            obj.ATK.basic=$(element).text();
+                                            break;
+                                        case 6:
+                                            obj.ATK.final=$(element).text();
+                                            break;
+                                        case 7:
+                                            obj.ATK.lv80=$(element).text();
+                                            break;
+                                        case 8:
+                                            obj.ATK.lv90=$(element).text();
+                                            break;
+                                        case 9:
+                                            obj.ATK.lv100=$(element).text();
+                                            break;
+                                    }
+                                }
+                            });
+                        }
+                        if(index===3){
+                            $(element).children("td").each((index,element)=>{
+                                if($(element).text()!==undefined&&$(element).text()!=='-'){
+                                    obj.fetter_point.push($(element).text());
+                                }
+                            });
+                        }
+                        if(index===5){
+                            $(element).children("td").each((index,element)=>{
+                                if($(element).text()!==undefined&&$(element).text()!=='-'){
+                                    obj.fetter_point.push($(element).text());
+                                }
+                            });
+                        }
+                        if(index===7){
+                            $(element).children("td").each((index,element)=>{
+                                if($(element).text()!==undefined&&$(element).text()!=='-'){
+                                    obj.fetter_reward.push($(element).text());
+                                }
+                            });
+                        }
+                        if(index===9){
+                            $(element).children("td").each((index,element)=>{
+                                if($(element).text()!==undefined&&$(element).text()!=='-'){
+                                    switch (index) {
+                                        case 0:
+                                            obj.NP_gain_rate.Arts= $(element).text();
+                                            break;
+                                        case 1:
+                                            obj.NP_gain_rate.Buster= $(element).text();
+                                            break;
+                                        case 2:
+                                            obj.NP_gain_rate.Quick= $(element).text();
+                                            break;
+                                        case 3:
+                                            obj.NP_gain_rate.Extra= $(element).text();
+                                            break;
+                                        case 4:
+                                            obj.NP_gain_rate.ultimate= $(element).text();
+                                            break;
+                                        case 5:
+                                            obj.NP_gain_rate.passive= $(element).text();
+                                            break;
+                                        case 6:
+                                            obj.hits.Arts= $(element).text();
+                                            break;
+                                        case 7:
+                                            obj.hits.Buster= $(element).text();
+                                            break;
+                                        case 8:
+                                            obj.hits.Quick= $(element).text();
+                                            break;
+                                        case 9:
+                                            obj.hits.Extra= $(element).text();
+                                            break;
+
+                                    }
+                                }
+                            });
+                        }
+                        if(index===11){
+                            $(element).children("td").each((index,element)=>{
+                                if($(element).text()!==undefined&&$(element).text()!=='-'){
+                                    switch (index) {
+                                        case 0:
+                                            obj.value.flexibility= $(element).text();
+                                            break;
+                                        case 1:
+                                            obj.value.durability= $(element).text();
+                                            break;
+                                        case 2:
+                                            obj.value.agility= $(element).text();
+                                            break;
+                                        case 3:
+                                            obj.value.magic= $(element).text();
+                                            break;
+                                        case 4:
+                                            obj.value.fortune= $(element).text();
+                                            break;
+                                        case 5:
+                                            obj.value.ultimate= $(element).text();
+                                            break;
+                                        case 6:
+                                            obj.hidden_value.dead_correct= $(element).text();
+                                            break;
+                                        case 7:
+                                            obj.hidden_value.star_rate= $(element).text();
+                                            break;
+                                        case 8:
+                                            obj.hidden_value.star_focus_rate= $(element).text();
+                                            break;
+
+                                    }
+                                }
+                            });
+                        }
+                    });
+                    obj.break_materials=[];
+                    $(".swiper-wrapper").each((index,element)=>{
+                        //最后一个滑块  定位到材料轮播表格
+                        if(index===2){
+                            $(element).children(".swiper-slide").each((index,element)=>{
+                                if(index===2){
+                                    $(element).children(".content-slide").children("table").children("tbody").children("tr").each((index,element)=>{
+                                        if(index===2){
+                                            $(element).children("td").each((index,element)=> {
+                                                if(index===1){
+                                                    obj.break_materials.push(
+                                                        {
+                                                            material:$(element).children("div").children("img").attr("title"),
+                                                            quantity:$(element).text()
+                                                        }
+                                                    );
+                                                }
+                                            })
+                                        }
+                                        if(index===3){
+                                            $(element).children("td").each((index,element)=> {
+                                                if(index===1){
+                                                    obj.break_materials.push(
+                                                        {
+                                                            material:$(element).children("div").children("img").attr("title"),
+                                                            quantity:$(element).text()
+                                                        }
+                                                    );
+                                                }
+                                            })
+                                        }
+                                        if(index===4){
+                                            $(element).children("td").each((index,element)=> {
+                                                if(index===1){
+                                                    obj.break_materials.push(
+                                                        {
+                                                            material:$(element).children("div").children("img").attr("title"),
+                                                            quantity:$(element).text()
+                                                        }
+                                                    );
+                                                }
+                                            })
+                                        }
+                                        if(index===5){
+                                            $(element).children("td").each((index,element)=> {
+                                                if(index===1){
+                                                    obj.break_materials.push(
+                                                        {
+                                                            material:$(element).children("div").children("img").attr("title"),
+                                                            quantity:$(element).text()
+                                                        }
+                                                    );
+                                                }
+                                            })
+                                        }
+                                    })
+                                }
+                            })
+                        }
                     });
                     console.log(obj);
                     //let a = $(".yl-focus>img").attr("src");

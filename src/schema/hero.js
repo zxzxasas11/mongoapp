@@ -94,7 +94,37 @@ let heroSchema = new Schema(
                 description:String,
                 value:[String]
             }
-        }
+        },
+        /*break_materials:[         //突破材料
+            {
+                material:String,      //材料名称
+                quantity:Number
+            }
+        ],*/
+        break_materials:{
+            first:[{
+                material:String,      //材料名称
+                quantity:Number
+            }],
+            second:[{
+                material:String,      //材料名称
+                quantity:Number
+            }],
+            third:[{
+                material:String,      //材料名称
+                quantity:Number
+            }],
+            final:[{
+                material:String,      //材料名称
+                quantity:Number
+            }]
+        },
+        skill_materials:[        //技能升级材料
+            {
+                material:String,      //材料名称
+                quantity:Number
+            }
+        ],
 
 
 

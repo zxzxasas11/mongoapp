@@ -1,4 +1,7 @@
 const HeroModel =require('../module/hero');
+const getHero = require('../util/getHero');
+const getPic = require("../util/getPic");
+const downloadPic = require("../util/downloadPic");
 class HeroController{
     /**
      * 添加英灵
@@ -28,6 +31,15 @@ class HeroController{
             msg: "查询成功",
             data:data
         };
+    }
+
+    static async spider(ctx){
+        //await  getHero();
+        await getPic();
+    }
+
+    static async downloadPic(){
+        await downloadPic();
     }
 
 }

@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 const secret = require('../config/secret');
 const mail =require('../util/mail');
 const randomCode = require('../util/randomCode');
-const redis = require('../util/redis');
+//const redis = require('../util/redis');
 class CarController{
     /**
      * 注册

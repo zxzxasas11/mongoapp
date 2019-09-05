@@ -102,7 +102,8 @@ router.post("/spider",SpiderController.spider);
  */
 router.post("/hero/add",HeroController.add);
 router.post("/hero/getAll",HeroController.getAll);
-
+router.post("/hero/spider",HeroController.spider);
+router.post("/hero/download",HeroController.downloadPic);
 /**
  * material
  */

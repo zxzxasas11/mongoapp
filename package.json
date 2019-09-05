@@ -42,6 +42,7 @@
     "pug": "^2.0.4",
     "qs": "^6.7.0",
     "redis": "^2.8.0",
+    "request": "^2.88.0",
     "superagent": "^5.1.0",
     "superagent-charset": "^1.2.0",
     "util": "^0.12.1",

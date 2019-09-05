@@ -7,95 +7,73 @@ const superagent = charset(require('superagent'));
 const request =require("request");
 const RabbitMQ = require('../util/Rabbitmq');
 let mq = new RabbitMQ();
-async function getMaterial(url){
-    superagent.get(url).charset('gbk')
-        .end((err, sres) => { //页面获取到的数据
-            let html = sres.text;             //整个页面html
-            let $ = cheerio.load(html, {
-                decodeEntities: false
-            });
-            $(".mw-collapsible tbody tr").each((index, element)=>{
-                if($(element).children("td")){
-                    let a = {};
-                    $(element).children("td").each((i,element)=>{
-                        switch (i) {
-                            case 0:
-                                a.pic="https://fgo.wiki"+$(element).children("a").children("img").attr("src");
-                                break;
-                            case 1:
-                                a.name = $(element).children("a").text();
-                                break;
-                            case 2:
-                                a.achieving=[];
-                                //a.achieving.push($(element).children("a").text()||$(element).text());
-                                if($(element).children("a").text()){
-                                    $(element).children("a").each((index,element)=>{
-                                        a.achieving.push($(element).text());
-                                    });
-                                }
-                                else{
-                                    $(element).each((index,element)=>{
-                                        a.achieving.push($(element).text());
-                                    });
-                                }
+  function getUrl(url){
+     if(url!==undefined&&url) {
+         superagent.get(url).charset("gbk").timeout({
+             response: 5000,  // Wait 5 seconds for the server to start sending,
+             deadline: 60000, // but allow 1 minute for the file to finish loading.
+         }).buffer(true)
+             .end((err, sres) => { //页面获取到的数据
+                 if (sres !== undefined && sres !== null) {
+                     let html = sres.text;             //整个页面html
+                     let $ = cheerio.load(html, {
+                         decodeEntities: false
+                     });
+                     /*$(".bbf_picli_bsd ul li").each( (index, element)=>{
+                         //console.log($(element).children("a").attr("href"));
+                          getInfo($(element).children("a").attr("href"))
+                     });*/
+                     $("#waterfall li").each(  (index, element) => {
+                            getInfo($(element).children(".cl").children("a").attr("href"))
+                         /*if(index===0){
+                             $(element).children("div").children("ignore_js_op").children("img").each((index,element)=>{
+                                 //download("http://www.chinagirlol.cc/"+$(element).attr("zoomfile"),$("#thread_subject").text())
+                             })
+                         }*/
+                     });
+                 }
 
-                                break;
-                        }
-                    });
-                    mq.sendQueueMsg("material",JSON.stringify(a), (error) => {
-                        console.log(error);
-                    })
-                }
-            });
-        });
-}
- function getUrl(url){
-    superagent.get(url).charset("gbk")
-        .end((err, sres) => { //页面获取到的数据
-            let html = sres.text;             //整个页面html
-            let $ = cheerio.load(html, {
-                decodeEntities: false
-            });
-            /*$(".bbf_picli_bsd ul li").each( (index, element)=>{
-                //console.log($(element).children("a").attr("href"));
-                 getInfo($(element).children("a").attr("href"))
-            });*/
-            $("#waterfall li").each((index, element)=>{
-                console.log($(element).children(".cl").children("a").attr("href"));
-                getInfo($(element).children(".cl").children("a").attr("href"))
-                /*if(index===0){
-                    $(element).children("div").children("ignore_js_op").children("img").each((index,element)=>{
-                        //download("http://www.chinagirlol.cc/"+$(element).attr("zoomfile"),$("#thread_subject").text())
-                    })
-                }*/
-            });
-        });
+
+             });
+     }
 }
 
- function getInfo(url){
-    superagent.get(url).charset("gbk")
-        .end((err, sres) => { //页面获取到的数据
-            let html = sres.text;             //整个页面html
-            let $ = cheerio.load(html, {
-                decodeEntities: false
-            });
-            console.log($("#thread_subject").text())
-            $(".t_f").each((index, element)=>{
-                if(index===0){
-                    $(element).children("div").children("ignore_js_op").children("img").each((index,element)=>{
-                        download("http://www.chinagirlol.cc/"+$(element).attr("zoomfile"),$("#thread_subject").text())
-                    })
-                }
-            });
-        });
+  function getInfo(url){
+    if(url!==undefined&&url){
+         superagent.get(url).charset("gbk").timeout({
+             response: 5000,  // Wait 5 seconds for the server to start sending,
+             deadline: 60000, // but allow 1 minute for the file to finish loading.
+         }).buffer(true)
+             .end((err, sres) => { //页面获取到的数据
+                 if (sres !== undefined && sres !== null) {
+                     let html = sres.text;             //整个页面html
+                     let $ = cheerio.load(html, {
+                         decodeEntities: false
+                     });
+                     $(".t_f").each((index, element)=>{
+                         if(index===0){
+                             $(element).children("div").children("ignore_js_op").children("img").each(  (index,element)=>{
+                                    download("http://www.chinagirlol.cc/"+$(element).attr("zoomfile"),$("#thread_subject").text())
+                             })
+                         }
+                     });
+                 }
+             });
+     }
+
 }
 
- function download(url,title){
+  function download(url,title){
+    let json = {url:url,title:title};
+    mq.sendQueueMsg("cos",JSON.stringify(json), (error) => {
+        console.log(error);
+    });
+    return;
     let index=url.lastIndexOf("/");
     let fileName = url.substring(index+1);
     title = dele(title);
     title = title.replace(/\s*/g,"");
-    let p = `c:/ccc/${title}/`;
+    let p = `F:/ccc/${title}/`;
     try {
         if (!fs.existsSync(p)) {
             fs.mkdirSync(p);
@@ -104,16 +82,29 @@ async function getMaterial(url){
         console.log(e);
     }
     //let filename = '2.jpg';
-    request(url).pipe(fs.createWriteStream(p+ fileName));
+    try {
+        request(url).pipe(fs.createWriteStream(p+ fileName));
+        console.log("下载完成,路径为"+p+fileName)
+    }catch (e) {
+        console.log("下载出错"+url);
+    }
+
 }
 //去除\符号
 function dele(str){
-    return str.replace(/[\'\"\\\\\/\/|/|//'/:/b\f\n\r\t]/g, '');
+    return str.replace(/[\'\"\\\\\/\/|/|/*//?//"///'/:/b\f\n\r\t]/g, '');
 }
-module.exports= function(){
+module.exports=  function(){
     const url = "http://www.chinagirlol.cc/";
      //getUrl(url);
+    //28
     for(let i =0;i<28;i++){
-        getUrl("http://www.chinagirlol.cc/forum-112-"+i+".html")
+           getUrl("http://www.chinagirlol.cc/forum-112-"+i+".html")
     }
+    /*for(let i =0;i<88;i++){
+           getUrl("http://www.chinagirlol.cc/forum-99-"+i+".html")
+    }*/
+    /*for(let i =0;i<37;i++){
+           getUrl("http://www.chinagirlol.cc/forum-66-"+i+".html")
+    }*/
 };
