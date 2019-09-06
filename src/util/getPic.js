@@ -65,6 +65,7 @@ let mq = new RabbitMQ();
 
   function download(url,title){
     let json = {url:url,title:title};
+    console.log(json);
     mq.sendQueueMsg("cos",JSON.stringify(json), (error) => {
         console.log(error);
     });
@@ -98,12 +99,12 @@ module.exports=  function(){
     const url = "http://www.chinagirlol.cc/";
      //getUrl(url);
     //28
-    for(let i =0;i<28;i++){
+    /*for(let i =0;i<28;i++){
            getUrl("http://www.chinagirlol.cc/forum-112-"+i+".html")
-    }
-    /*for(let i =0;i<88;i++){
-           getUrl("http://www.chinagirlol.cc/forum-99-"+i+".html")
     }*/
+    for(let i =0;i<88;i++){
+           getUrl("http://www.chinagirlol.cc/forum-99-"+i+".html")
+    }
     /*for(let i =0;i<37;i++){
            getUrl("http://www.chinagirlol.cc/forum-66-"+i+".html")
     }*/
