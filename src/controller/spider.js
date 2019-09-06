@@ -7,6 +7,7 @@ const moment = require('moment');
 const spider = require('../spider/getAiTuBa');
 const spiderTuba = require('../spider/getTuba')
 const spiderZiPai = require('../spider/getZiPai')
+const download = require('../spider/download')
 class SpiderController{
     /**
      * 爬虫获取
@@ -44,6 +45,9 @@ class SpiderController{
     }
     static async getZiPai(ctx){
         await spiderZiPai();
+    }
+    static async download(){
+        await download()
     }
 }
 module.exports = SpiderController;

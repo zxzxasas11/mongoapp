@@ -21,6 +21,7 @@ const router = new Router({
 router.post("/spider",SpiderController.getSpider);
 router.post('/getTuba',SpiderController.getTuba);
 router.post("/getZiPai",SpiderController.getZiPai);
+router.post("/spider/download",SpiderController.download);
 /**
  * user接口
  *
