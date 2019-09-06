@@ -34,7 +34,6 @@ class HeroController{
     }
 
     static async spider(ctx){
-        //await  getHero();
         await getPic();
     }
 
