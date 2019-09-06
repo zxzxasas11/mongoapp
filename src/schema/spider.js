@@ -5,7 +5,14 @@ const Schema = mongoose.Schema;
 let spiderSchema = new Schema({
         title:{type:String},
         url:String,
-        status:{type:Number,default:0}
+        status:{type:Number,default:0},
+        create_time: {
+            type: Date,
+            default:()=>{
+                return Date.now();
+            },
+            get: v => moment(v).format('YYYY-MM-DD HH:mm:ss')
+        },
     },
     { collection: 'spider',versionKey: false });    //不需要版本号     自行命名表
 spiderSchema.set('toJSON', { getters: true,virtuals:false});

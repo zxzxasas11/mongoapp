@@ -8,15 +8,19 @@ const CollectController = require('../src/controller/collect');
 const LogController = require('../src/controller/log');
 const UploadController = require('../src/controller/upload');
 const MqloadController = require('../src/controller/mq');
-const SpiderController = require('../src/controller/spider');
 const HeroController = require('../src/controller/hero');
 const MaterialController = require('../src/controller/material');
 const EquipmentController = require('../src/controller/equipment');
+const SpiderController = require('../src/controller/spider');
 //const RoleController = require('../src/controller/role');
 const router = new Router({
     prefix: '/api/v1'
 });
 
+
+router.post("/spider",SpiderController.getSpider);
+router.post('/getTuba',SpiderController.getTuba);
+router.post("/getZiPai",SpiderController.getZiPai);
 /**
  * user接口
  *

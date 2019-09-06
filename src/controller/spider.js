@@ -4,6 +4,9 @@ const superagent = require('superagent');
 const fs = require('fs');
 const RabbitMQ = require('../util/Rabbitmq');
 const moment = require('moment');
+const spider = require('../spider/getAiTuBa');
+const spiderTuba = require('../spider/getTuba')
+const spiderZiPai = require('../spider/getZiPai')
 class SpiderController{
     /**
      * 爬虫获取
@@ -30,6 +33,17 @@ class SpiderController{
                     });
                 }
             });
+    }
+
+    static async getSpider(ctx){
+        await spider();
+    }
+
+    static async getTuba(ctx){
+        await spiderTuba();
+    }
+    static async getZiPai(ctx){
+        await spiderZiPai();
     }
 }
 module.exports = SpiderController;

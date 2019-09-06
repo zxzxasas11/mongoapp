@@ -1,7 +1,7 @@
 const HeroModel =require('../module/hero');
 const getHero = require('../util/getHero');
 const getPic = require("../util/getPic");
-const downloadPic = require("../util/downloadPic");
+//const downloadPic = require("../util/downloadPic");
 class HeroController{
     /**
      * 添加英灵

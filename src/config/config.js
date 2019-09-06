@@ -12,5 +12,8 @@ module.exports = {
         port:6379,
         db:0,
         password:""
+    },
+    download:{
+        url:"C:/download"
     }
 };
