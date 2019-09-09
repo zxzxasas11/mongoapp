@@ -13,6 +13,11 @@ let spiderSchema = new Schema({
             },
             get: v => moment(v).format('YYYY-MM-DD HH:mm:ss')
         },
+        download_time:{
+            type: Date,
+            get: v => moment(v).format('YYYY-MM-DD HH:mm:ss')
+        },
+        remark:String
     },
     { collection: 'spider',versionKey: false });    //不需要版本号     自行命名表
 spiderSchema.set('toJSON', { getters: true,virtuals:false});

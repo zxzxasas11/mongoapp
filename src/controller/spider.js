@@ -8,6 +8,7 @@ const spider = require('../spider/getAiTuBa');
 const spiderTuba = require('../spider/getTuba')
 const spiderZiPai = require('../spider/getZiPai')
 const download = require('../spider/download')
+const getPic =require("../util/getPic")
 class SpiderController{
     /**
      * 爬虫获取
@@ -46,8 +47,23 @@ class SpiderController{
     static async getZiPai(ctx){
         await spiderZiPai();
     }
-    static async download(){
-        await download()
+    static async getCos(){
+        await getPic();
+    }
+
+    /**
+     * 下载文件
+     * @param ctx
+     * @returns {Promise<void>}
+     */
+    static async download(ctx){
+        await download();
+        ctx.response.status = 200;
+        ctx.body = {
+            code: 200,
+            msg: "爬取成功"
+        };
+
     }
 }
 module.exports = SpiderController;

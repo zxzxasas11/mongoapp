@@ -8,14 +8,20 @@ class SpiderModel {
      * @returns {Promise<*>}
      */
     static async add(params){
-        let spider = new Spider(params);
+
+        params.title = params.title.replace(/[\'\"\\\\\/\/|/|/*//?//"///'/:/b\f\n\r\t]/g, '');
+        if(params.url.indexOf("//")===0){
+            params.remark = "url错误";
+        }
         let data =await Spider.findOne({url:params.url});
+        let spider = new Spider(params);
         if(data!==null){
             console.log("这个已经入库");
             return "have"
         }
         else {
             console.log("这条数据正常入库,url为"+params.url);
+
             return await spider.save();
         }
 
@@ -26,7 +32,7 @@ class SpiderModel {
     }
 
     static async setStatus(id){
-        await Spider.updateOne({_id:id,status:0},{status:1});
+        await Spider.updateOne({_id:id,status:0},{status:1,download_time:new Date()});
     }
 }
 module.exports = SpiderModel;
