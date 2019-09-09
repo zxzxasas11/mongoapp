@@ -8,7 +8,8 @@ const spider = require('../spider/getAiTuBa');
 const spiderTuba = require('../spider/getTuba')
 const spiderZiPai = require('../spider/getZiPai')
 const download = require('../spider/download')
-const getPic =require("../util/getPic")
+const getPic =require("../util/getPic");
+const getShenShi =require("../spider/getShenShi")
 class SpiderController{
     /**
      * 爬虫获取
@@ -49,6 +50,11 @@ class SpiderController{
     }
     static async getCos(){
         await getPic();
+    }
+
+    //绅士网
+    static async getShenShi(){
+        await getShenShi();
     }
 
     /**

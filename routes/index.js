@@ -22,6 +22,7 @@ router.post("/spider",SpiderController.getSpider);
 router.post('/getTuba',SpiderController.getTuba);
 router.post("/getZiPai",SpiderController.getZiPai);
 router.post("/getCos",SpiderController.getCos);
+router.post("/getShenShi",SpiderController.getShenShi);
 router.post("/spider/download",SpiderController.download);
 /**
  * user接口
