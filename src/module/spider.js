@@ -21,7 +21,6 @@ class SpiderModel {
         }
         else {
             console.log("这条数据正常入库,url为"+params.url);
-
             return await spider.save();
         }
 
@@ -31,8 +30,8 @@ class SpiderModel {
         return await Spider.find({status:0}).limit(50);
     }
 
-    static async setStatus(id){
-        await Spider.updateOne({_id:id,status:0},{status:1,download_time:new Date()});
+    static async setStatus(id,code){
+        await Spider.updateOne({_id:id,status:0},{status:parseInt(code),download_time:new Date()});
     }
 }
 module.exports = SpiderModel;

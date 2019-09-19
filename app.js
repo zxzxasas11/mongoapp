@@ -77,6 +77,8 @@ const index = require('./routes/index');
 app.use(index.routes(), index.allowedMethods());
 const download = require('./src/spider/download');
 //download();
+const getJDLY = require('./src/spider/getJDLY');
+//getJDLY();
 //定时任务
 // error-handling
 app.on('error', (err, ctx) => {
