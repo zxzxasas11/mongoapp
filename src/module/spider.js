@@ -27,7 +27,7 @@ class SpiderModel {
     }
 
     static async getDownloadList(){
-        return await Spider.find({status:0}).limit(50);
+        return await Spider.find({status:{$ne:1}}).limit(50);
     }
 
     static async setStatus(id,code){
