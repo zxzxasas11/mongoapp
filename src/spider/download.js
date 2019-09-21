@@ -14,9 +14,8 @@ async function download(json,jsonIndex,jsonData) {
         }catch (e) {
             console.log(e);
         }
-        console.log("正在执行"+json.title);
         request(json.url).on('end',async function() {
-            console.log('文件下载成功');
+            console.log('文件下载成功:'+json.title);
             await spiderModel.setStatus(json._id,1);
             if(jsonIndex<=48) {
                 await download(jsonData[jsonIndex+1],jsonIndex+1,jsonData);

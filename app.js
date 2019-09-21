@@ -75,8 +75,7 @@ app.use(async (ctx, next) => {
 const index = require('./routes/index');
 // routes
 app.use(index.routes(), index.allowedMethods());
-const JDLYevery = require('./src/spider/JDLYevery');
-//JDLYevery();
+
 //getJDLY();
 //定时任务
 // error-handling
