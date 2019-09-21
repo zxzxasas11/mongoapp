@@ -1,5 +1,4 @@
 const schedule = require('node-schedule');
-const download = require('../spider/download')
 const JDLYevery = require('../spider/JDLYevery');
 
 module.exports=async function(){
