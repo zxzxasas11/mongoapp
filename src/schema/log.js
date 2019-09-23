@@ -7,22 +7,13 @@ let logSchema = new Schema({
         message: {type: String},
         method: String,
         url: String,
+        username:String,
+        host:String,
         costTime: Number,
         requestTime:Date,
         status: Number,
-        /*info: {
-            method: String,
-            url: String,
-            costTime: Number,
-            requestTime:Date,
-            body: String,
-            response: {
-                status: Number,
-                message: String,
-                header: String,
-                body: String
-            }
-        }*/
+        description:String,
+        body:{}
     },
     { collection: 'log',versionKey: false });    //不需要版本号     自行命名表
 let Log = mongoose.model('Log', logSchema);

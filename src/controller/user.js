@@ -1,13 +1,14 @@
 const mongoose = require('mongoose');
 const User = require('../schema/user');
 const UserModel = require('../module/user');
+const LogModel = require('../module/log');
 const uuid = require('uuid');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const secret = require('../config/secret');
 const mail =require('../util/mail');
 const randomCode = require('../util/randomCode');
-//const redis = require('../util/redis');
+const redis = require('../util/redis');
 class CarController{
     /**
      * 注册
@@ -62,6 +63,10 @@ class CarController{
     static async login(ctx){
         let params = ctx.request.body;
         let userDetail = await User.findOne({code:params.code});
+        global.user={
+            username:userDetail.username
+        };
+        global.log = {desc: "登录"};
         if(userDetail.length===0){
             ctx.response.status = 403;
             ctx.body = {

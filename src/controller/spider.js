@@ -4,8 +4,9 @@ const superagent = require('superagent');
 const fs = require('fs');
 const RabbitMQ = require('../util/Rabbitmq');
 const moment = require('moment');
-const download = require('../spider/download')
-const JDLY =require("../spider/getJDLY")
+const download = require('../spider/download');
+const JDLY =require("../spider/getJDLY");
+const spiderModel =require('../module/spider');
 class SpiderController{
     /**
      * 爬虫获取
@@ -51,6 +52,21 @@ class SpiderController{
             msg: "爬取成功"
         };
 
+    }
+
+    /**
+     * 获取爬虫数据
+     * @param ctx
+     * @returns {Promise<void>}
+     */
+    static async getSpiderLog(ctx){
+        let data = await spiderModel.getSpiderLog(ctx.request.body);
+        ctx.response.status = 200;
+        ctx.body = {
+            code: 200,
+            msg: "查询",
+            data:data
+        };
     }
 }
 module.exports = SpiderController;

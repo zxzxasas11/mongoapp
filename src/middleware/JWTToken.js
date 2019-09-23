@@ -31,6 +31,19 @@ module.exports = function () {
                         userId: payload.userId,
                         username: payload.username,
                         power:payload.power
+                    };
+                    let ip =ctx.req.headers['x-forwarded-for'] ||
+                        ctx.req.connection.remoteAddress ||
+                        ctx.req.socket.remoteAddress ||
+                        ctx.req.connection.socket.remoteAddress;
+                    global.log = {
+                        username: payload.username,
+                        userId: payload.userId,
+                        method: ctx.request.method,
+                        host:ip.substring(7),
+                        url: ctx.request.url,
+                        status: null,
+                        desc: null
                     }
 
                 } catch (err) {

@@ -16,10 +16,12 @@ const SpiderController = require('../src/controller/spider');
 const router = new Router({
     prefix: '/api/v1'
 });
-
-
+/**
+ * spider
+ */
 router.post("/spider/getJDLY",SpiderController.getJDLY);
 router.post("/spider/download",SpiderController.download);
+router.post("/spider/getLog",SpiderController.getSpiderLog);
 /**
  * user接口
  *
@@ -75,7 +77,7 @@ router.get("/collect/getAll",CollectController.getAll);
  * @type {module:koa-router|Router|module:koa-router}
  */
 router.get("/log/getAll",LogController.getLog);
-
+router.post("/log/add",LogController.addLog);
 
 /**
  * upload
@@ -105,8 +107,6 @@ router.post("/spider",SpiderController.spider);
  */
 router.post("/hero/add",HeroController.add);
 router.post("/hero/getAll",HeroController.getAll);
-router.post("/hero/spider",HeroController.spider);
-router.post("/hero/download",HeroController.downloadPic);
 /**
  * material
  */

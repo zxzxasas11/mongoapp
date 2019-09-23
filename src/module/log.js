@@ -3,36 +3,11 @@ const moment = require("moment");
 class LogModel {
     /**
      * 创建日志
-     * @param msg
-     * @param level
-     * @param info
+     * @param log
      * @returns {Promise<void>}
      */
-    static async create(msg, level, info){
-        let log = {
-            level: level || 'info',
-            //message: msg,
-            message: info.response.message||"",
-            method: info.method,
-            url: info.url,
-            costTime: info.costTime,
-            requestTime:Date.now(),
-            status: info.response.status,
-            /*info: {
-                method: info.method,
-                url: info.url,
-                costTime: info.costTime,
-                requestTime:Date.now(),
-                body: JSON.stringify(info.body),
-                response: {
-                    status: info.response.status,
-                    message: info.response.message,
-                    header: JSON.stringify(info.response.header),
-                    body: JSON.stringify(info.response.body)
-                }
-            }*/
-        };
-        Log.create(log, (err, res) => {
+    static async create(log){
+        await Log.create(log, (err, res) => {
             if(err) {console.log(err)}
         })
     }
@@ -83,5 +58,7 @@ class LogModel {
             console.log(e);
         }
     }
+
+
 }
 module.exports = LogModel;
