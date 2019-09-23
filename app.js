@@ -64,22 +64,12 @@ app.use(views(__dirname + '/views', {
     extension: 'pug'
 }));
 
-// logger
-/*app.use(async (ctx, next) => {
-  const start = new Date()
-  await next()
-  const ms = new Date() - start
-  console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
-})*/
-/*const logMq = require('./src/middleware/logMq');
-app.use(logMq());*/
 const index = require('./routes/index');
 // routes
 app.use(index.routes(), index.allowedMethods());
 
-//const getEvery = require('./src/spider/JDLYevery');
-//getEvery();
-//getJDLY();
+const timeTask = require('./src/util/timedTask');
+timeTask();
 //定时任务
 // error-handling
 
