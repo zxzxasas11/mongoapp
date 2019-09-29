@@ -50,5 +50,16 @@ class SpiderModel {
             {$project:{_id:0,date:"$_id.create_time",title:"$_id.title",count:"$count"}}
         ]).sort({_id:-1});
     }
+
+    /**
+     * 查询列表
+     * @param params
+     * @returns {Promise<void>}
+     */
+    static async getList(params){
+        return Spider.aggregate([
+            {$group:{_id:{title:"$title"}},count:{$sum:1}}
+        ])
+    }
 }
 module.exports = SpiderModel;
