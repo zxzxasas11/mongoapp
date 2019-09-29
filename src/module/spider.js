@@ -58,7 +58,10 @@ class SpiderModel {
      */
     static async getList(params){
         return Spider.aggregate([
-            {$group:{_id:{title:"$title"}},count:{$sum:1}}
+            {$group:{_id:{title:'$title'},url : {$first : "$url"},count:{$sum:1}}},
+            {$project:{_id:0,name:'$_id.title',url:'$url',count:'$count'}},
+            {$limit:9},
+            {$skip:parseInt(params.currentPage)||1}
         ])
     }
 }

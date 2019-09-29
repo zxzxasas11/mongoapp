@@ -22,6 +22,7 @@ const router = new Router({
 router.post("/spider/getJDLY",SpiderController.getJDLY);
 router.post("/spider/download",SpiderController.download);
 router.post("/spider/getLog",SpiderController.getSpiderLog);
+router.get("/spider/getList",SpiderController.getList);
 /**
  * user接口
  *

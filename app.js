@@ -28,11 +28,11 @@ app.use(async(ctx, next) => {
     const start = new Date();
     await next();
     const ms = new Date() - start;
-    await log4js.resLogger(ctx, ms);
+    //await log4js.resLogger(ctx, ms);
     console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
 });
 app.on('error', async (err, ctx) => {
-    await log4js.errLogger(ctx, err);
+    //await log4js.errLogger(ctx, err);
     console.error('server error', err, ctx)
 });
 

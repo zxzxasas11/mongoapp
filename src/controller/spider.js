@@ -68,6 +68,16 @@ class SpiderController{
             data:data
         };
     }
+
+    static async getList(ctx){
+        let data = await spiderModel.getList(ctx.request.query);
+        ctx.response.status = 200;
+        ctx.body = {
+            code: 200,
+            msg: "查询",
+            data:data
+        };
+    }
 }
 module.exports = SpiderController;
 
