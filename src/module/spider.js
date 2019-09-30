@@ -57,12 +57,27 @@ class SpiderModel {
      * @returns {Promise<void>}
      */
     static async getList(params){
-        return Spider.aggregate([
+        let currentPage = parseInt(params.currentPage);
+        let data={};
+        data.data = await Spider.aggregate([
             {$group:{_id:{title:'$title'},url : {$first : "$url"},count:{$sum:1}}},
             {$project:{_id:0,name:'$_id.title',url:'$url',count:'$count'}},
-            {$limit:9},
-            {$skip:parseInt(params.currentPage)||1}
-        ])
+            {$skip:(currentPage-1)*9},
+            {$limit:9}
+
+        ]);
+        let a  = await Spider.distinct("title");
+        data.count = a.length;
+        return data;
+    }
+
+    /**
+     * 根据名称查询
+     * @param params
+     * @returns {Promise<*>}
+     */
+    static async getByName(params){
+        return Spider.find(params)
     }
 }
 module.exports = SpiderModel;

@@ -3,5 +3,5 @@ module.exports = [
     "/api/v1/user/add",
     "/api/v1/user/login",
     "/api/v1/category/getAll",
-    "/api/v1/spider/getList"
+    "/api/v1/spider/getList/:currentPage"
 ];

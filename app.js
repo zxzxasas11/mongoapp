@@ -40,11 +40,11 @@ app.on('error', async (err, ctx) => {
 app.use(cors()); //使用cors
 // error handler
 onerror(app);
-app.use(JWTToken());
+/*app.use(JWTToken());
 //设置过滤器
 app.use(jwt({secret: secret.sign}).unless({
     path:JWTPath
-}));
+}));*/
 
 
 //区分管理员权限中间件

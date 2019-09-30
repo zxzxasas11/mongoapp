@@ -70,7 +70,17 @@ class SpiderController{
     }
 
     static async getList(ctx){
-        let data = await spiderModel.getList(ctx.request.query);
+        let data = await spiderModel.getList(ctx.params);
+        ctx.response.status = 200;
+        ctx.body = {
+            code: 200,
+            msg: "查询",
+            data:data
+        };
+    }
+
+    static async getByName(ctx){
+        let data = await spiderModel.getByName(ctx.request.body);
         ctx.response.status = 200;
         ctx.body = {
             code: 200,

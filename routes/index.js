@@ -22,7 +22,8 @@ const router = new Router({
 router.post("/spider/getJDLY",SpiderController.getJDLY);
 router.post("/spider/download",SpiderController.download);
 router.post("/spider/getLog",SpiderController.getSpiderLog);
-router.get("/spider/getList",SpiderController.getList);
+router.get("/spider/getList/:currentPage",SpiderController.getList);
+router.post("/spider/getByName",SpiderController.getByName);
 /**
  * user接口
  *
@@ -33,6 +34,7 @@ router.post("/user/login",UserController.login);
 router.post("/user/getAll",UserController.getAll);
 router.get("/user/getByUser",UserController.getByUser);
 router.post("/user/getCode",UserController.sendCode);
+
 
 /**
  * article
