@@ -1,12 +1,9 @@
-const schedule = require('node-schedule');
 const cheerio = require('cheerio');
 const charset = require('superagent-charset');
-const fs = require("fs");
 const superagent = charset(require('superagent'));
-const request = require("request");
 const spiderModel = require('../module/spider');
-
-
+const spidererrModel = require('../module/spidererr');
+//获取每一页的分类
 async function getInfo(url,index) {
     if (url !== undefined && url) {
         superagent.get(url).charset("utf-8").buffer(true)
@@ -16,18 +13,17 @@ async function getInfo(url,index) {
                     let $ = cheerio.load(html, {
                         decodeEntities: false
                     });
-                    //console.log($(".main-image p a img").attr("src"))
                     $("#pins li").each(async (index,element)=>{
-                        //console.log($(element).children("a").attr("href"));
                         await getPic($(element).children("a").attr("href"));
                     });
-                    //console.log("--------------");
-                    //await fun(index+1);
+                    await fun(index+1);
                 }
             });
     }
 
 }
+
+//点击每一页详情
 async function getPic(url){
     if (url !== undefined && url) {
         superagent.get(url).charset("utf-8").buffer(true)
@@ -39,18 +35,19 @@ async function getPic(url){
                     });
                     const a = $(".pagenavi a").eq(-2).children("span").text();
                     const b =$(".main-title").text();
-                    console.log(url);
-                    console.log(a);
-                    return;
                     if(b){
                         for(let i =1;i<=a;i++){
                             if(i===1){
-                                await download(url,b)
+                                await getImg(url,b)
                             }
                             else{
-                                await download(`${url}/${i}`,b)
+                                await getImg(`${url}/${i}`,b)
                             }
                         }
+                    }
+                    else{
+                        let params = {title:b,url:url,remark:"未获取页码"}
+                        await spidererrModel.add(params);
                     }
 
                     //console.log(b)
@@ -58,16 +55,58 @@ async function getPic(url){
             });
     }
 }
-async function download(url, title) {
-    let json = {url: url, title: title};
-    //console.log(json);
-    console.log(json);
-    //await spiderModel.add(json);
-    /*await mq.sendQueueMsg("cos", JSON.stringify(json), (error) => {
-        console.log(error);
-    });*/
 
+async function getImg(url,title,id){
+    if (url !== undefined && url) {
+        superagent.get(url).charset("utf-8").buffer(true)
+            .end(async (err, sres) => { //页面获取到的数据
+                if (sres !== undefined && sres !== null) {
+                    let html = sres.text;             //整个页面html
+                    let $ = cheerio.load(html, {
+                        decodeEntities: false
+                    });
+                    let imgUrl = $(".main-image").find("img").attr("src");
+                    console.log(title);
+                    console.log(imgUrl);
+                    if(title!==undefined&&imgUrl!==undefined){
+                        await download(imgUrl,title,id);
+                    }
+                    else{
+                        await spidererrModel.edit(id,4);
+                        await pic();
+                    }
+
+                    return;
+                    if(imgUrl!==undefined){
+                        await download(imgUrl,title)
+                    }
+                    else{
+                        let info ={title:title,url:url,remark:"未读取到图片路径"}
+                        await spidererrModel.add(info);
+                    }
+                    //console.log(imgUrl);
+                    //await download(imgUrl,title)
+                }
+            });
+    }
 }
+
+async function download(url, title,id) {
+    let json = {url: url, title: title};
+    if(json.title!==undefined&&json.url!==undefined){
+        let data = await spiderModel.add(json);
+        if(data._id){
+            await spidererrModel.edit(id,1);
+            await pic();
+        }
+        else{
+            await pic();
+        }
+    }
+
+    //console.log(data);
+}
+
 
 
 module.exports = async function () {
@@ -88,5 +127,10 @@ module.exports = async function () {
         }
 
     };
-    await this.fun(1);
+    //await this.fun(1);
+    this.pic = async ()=>{
+        let data = await spidererrModel.getOne();
+        await getImg(data.url,data.title,data._id);
+    };
+    await pic();
 };

@@ -8,7 +8,6 @@ class SpiderModel {
      * @returns {Promise<*>}
      */
     static async add(params){
-
         params.title = params.title.replace(/[\'\"\\\\\/\/|/|/*//?//"///'/:/b\f\n\r\t]/g, '');
         if(params.url.indexOf("//")===0){
             params.remark = "url错误";
@@ -64,7 +63,6 @@ class SpiderModel {
             {$project:{_id:0,name:'$_id.title',url:'$url',count:'$count'}},
             {$skip:(currentPage-1)*9},
             {$limit:9}
-
         ]);
         let a  = await Spider.distinct("title");
         data.count = a.length;
