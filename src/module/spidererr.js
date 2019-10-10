@@ -21,13 +21,21 @@ class SpidererrModel {
 
     }
 
-    static async getOne(){
-        return await Spidererr.findOne({remark:"未读取到图片路径",status:{$nin:[1,4]}}).limit(1)
+    static async getOne(remark){
+        return await Spidererr.findOne({remark:remark,status:{$nin:[1,4]}}).limit(1)
     }
 
+    /**
+     * 修改状态
+     * @param id
+     * @param code
+     * @returns {Promise<void>}
+     */
     static async edit(id,code){
-        return await Spidererr.updateOne({_id:id},{status:parseInt(code)});
+        return await Spidererr.updateOne({_id:id},{status:parseInt(code),update_time:new Date()});
     }
+
+
 
 }
 module.exports = SpidererrModel;

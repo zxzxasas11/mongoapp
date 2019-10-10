@@ -74,7 +74,7 @@ const timeTask = require('./src/util/timedTask');
 // error-handling
 const download = require('./src/spider/download');
 //download();
-const getMeizitu = require('./src/spider/getMeizitu');
+const getMeizitu = require('./src/spider/fixMeizitu');
 getMeizitu();
 app.on('error', (err, ctx) => {
     console.error('server error', err, ctx)

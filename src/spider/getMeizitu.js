@@ -3,6 +3,8 @@ const charset = require('superagent-charset');
 const superagent = charset(require('superagent'));
 const spiderModel = require('../module/spider');
 const spidererrModel = require('../module/spidererr');
+let request = require('request');
+let fs = require('fs');
 //获取每一页的分类
 async function getInfo(url,index) {
     if (url !== undefined && url) {
@@ -129,8 +131,12 @@ module.exports = async function () {
     };
     //await this.fun(1);
     this.pic = async ()=>{
-        let data = await spidererrModel.getOne();
-        await getImg(data.url,data.title,data._id);
+        let params = {remark:"未读取到图片路径"};
+        let data = await spidererrModel.getOne(params);
+        if(data!==null){
+            await getImg(data.url,data.title,data._id);
+        }
+
     };
-    await pic();
+    //await pic();
 };

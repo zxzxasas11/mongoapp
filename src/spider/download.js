@@ -14,7 +14,14 @@ async function download(json,jsonIndex,jsonData) {
         }catch (e) {
             console.log(e);
         }
-        request(json.url).on('end',async function() {
+        const options = {
+            url: json.url,
+            headers: {
+                //'User-Agent': 'request',
+                'Referer':"https://www.mzitu.com"
+            }
+        };
+        request(options).on('end',async function() {
             console.log('文件下载成功:'+json.title);
             await spiderModel.setStatus(json._id,1);
             if(jsonIndex<=48) {

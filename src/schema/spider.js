@@ -17,7 +17,8 @@ let spiderSchema = new Schema({
             type: Date,
             get: v => moment(v).format('YYYY-MM-DD HH:mm:ss')
         },
-        remark:String
+        remark:String,
+        referer:String
     },
     { collection: 'spider',versionKey: false });    //不需要版本号     自行命名表
 spiderSchema.set('toJSON', { getters: true,virtuals:false});

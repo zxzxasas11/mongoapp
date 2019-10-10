@@ -13,6 +13,10 @@ let spidererrSchema = new Schema({
             },
             get: v => moment(v).format('YYYY-MM-DD HH:mm:ss')
         },
+        update_time: {
+            type: Date,
+            get: v => moment(v).format('YYYY-MM-DD HH:mm:ss')
+        },
         remark:String
     },
     { collection: 'spidererr',versionKey: false });    //不需要版本号     自行命名表
