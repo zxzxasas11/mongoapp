@@ -69,13 +69,13 @@ const index = require('./routes/index');
 app.use(index.routes(), index.allowedMethods());
 
 const timeTask = require('./src/util/timedTask');
-//timeTask();
+timeTask();
 //定时任务
 // error-handling
 const download = require('./src/spider/download');
 //download();
 const getMeizitu = require('./src/spider/fixMeizitu');
-getMeizitu();
+//getMeizitu();
 app.on('error', (err, ctx) => {
     console.error('server error', err, ctx)
 });
