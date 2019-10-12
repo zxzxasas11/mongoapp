@@ -13,10 +13,16 @@ const MaterialController = require('../src/controller/material');
 const EquipmentController = require('../src/controller/equipment');
 const SpiderController = require('../src/controller/spider');
 const SpidererrController = require('../src/controller/spidererr');
+const ProjectController = require('../src/controller/project');
 //const RoleController = require('../src/controller/role');
 const router = new Router({
     prefix: '/api/v1'
 });
+
+router.post("/project/add",ProjectController.add);
+router.get("/project/getById",ProjectController.getById);
+router.get("/project/:id",ProjectController.getOne);
+router.post("/project/category/add",ProjectController.addCategory);
 /**
  * spider
  */

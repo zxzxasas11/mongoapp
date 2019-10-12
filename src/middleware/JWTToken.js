@@ -16,8 +16,8 @@ module.exports = function () {
             await next();
             return false;
         }*/
-        await  next();
-        return;
+        //await  next();
+        //return;
         try {
             // 获取jwt
             const token = ctx.header.authorization;

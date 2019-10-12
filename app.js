@@ -40,11 +40,11 @@ app.on('error', async (err, ctx) => {
 app.use(cors()); //使用cors
 // error handler
 onerror(app);
-/*app.use(JWTToken());
+app.use(JWTToken());
 //设置过滤器
 app.use(jwt({secret: secret.sign}).unless({
     path:JWTPath
-}));*/
+}));
 
 
 //区分管理员权限中间件
@@ -69,7 +69,7 @@ const index = require('./routes/index');
 app.use(index.routes(), index.allowedMethods());
 
 const timeTask = require('./src/util/timedTask');
-timeTask();
+//timeTask();
 //定时任务
 // error-handling
 const download = require('./src/spider/download');

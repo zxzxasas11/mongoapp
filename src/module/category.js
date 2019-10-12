@@ -1,6 +1,4 @@
 const Category = require('../schema/category');
-const uuid = require('uuid');
-const mongoose = require('mongoose');
 class CategoryModel {
     /**
      * 查询所有
@@ -10,7 +8,6 @@ class CategoryModel {
         try {
             let sql = params._id?{'_id':params._id}:{};
             let data={};
-            //collection.countDocuments
             data.total = await Category.find(sql).countDocuments();
             data.data = await Category.find(sql);
             return data;
