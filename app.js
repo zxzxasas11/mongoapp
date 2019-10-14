@@ -74,7 +74,7 @@ timeTask();
 // error-handling
 const download = require('./src/spider/download');
 //download();
-const getMeizitu = require('./src/spider/fixMeizitu');
+const getMeizitu = require('./src/spider/getPic');
 //getMeizitu();
 app.on('error', (err, ctx) => {
     console.error('server error', err, ctx)

@@ -44,9 +44,9 @@ class ProjectModel {
      * @param params
      * @returns {Promise<*>}
      */
-    static async editCategory(params){
+    static async addCategory(params){
         return Project.updateOne(
-            {_id:params.id},
+            {"$or":[{_id:params.id},{'category_id':params.id}]},
             {$push:{
                 'category': params.category
             }}

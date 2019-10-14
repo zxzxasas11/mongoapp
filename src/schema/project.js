@@ -11,9 +11,8 @@ let projectSchema = new Schema({
         member:[{type:Schema.Types.ObjectId,ref:'User'}],     //成员
         category:[                                           //菜单
             {
-                //_id:Schema.Types.ObjectId
-                path:String,
                 name:String,
+                children:[]
             }
         ],
         applyList:[                                          //申请列表

@@ -59,7 +59,7 @@ class ProjectController{
     static async addCategory(ctx){
         const params = ctx.request.body;
         console.log(params);
-        await ProjectModel.editCategory(params);
+        await ProjectModel.addCategory(params);
         ctx.response.status = 200;
         ctx.body = {
             code: 200,

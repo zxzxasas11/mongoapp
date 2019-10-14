@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 let spidererrSchema = new Schema({
         title:{type:String},
         url:String,
-        status:{type:Number,default:0},
+        status:{type:Number,default:0},          //5 存放的是页面链接    6 存放的是图片
         create_time: {
             type: Date,
             default:()=>{

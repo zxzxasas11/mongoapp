@@ -5,8 +5,8 @@ const spiderModel = require('../module/spider');
 const spidererrModel = require('../module/spidererr');
 let request = require('request');
 let fs = require('fs');
-
-
+let total = 0;
+//获取每一页的信息
 async function getList(url,index){
     return new Promise(function (resolve, reject) {
         if (url !== undefined && url) {
@@ -20,28 +20,37 @@ async function getList(url,index){
                         let $ = cheerio.load(html, {
                             decodeEntities: false
                         });
-                        let size =0;
-                        let a = parseInt($(".pagenavi a").eq(-1).attr("href").split(url)[1].replace("/",""));
-                        $(".cate1.auth1").each(async (index,element)=>{
-                            //console.log($(element).children("div").children("a").attr("href"));
-                            //if(index===0){
-                                await getImg($(element).children("div").children("a").attr("href"))
-                            //}
-
-                            size++;
-                        });
-
-                        resolve({url:url,index:index,page:a,size:size});
+                        if($(".pagenavi a").eq(-1).attr("href")){
+                            let size =0;    //记录总页码
+                            const page = $(".pagenavi a").eq(-1).attr("href").split(url);
+                            if(page[1]){
+                                size=parseInt(page[1].replace("/",""));
+                            }
+                            else size=1;
+                            $(".auth1").each(async (index,element)=>{
+                                console.log(index);
+                                console.log($(element).children("div").children("a").attr("href"));
+                                await getImg($(element).children("div").children("a").attr("href")).then(res=>{
+                                    console.log($(element).children("div").children("a").attr("href")+"页面有"+res+"张图片")
+                                    total +=res;
+                                });
+                            });
+                            resolve({url:url,index:index,page:size});
+                        }
+                        else reject('这一类没有内容')
                     }
+
                 });
         }
 
     }).then(async function (r) {
-        console.log("这一页已经结束,共有"+r.size+"页");
+        //console.log("这一页已经结束,共有"+r.page+"页");
         if(r.index+1 <=r.page){
-            await getList(url,r.index+1);
+            await getList(url,r.index+1)
         }
         return r;
+    }).catch(res=>{
+        console.log(res);
     })
 }
 
@@ -58,24 +67,31 @@ async function getImg(url){
                         let $ = cheerio.load(html, {
                             decodeEntities: false
                         });
-                        //console.log(html);
-                        console.log(url);
                         let size = 0;
-                        //console.log($("#portfolio").html());
+                        let title  = $("title").text();
+                        console.log(url);
                         $("#portfolio ul li img").each(async (index,element)=>{
-                            console.log($(element).attr("src"));
-                            //console.log(index)
-                            size++;
-                            //console.log($(element).children("img").attr("src"))
-                        })
+                            if($(element).attr("src")){
+                                let json={
+                                    title:title,
+                                    url:$(element).attr("src"),
+                                    referer:url
+                                };
+                                await download(json);
+                                size++;
+                            }
+                            else{
+                                await spidererrModel.add({title:title,url:url,remark:`第${index+1}页图片读取失败`,status:5});
+                                reject("获取图片失败")
+                            }
+                        });
                         resolve(size);
-                        //resolve({url:url,index:index,page:a,size:size});
                     }
                 });
         }
 
     }).then(async function (r) {
-        console.log("这一页已经结束,共有"+r+"张图片");
+        //console.log("这一页已经结束,共有"+r+"张图片");
         return r;
     })
 }
@@ -96,35 +112,49 @@ async function getInfo(url,index) {
                     let $ = cheerio.load(html, {
                         decodeEntities: false
                     });
-                    //console.log(html);
                     let arr=[];
+                    //取得首页的8个分类
                     $(".inner.menu").children("ul").children("li").each((index,element)=>{
-                        //console.log(index)
-                        //console.log($(element).children("a").attr("href"))
                         if(index>=1){
                             arr.push($(element).children("a").attr("href"))
                         }
-
                     });
-                        //await getPic($(element).children("a").attr("href"));
                     resolve(arr)
-
-                    //await fun(index+1);
                 }
             });
     }}).then(function (r) {
-        //console.log(r);
         return r;
     })
 
 }
 
 module.exports = async function () {
+    let current =0;
     this.pic = async ()=>{
         await getInfo("http://5199168.com").then(async res=>{
-            await getList(res[0],1);
+            if(current<=7){
+                await getList(res[current],1).then(async res=>{
+                    console.log("本次共"+total+"张");
+                    current++;
+                    await getList(res[current+1],1);
+                });
+            }
+            /*await getList(res[current],1).then(res=>{
+                console.log("本次共"+total+"张");
+
+            });*/
+            /*res.forEach((value,index)=>{
+                getList(value,1).then(res=>{
+                    console.log("____________________________");
+                    console.log("本次共"+total+"张")
+                });
+            })*/
+            /*await getList(res[7],1).then(res=>{
+                console.log("+++++++++");
+                console.log("本次共"+total+"张")
+            });*/
+           //console.log("+++++++++++++++");
         })
     };
-    await pic();
-    //await getInfo("https://www.mzitu.com",1);
+    //await pic();
 };
