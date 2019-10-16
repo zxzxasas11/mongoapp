@@ -133,13 +133,13 @@ async function getInfo(url,index) {
 }
 
 module.exports = async function () {
-    this.pic = async ()=>{
+    /*this.pic = async ()=>{
         const remark ="未获取页码";
         let data = await spidererrModel.getOne(remark);
         if(data!==null){
             await getPic(data);
         }
 
-    };
+    };*/
     await getInfo("https://www.mzitu.com",1);
 };

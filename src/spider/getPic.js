@@ -10,7 +10,7 @@ let total = 0;
 async function getList(url,index){
     return new Promise(function (resolve, reject) {
         if (url !== undefined && url) {
-            superagent.get(url+index).charset("utf-8").buffer(true).retry(10).timeout({
+            superagent.get(url).charset("utf-8").buffer(true).retry(10).timeout({
                 response: 5000,  // Wait 5 seconds for the server to start sending,
                 deadline: 60000, // but allow 1 minute for the file to finish loading.
             })
@@ -45,9 +45,9 @@ async function getList(url,index){
 
     }).then(async function (r) {
         //console.log("这一页已经结束,共有"+r.page+"页");
-        if(r.index+1 <=r.page){
+        /*if(r.index+1 <=r.page){
             await getList(url,r.index+1)
-        }
+        }*/
         return r;
     }).catch(res=>{
         console.log(res);
@@ -156,5 +156,5 @@ module.exports = async function () {
            //console.log("+++++++++++++++");
         })
     };
-    //await pic();
+    await pic();
 };

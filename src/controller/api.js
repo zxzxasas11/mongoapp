@@ -33,7 +33,6 @@ class ApiController{
     static async getList(ctx){
         let params = ctx.request.query;
         let data = await ApiModel.getList(params);
-        console.log(data);
         ctx.response.status = 200;
         ctx.body = {
             code: 200,
@@ -43,7 +42,47 @@ class ApiController{
     }
 
 
+    /**
+     * 查询单条
+     * @param ctx
+     * @returns {Promise<void>}
+     */
+    static async getOne(ctx){
+        let id = ctx.params.id;
+        let data = await ApiModel.getOne(id);
+        ctx.response.status = 200;
+        ctx.body = {
+            code: 200,
+            msg: "查询结果",
+            data:data
+        };
+    }
 
+    /**
+     * 修改
+     * @param ctx
+     * @returns {Promise<void>}
+     */
+    static async edit(ctx){
+        let id = ctx.params.id,params=ctx.request.body;
+        params.updater = ctx.user.userId;
+        params.update_time = new Date();
+        let data = await ApiModel.edit(id,params);
+        if(data){
+            ctx.response.status = 200;
+            ctx.body = {
+                code: 200,
+                msg: "修改成功",
+            };
+        }
+        else{
+            ctx.response.status = 400;
+            ctx.body = {
+                code: 400,
+                msg: "修改失败",
+            };
+        }
+    }
 }
 module.exports = ApiController;
 

@@ -36,8 +36,37 @@ class ApiModel {
      * @returns {Promise<void>}
      */
     static async getList(params){
-        let arr = ["name"];
-        return await pageQuery(Api,params,"",{"update_time":-1},arr);
+        //let arr = ["name"];
+        return await pageQuery(Api,{category:{$in:params.category}},"",{"update_time":-1});
     }
+
+    /**
+     * 根据id查询单条
+     * @param id
+     * @returns {Promise<void>}
+     */
+    static async getOne(id){
+        try {
+            return await Api.findById(id);
+        }catch (e) {
+            console.log(e)
+        }
+
+    }
+
+    /**
+     * 修改
+     * @param id
+     * @param params
+     * @returns {Promise<void>}
+     */
+    static async edit(id,params){
+        try {
+            return await Api.updateOne({_id:id},params);
+        }catch (e) {
+            console.log(e);
+        }
+    }
+
 }
 module.exports = ApiModel;

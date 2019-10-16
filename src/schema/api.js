@@ -4,20 +4,20 @@ const moment = require("moment");
 const Schema = mongoose.Schema;
 let apiSchema = new Schema({
     name:{type:String},
+    protocol:String,
     method:String,
     url:String,
-    category:{
-        type:Schema.Types.ObjectId,ref:"Project"
-    },
-    parameter:[
+    category:[Schema.Types.ObjectId],
+    parameter:{},
+    /*parameter:[
         {
             name:String,               //参数名
             describe:String,           //描述
             required:Boolean,          //是否必填
             sample:String,             //示例
-            type:String                //类型
+            itemType:String                //类型
         }
-    ],
+    ],*/
     status:{                           //0 未启用  1 废弃  2启用
         type:Number,
         default:2

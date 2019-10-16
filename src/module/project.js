@@ -1,5 +1,5 @@
 const Project = require('../schema/project');
-const mongoose = require('mongoose');
+const pageQuery = require('../util/pageQuery');
 class ProjectModel {
     /**
      * 添加项目
@@ -46,11 +46,34 @@ class ProjectModel {
      */
     static async addCategory(params){
         return Project.updateOne(
-            {"$or":[{_id:params.id},{'category_id':params.id}]},
+            {_id:params.id},
             {$push:{
                 'category': params.category
             }}
         )
+    }
+
+    /**
+     *
+     * @param params
+     * @returns {Promise<void>}
+     */
+    static async getAll(params){
+        //return await Project.find(params)
+        return await pageQuery(Project,params,"",{"update_time":-1});
+    }
+
+    /**
+     * 申请加入
+     * @param params
+     * @returns {Promise<void>}
+     */
+    static async applyProject(params){
+        console.log({proposerId:params.userId});
+        return await Project.updateOne({_id:params.id},{
+                $push:{applyList:{proposerId:params.userId}
+            }
+        })
     }
 }
 module.exports = ProjectModel;

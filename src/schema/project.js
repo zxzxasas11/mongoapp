@@ -8,17 +8,18 @@ let projectSchema = new Schema({
             type: Number//, default: 10000
         },
         creator:{type:Schema.Types.ObjectId,ref:'User'},      //创建人
+        updater:{type:Schema.Types.ObjectId,ref:'User'},      //更新人
         member:[{type:Schema.Types.ObjectId,ref:'User'}],     //成员
         category:[                                           //菜单
             {
                 name:String,
-                children:[]
+                path:[Schema.Types.ObjectId]
             }
         ],
         applyList:[                                          //申请列表
             {
                 proposerId:{type:Schema.Types.ObjectId,ref:'User'},
-                status:Number                            //申请状态   0申请 1被拒绝  2通过
+                status:{type:Number,default:0}                            //申请状态   0申请 1被拒绝  2通过
             }
         ],
         create_time: {              //创建时间

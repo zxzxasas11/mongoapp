@@ -15,22 +15,29 @@ const SpiderController = require('../src/controller/spider');
 const SpidererrController = require('../src/controller/spidererr');
 const ProjectController = require('../src/controller/project');
 const ApiController = require('../src/controller/api');
-//const RoleController = require('../src/controller/role');
 const router = new Router({
     prefix: '/api/v1'
 });
 
+/**
+ * router
+ */
 router.post("/api/add",ApiController.add);
 router.delete("/api/:id",ApiController.remove);
+router.put("/api/:id",ApiController.edit);
 router.get("/api/getList",ApiController.getList);
+router.get("/api/:id",ApiController.getOne);
 
 /**
  * project
  */
+router.get("/project/as",ProjectController.getAll);
+router.post("/project/apply",ProjectController.apply);
 router.post("/project/add",ProjectController.add);
 router.get("/project/getById",ProjectController.getById);
 router.get("/project/:id",ProjectController.getOne);
 router.post("/project/category/add",ProjectController.addCategory);
+
 /**
  * spider
  */
