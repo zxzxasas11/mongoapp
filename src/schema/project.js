@@ -16,6 +16,28 @@ let projectSchema = new Schema({
                 path:[Schema.Types.ObjectId]
             }
         ],
+        api:[{
+                name:{type:String},
+                protocol:String,                  // http https
+                method:String,
+                url:String,
+                category:[Schema.Types.ObjectId],    //所有级别的菜单id
+                parameter:{},                       //存储所有字段
+                status:{                           //0 未启用  1 废弃  2启用
+                    type:Number,
+                    default:2
+                },
+                updater:{                //更新人id
+                    type:Schema.Types.ObjectId,ref:"User"
+                },
+                update_time:{
+                    type: Date,
+                    default:()=>{
+                        return Date.now();
+                    },
+                    get: v => moment(v).format('YYYY-MM-DD HH:mm:ss')
+                },
+            }],
         applyList:[                                          //申请列表
             {
                 proposerId:{type:Schema.Types.ObjectId,ref:'User'},

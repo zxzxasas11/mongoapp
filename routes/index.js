@@ -31,6 +31,7 @@ router.get("/api/:id",ApiController.getOne);
 /**
  * project
  */
+router.post("/project/api/:id",ProjectController.addApi);
 router.get("/project/as",ProjectController.getAll);
 router.post("/project/apply",ProjectController.apply);
 router.post("/project/add",ProjectController.add);

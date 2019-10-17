@@ -36,7 +36,7 @@ class ProjectModel {
      * @returns {Promise<Query>}
      */
     static async getOne(id){
-        return Project.findById(id)
+        return Project.findById(id)//.populate({path:'category._id',select:"name"})                //.populate({path: 'creator', select: 'username'})
     }
 
     /**
@@ -54,7 +54,7 @@ class ProjectModel {
     }
 
     /**
-     *
+     * 分页查询
      * @param params
      * @returns {Promise<void>}
      */
@@ -74,6 +74,23 @@ class ProjectModel {
                 $push:{applyList:{proposerId:params.userId}
             }
         })
+    }
+
+
+    /**
+     * 添加api
+     * @param projectId
+     * @param params
+     * @returns {Promise<void>}
+     */
+    static async addApi(projectId,params){
+        try {
+            return await Project.updateOne({_id:projectId},{
+                $push:{api:params}
+            })
+        }catch (e) {
+            console.log(e);
+        }
     }
 }
 module.exports = ProjectModel;

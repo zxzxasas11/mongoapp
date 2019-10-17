@@ -41,6 +41,7 @@ class ProjectController{
     static async getOne(ctx){
         let id = ctx.params.id;
         let data = await ProjectModel.getOne(id);
+        console.log(data);
         ctx.response.status = 200;
         ctx.body = {
             code: 200,
@@ -81,6 +82,11 @@ class ProjectController{
         };
     }
 
+    /**
+     * 申请加入
+     * @param ctx
+     * @returns {Promise<void>}
+     */
     static async apply(ctx){
         let params = {id:ctx.request.body.id,userId:ctx.user.userId};
         await ProjectModel.applyProject(params);
@@ -88,6 +94,16 @@ class ProjectController{
         ctx.body = {
             code: 200,
             msg: "申请成功"
+        };
+    }
+
+    static async addApi(ctx) {
+        let id = ctx.params.id, params = ctx.request.body;
+        await ProjectModel.addApi(id, params);
+        ctx.response.status = 200;
+        ctx.body = {
+            code: 200,
+            msg: "添加成功"
         };
     }
 
