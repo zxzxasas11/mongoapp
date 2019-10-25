@@ -25,12 +25,22 @@ class ProjectController{
     static async getById(ctx){
         let id = ctx.user.userId;
         let data = await ProjectModel.getById(id);
-        ctx.response.status = 200;
-        ctx.body = {
-            code: 200,
-            msg: "查询结果",
-            data:data
-        };
+        if(!id){
+            ctx.response.status = 401;
+            ctx.body = {
+                code: 401,
+                msg: "请登录",
+            };
+        }
+        else {
+            ctx.response.status = 200;
+            ctx.body = {
+                code: 200,
+                msg: "查询结果",
+                data:data
+            };
+        }
+
     }
 
     /**

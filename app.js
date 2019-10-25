@@ -81,7 +81,7 @@ const timeTask = require('./src/util/timedTask');
 //timeTask();
 //定时任务
 // error-handling
-const download = require('./src/spider/download');
+const download = require('./src/spider/match/getTeam');
 //download();
 const getMeizitu = require('./src/spider/getPic');
 //getMeizitu();

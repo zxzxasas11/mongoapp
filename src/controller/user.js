@@ -8,7 +8,7 @@ const jwt = require('jsonwebtoken');
 const secret = require('../config/secret');
 const mail =require('../util/mail');
 const randomCode = require('../util/randomCode');
-const redis = require('../util/redis');
+//const redis = require('../util/redis');
 class CarController{
     /**
      * 注册
@@ -152,8 +152,8 @@ class CarController{
               <a href="https://www.cnblogs.com/zero-zm/p/10514643.html">
               https://www.cnblogs.com/zero-zm/p/10514643.html</a></h3>`*/
         };
-        redis.set(ctx.request.body.email,authCode);
-        redis.expire(ctx.request.body.email,1800);
+        //redis.set(ctx.request.body.email,authCode);
+        //redis.expire(ctx.request.body.email,1800);
         await mail(mailInfo);
         ctx.response.status = 200;
         ctx.body = {
