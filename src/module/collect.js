@@ -7,12 +7,8 @@ class CollectModel {
      * @returns {Promise<*>}
      */
     static async addCollect(params){
-        try {
-            let collect = new Collect(params);
-            return await collect.save();
-        }catch (e) {
-            console.log(e);
-        }
+        let collect = new Collect(params);
+        return await collect.save();
     }
 
     /**

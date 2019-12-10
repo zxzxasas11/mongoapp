@@ -8,14 +8,22 @@ class CollectController{
     static async addCollect(ctx){
         let params ={};
         params.creator = ctx.user.userId;
-        params.articleId = ctx.request.body.articleId;
-        let data = await CollectModel.addCollect(params);
-        console.log(data);
-        ctx.response.status = 200;
-        ctx.body = {
-            code: 200,
-            msg: "添加成功",
-        };
+        params.heroId = ctx.params.heroId;
+        try {
+            await CollectModel.addCollect(params);
+            ctx.response.status = 200;
+            ctx.body = {
+                code: 200,
+                msg: "添加成功",
+            };
+        }catch (e) {
+            console.log(e);
+            ctx.response.status = 200;
+            ctx.body = {
+                code: 500,
+                msg: "server error",
+            };
+        }
     }
 
     /**
@@ -25,10 +33,9 @@ class CollectController{
      */
     static async removeCollect(ctx){
         let params={};
-        params.articleId =  ctx.request.body.articleId;
+        params.heroId =  ctx.params.heroId;
         params.creator = ctx.user.userId;
         let data = await CollectModel.removeCollect(params);
-        console.log(data);
         if(data._id){
             ctx.response.status = 200;
             ctx.body = {

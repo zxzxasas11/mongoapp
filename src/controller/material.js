@@ -46,7 +46,8 @@ class MaterialController{
      * @returns {Promise<void>}
      */
     static async getAll(ctx){
-        let data = await MaterialModel.getAll(ctx.request.body);
+        console.log(ctx.request.query)
+        let data = await MaterialModel.getAll(ctx.request.query);
         if(data){
             ctx.response.status = 200;
             ctx.body = {

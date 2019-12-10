@@ -4,7 +4,7 @@ const moment = require("moment");
 const Schema = mongoose.Schema;
 const uuid = require('uuid');
 let collectSchema = new Schema({
-        articleId: { type: Schema.Types.ObjectId,ref:'Article'},    //帖子id
+        heroId: { type: Schema.Types.ObjectId,ref:'Hero'},    //帖子id
         creator:{type:Schema.Types.ObjectId,ref:'User'},      //创建人
         create_time: {              //创建时间
             type: Date,

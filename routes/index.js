@@ -16,7 +16,7 @@ const SpidererrController = require('../src/controller/spidererr');
 const ProjectController = require('../src/controller/project');
 const ApiController = require('../src/controller/api');
 const router = new Router({
-    prefix: '/api/v1'
+    prefix: '/api'
 });
 
 /**
@@ -95,8 +95,8 @@ router.get("/history/getAll",HistoryController.getAll);
  * collect
  * @type {module:koa-router|Router|module:koa-router}
  */
-router.post("/collect/add",CollectController.addCollect);
-router.post("/collect/remove",CollectController.removeCollect);
+router.post("/collect/:heroId",CollectController.addCollect);
+router.delete("/collect/:heroId",CollectController.removeCollect);
 router.get("/collect/getAll",CollectController.getAll);
 
 
@@ -134,13 +134,15 @@ router.post("/spider",SpiderController.spider);
  * hero
  */
 router.post("/hero/add",HeroController.add);
-router.post("/hero/getAll",HeroController.getAll);
+router.get("/hero/getAll",HeroController.getAll);
+router.get("/hero/calculateExp",HeroController.getExp);
+router.get("/hero/:heroId",HeroController.getOne);
 /**
  * material
  */
 router.post("/material/add",MaterialController.add);
 router.get("/material/getOne/:_id",MaterialController.getOne);
-router.post("/material/getAll",MaterialController.getAll);
+router.get("/material/getAll",MaterialController.getAll);
 router.post("/material/test",MaterialController.test);
 router.post("/material/import",MaterialController.import);
 
@@ -148,7 +150,7 @@ router.post("/material/import",MaterialController.import);
  * equipment
  */
 router.post("/equipment/add",EquipmentController.add);
-router.post("/equipment/getAll",EquipmentController.getAll);
+router.get("/equipment/getAll",EquipmentController.getAll);
 router.get("/equipment/:_id",EquipmentController.getOne);
 
 

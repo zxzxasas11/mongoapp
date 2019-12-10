@@ -22,7 +22,7 @@ class EquipmentController{
      * @returns {Promise<void>}
      */
     static async getAll(ctx){
-        const params = ctx.request.body;
+        const params = ctx.request.query;
         let data = await EquipmentModel.getAll(params);
         ctx.response.status = 200;
         ctx.body = {

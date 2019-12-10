@@ -1,5 +1,6 @@
 const Hero = require('../schema/hero');
 const moment = require('moment');
+const pageQuery = require('../util/pageQuery');
 class HeroModel {
     /**
      * 添加英灵
@@ -19,9 +20,17 @@ class HeroModel {
      * @returns {Promise<*>}
      */
     static async getAll(params){
-        console.log(params);
-        let data = await Hero.find(params,"name type star pic");
-        return data;
+        let arr = ["name"];
+        return await pageQuery(Hero,params,"name type star pic",{"create_time":-1},arr);
+    }
+
+    /**
+     * 根据id查询单条
+     * @param id
+     * @returns {Promise<void>}
+     */
+    static async getOne(id){
+        return Hero.findOne({_id:id});
     }
 }
 module.exports = HeroModel;

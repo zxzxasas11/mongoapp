@@ -20,7 +20,7 @@ class EquipmentModel {
     static async getAll(params){
         try {
             let arr = ["name"];
-            return await pageQuery(Equipment,params,"name code portrait star skill effect",{"code":-1},arr);
+            return await pageQuery(Equipment,params,"name code portrait",{"code":-1},arr);
         }catch (e) {
             console.log(e);
         }

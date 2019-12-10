@@ -18,7 +18,7 @@ class CarController{
     static async add(ctx) {
         let params=ctx.request.body;
         let flag=true;
-        await redis.get(params.email).then(res=>{
+        /*await redis.get(params.email).then(res=>{
             if(res!==params.authCode){
                 flag=false;
                 ctx.response.status = 602;
@@ -30,7 +30,7 @@ class CarController{
         });
         if(!flag){
             return false;
-        }
+        }*/
         //对密码进行加密
         const salt =bcrypt.genSaltSync();
         params.password = bcrypt.hashSync(params.password,salt);
